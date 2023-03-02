@@ -36,4 +36,5 @@ Plug'rafamadriz/friendly-snippets'
 Plug'VonHeikemen/lsp-zero.nvim'
 Plug'nvim-lua/plenary.nvim' -- Some tools for Lua?
 Plug'manzeloth/live-server' -- Live server
+Plug'stevearc/vim-arduino' -- Arduino
 vim.call'plug#end'

@@ -1,25 +1,25 @@
 local lsp = require 'lsp-zero'
-local lsp_configs = {
-  sumneko_lua = {
-    settings = {
-      Lua = {
-        runtime = { version = 'LuaJIT' },
-        diagnostics = { globals = { 'vim' } },
-        workspace = {
-          library = {
-            [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-            [vim.fn.stdpath('config') .. '/lua'] = true,
-          },
+
+lsp.preset'recommended'
+lsp.configure('lua_ls', {
+  settings = {
+    Lua = {
+      runtime = { version = 'LuaJIT' },
+      diagnostics = { globals = { 'vim' } },
+      workspace = {
+        library = {
+          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+          [vim.fn.stdpath('config') .. '/lua'] = true,
         },
-        telemetry = { enable = false },
-      }
+      },
+      telemetry = { enable = false },
     }
   }
+})
+lsp.setup_nvim_cmp{
+  documentation = {
+    max_width = 0,
+    max_height = 0,
+  }
 }
-
-for server, config in pairs(lsp_configs) do
-  lsp.configure(server, config)
-end
-
-lsp.preset 'recommended'
 lsp.setup()

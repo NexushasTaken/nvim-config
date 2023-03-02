@@ -9,7 +9,7 @@ opt.smartcase = true
 opt.linebreak = true
 opt.shiftround = true
 opt.autoindent = true
-opt.cursorline = true
+opt.cursorline = false
 opt.equalalways = true
 opt.termguicolors = true
 opt.relativenumber = true
@@ -33,5 +33,6 @@ g.loaded_ruby_provider = 0
 g.python_recommended_style = 0
 g.rust_recommended_style = 0
 g.loaded_z_defaults = 1
+g.arduino_use_cli = 1
 
 fn.setenv('MANWIDTH', 94)
