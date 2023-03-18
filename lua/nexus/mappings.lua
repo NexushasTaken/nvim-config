@@ -1,47 +1,57 @@
-local function map(mode, lhs, rhs, opts)
-  opts = opts or { noremap=true }
-  vim.keymap.set(mode, lhs, rhs, opts)
-end
-vim.g.mapleader = ' '
+local cmd = vim.cmd
 
-map('n', '<leader>q', ':qa!<cr>')
-map('n', 'sq', ':q!<cr>')
-map('n', 'saq', ':wqa!<cr>')
-map('n', 'sw', ':w!<cr>')
-map('n', 'saw', ':wa!<cr>')
-map('n', 'ss', ':split<cr>')
-map('n', 'sv', ':vsplit<cr>')
-map('n', 'st', ':tabnew<cr>')
-map('n', 'sh', ':wincmd h<cr>')
-map('n', 'sk', ':wincmd k<cr>')
-map('n', 'sj', ':wincmd j<cr>')
-map('n', 'sl', ':wincmd l<cr>')
-map('n', 'st', ':tabnew ')
+return {
+  { 'n', '<leader>q', ':qa!<cr>', },
+  { 'n', 'sq', ':q!<cr>', },
+  { 'n', 'saq', ':wqa!<cr>', },
+  { 'n', 'sw', ':w!<cr>', },
+  { 'n', 'saw', ':wa!<cr>', },
+  { 'n', 'ss', ':split<cr>', },
+  { 'n', 'sv', ':vsplit<cr>', },
+  { 'n', 'st', ':tabnew<cr>', },
+  { 'n', 'sh', ':wincmd h<cr>', },
+  { 'n', 'sk', ':wincmd k<cr>', },
+  { 'n', 'sj', ':wincmd j<cr>', },
+  { 'n', 'sl', ':wincmd l<cr>', },
+  { 'n', 'st', ':tabnew ', },
+  { 'n', 'sp', ':tabp<cr>', },
+  { 'n', 'sn', ':tabn<cr>', },
 
-map('n', '<m-L>', ':vertical resize +1<cr>')
-map('n', '<m-H>', ':vertical resize -1<cr>')
-map('n', '<m-K>', ':resize +1<cr>')
-map('n', '<m-J>', ':resize -1<cr>')
+  { 'n', '<m-L>', ':vertical resize +1<cr>', },
+  { 'n', '<m-H>', ':vertical resize -1<cr>', },
+  { 'n', '<m-K>', ':resize +1<cr>', },
+  { 'n', '<m-J>', ':resize -1<cr>', },
 
-map('n', 's<right>', ':vertical resize +1<cr>')
-map('n', 's<left>', ':vertical resize -1<cr>')
-map('n', 's<up>', ':resize +1<cr>')
-map('n', 's<down>', ':resize -1<cr>')
+  { 'n', 's<right>', ':vertical resize +1<cr>', },
+  { 'n', 's<left>', ':vertical resize -1<cr>', },
+  { 'n', 's<up>', ':resize +1<cr>', },
+  { 'n', 's<down>', ':resize -1<cr>', },
 
-map('n', 'sp', ':tabp<cr>')
-map('n', 'sn', ':tabn<cr>')
-map('n', '<leader>u', vim.cmd.UndotreeToggle)
-map('n', '<leader>e', vim.cmd.Explore)
-map('n', '<leader>n', vim.cmd.NvimTreeFocus)
-map('n', '<leader>l', ':nohl<cr>')
+  { 'n', 'sd', ':SwapDelete<cr>', },
+  { 'n', '<leader>t', ':tabnew<cr>', },
+  { 'n', '<leader>l', ':nohl<cr>', },
+  { 'n', '<leader>e', ':Explore<cr>', },
+  { 'n', '<leader>u', ':UndotreeToggle<cr>', },
+  { 'n', '<leader>n', ':NvimTreeFocus<cr>', },
 
--- For termux only {
-map('n', '<leader>p', '<esc>"+p')
-map('n', '<leader>yy', '<esc>"+yy')
-map('v', '<leader>y', '"+y')
--- }
+  { 'n', '<leader>p', '<esc>"+p', },
+  { 'n', '<leader>yy', '<esc>"+yy', },
+  { 'v', '<leader>y', '"+y', },
 
-map('n', "<leader>ff", ":Telescope find_files<cr>")
-map('n', "<leader>fg", ":Telescope live_grep<cr>")
-map('n', "<leader>fb", ":Telescope buffers<cr>")
-map('n', "<leader>fh", ":Telescope help_tags<cr>")
+  { 'n', "<leader>ff", ":Telescope find_files<cr>", },
+  { 'n', "<leader>fg", ":Telescope live_grep<cr>", },
+  { 'n', "<leader>fh", ":Telescope help_tags<cr>", },
+
+  {
+    'n', '<leader>ss', function()
+      cmd'SessionsSave'
+      print'Session Saved'
+    end
+  },
+  {
+    'n', '<leader>sl', function()
+      cmd'SessionsLoad'
+      print'Session Loaded'
+    end
+  },
+}
