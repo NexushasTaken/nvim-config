@@ -5,12 +5,9 @@ local util = require'utils'
 local create_cmd = api.nvim_create_user_command
 
 local function delete_swap()
-  for _,dir in ipairs(opt.directory:get()) do
-    if dir ~= '.' and dir ~= './' then
-      os.execute('rm -rf '..dir)
-      print('Delete : '..dir)
-    end
-  end
+  local swapname = fn.swapname(fn.bufname())
+  os.execute('rm -rf '..swapname)
+  print('Deleted '..swapname)
 end
 
 if opt.swapfile then

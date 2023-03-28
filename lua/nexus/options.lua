@@ -1,38 +1,64 @@
 local fn = vim.fn
-fn.setenv('MANWIDTH', 94)
 
+function myFoldText()
+  local v = vim.v
+  local line = fn.getline(v.foldstart)
+  local length = tostring(v.foldend - v.foldstart) .. ' lines: '
+  local level = ' [' .. tostring(v.foldlevel) .. '] '
+  return level  .. length  .. line
+end
+
+-- if value in the table is an array, arr[1] will be the value of all options after it arr[2..]
 return {
   {
     true,
-    "magic",
-    "number",
-    "undofile",
-    "smartcase",
-    "linebreak",
-    "shiftround",
-    "autoindent",
-    "equalalways",
-    "termguicolors",
-    "relativenumber",
+    'magic',
+    'number',
+    'undofile',
+    'smartcase',
+    'linebreak',
+    'shiftround',
+    'autoread',
+    'autowrite',
+    'autowriteall',
+    'autoindent',
+    'equalalways',
+    'termguicolors',
+    'relativenumber',
+    'cursorline',
+    'foldenable',
   },
   {
     false,
-    "wrap",
-    "backup",
-    "timeout",
-    "showmode",
-    "autochdir",
-    "compatible",
-    "cursorline",
+    'wrap',
+    'backup',
+    'timeout',
+    'showmode',
+    'autochdir',
+    'compatible',
   },
   {
     2,
-    "tabstop",
-    "scrolloff",
-    "shiftwidth",
-    "softtabstop",
-    "showtabline",
+    'tabstop',
+    'scrolloff',
+    'shiftwidth',
+    'softtabstop',
+    'showtabline',
   },
-  foldlevel = 999999,
+  fillchars = {
+    fold = ' ',
+    horiz = '━',
+    horizup = '┻',
+    horizdown = '┳',
+    vert = '┃',
+    vertright = '┣',
+    vertleft = '┫',
+    verthoriz = '╋',
+  },
+  foldtext = 'v:lua.myFoldText()',
+  foldexpr = 'nvim_treesitter#foldexpr()',
+  cursorlineopt = 'number',
+  foldmethod = 'expr',
+  foldlevel = 0,
   expandtab = fn.tolower(fn.expand'#') ~= 'makefile',
 }

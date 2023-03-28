@@ -9,7 +9,6 @@ local util = require'utils'
 return {
   { -- Theme
     'folke/tokyonight.nvim',
-    lazy = false,
     priority = 1000,
     config = load_config'tokyonight',
   },
@@ -19,6 +18,8 @@ return {
   },
   { -- Session Manager
     'natecraddock/sessions.nvim',
+    lazy = true,
+    cmd = { 'SessionsSave', 'SessionsLoad' },
     config = true,
     opts = {
       session_filepath = vim.fn.stdpath'data' .. '/sessions/'.. util.cwd(true),
@@ -26,23 +27,36 @@ return {
   },
   { -- Highlight pairs
     'andymass/vim-matchup',
-    lazy = false,
     priority = 999,
     config = load_config'matchup',
   },
   { -- Undo tree
     'mbbill/undotree',
+    lazy = true,
+    cmd = { 'UndotreeShow' },
     config = load_config'undotree',
   },
   { -- File browser
     'nvim-tree/nvim-tree.lua',
+    lazy = true,
+    cmd = { 'NvimTreeFocus' },
     config = load_config'tree',
     dependencies = {
       'kyazdani42/nvim-web-devicons', -- Icons
     }
   },
+  {
+    'numToStr/Comment.nvim',
+    config = load_config'comment',
+  },
   { -- Auto close tag
     'windwp/nvim-ts-autotag',
+    lazy = true,
+    ft = {
+      'html', 'javascript', 'typescript', 'javascriptreact',
+      'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx', 'rescript',
+      'xml', 'php', 'markdown', 'glimmer','handlebars','hbs'
+    },
     config = true,
   },
   { -- Auto close chars
@@ -55,13 +69,26 @@ return {
   },
   {
     'nvim-telescope/telescope.nvim',
+    lazy = true,
+    cmd = { 'Telescope' },
     dependencies = {
       'nvim-lua/plenary.nvim', -- Some tools for Lua?
     }
   },
-
+  { -- Fix tab formats
+    'godlygeek/tabular',
+    cmd = { 'Tabularize' },
+    lazy = true,
+  },
+  {
+    'folke/which-key.nvim',
+    cmd = { 'WhichKey' },
+    lazy = true,
+    config = load_config'which-key',
+  },
   { -- Lsp Manager
     'VonHeikemen/lsp-zero.nvim',
+    cmd = { 'LspZeroSetupServers' },
     lazy = true,
     config = load_config'lsp-zero',
     dependencies = {
@@ -82,22 +109,10 @@ return {
       'L3MON4D3/LuaSnip',             -- Required
       'rafamadriz/friendly-snippets', -- Optional
     },
-    keys = {
-      {
-        '<leader>gl',
-        function()
-          require'lsp-zero'
-          vim.cmd'LspStart'
-          print'Lsp Started'
-        end,
-        desc = "Start Lsp",
-      }
-    }
   },
   'nvim-treesitter/nvim-treesitter', -- Better syntax highlighting
   'manzeloth/live-server', -- Live server
   'stevearc/vim-arduino', -- Arduino
-  'godlygeek/tabular', -- Fix tab formats
   'jghauser/mkdir.nvim', -- Make dirs when saving files
   'sheerun/vim-polyglot', -- Better language support
   'kyazdani42/nvim-web-devicons', -- Icons

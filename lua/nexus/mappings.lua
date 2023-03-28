@@ -54,4 +54,13 @@ return {
       print'Session Loaded'
     end
   },
+  {
+    'n', '<leader>wk', function()
+      local input = vim.fn.input'WhichKey: '
+      if input == vim.g.mapleader then
+        input = '<leader>'
+      end
+      vim.cmd('WhichKey ' .. input)
+    end,
+  },
 }

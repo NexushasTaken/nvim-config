@@ -2,7 +2,11 @@ local lsp = require'lsp-zero'
 
 lsp.preset'recommended'
 lsp.configure('clangd', {
-  cmd = { 'clangd', '--offset-encoding=utf-8' },
+  cmd = {
+    'clangd',
+    '--offset-encoding=utf-8',
+    '--header-insertion=never',
+  },
 })
 lsp.configure('lua_ls', {
   settings = {

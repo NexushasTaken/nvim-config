@@ -5,6 +5,7 @@ require'nvim-tree'.setup{
   open_on_tab = false,
   reload_on_bufenter = true,
   view = {
+    cursorline = false,
     number = true,
     relativenumber = true,
     preserve_window_proportions = true,
