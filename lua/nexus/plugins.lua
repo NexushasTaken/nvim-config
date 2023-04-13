@@ -93,7 +93,7 @@ return {
   },
   { -- Lsp Manager
     'VonHeikemen/lsp-zero.nvim',
-    cmd = { 'LspZeroSetupServers' },
+    cmd = { 'LspStart' },
     lazy = true,
     config = load_config'lsp-zero',
     dependencies = {
