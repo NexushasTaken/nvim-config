@@ -63,9 +63,14 @@ return {
     'windwp/nvim-autopairs',
     config = true,
   },
-  {
-    'nkakouros-original/numbers.nvim', -- Relative numbers disabler
+  { -- Relative numbers disabler
+    'nkakouros-original/numbers.nvim',
     config = true,
+    opts = {
+      excluded_filetypes = {
+        'nerdtree', 'unite', 'man', 'help',
+      }
+    }
   },
   {
     'nvim-telescope/telescope.nvim',

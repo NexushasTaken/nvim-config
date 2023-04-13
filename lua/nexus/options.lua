@@ -27,6 +27,7 @@ return {
     'relativenumber',
     'cursorline',
     'foldenable',
+    'digraph',
   },
   {
     false,
@@ -59,6 +60,6 @@ return {
   foldexpr = 'nvim_treesitter#foldexpr()',
   cursorlineopt = 'number',
   foldmethod = 'expr',
-  foldlevel = 0,
+  foldlevel = 999999,
   expandtab = fn.tolower(fn.expand'#') ~= 'makefile',
 }

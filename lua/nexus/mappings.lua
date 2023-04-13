@@ -8,7 +8,7 @@ return {
   { 'n', 'saw', ':wa!<cr>', },
   { 'n', 'ss', ':split<cr>', },
   { 'n', 'sv', ':vsplit<cr>', },
-  { 'n', 'st', ':tabnew<cr>', },
+  { 'n', 's<s-T>', ':tabnew<cr>', },
   { 'n', 'sh', ':wincmd h<cr>', },
   { 'n', 'sk', ':wincmd k<cr>', },
   { 'n', 'sj', ':wincmd j<cr>', },
@@ -21,11 +21,6 @@ return {
   { 'n', '<m-H>', ':vertical resize -1<cr>', },
   { 'n', '<m-K>', ':resize +1<cr>', },
   { 'n', '<m-J>', ':resize -1<cr>', },
-
-  { 'n', 's<right>', ':vertical resize +1<cr>', },
-  { 'n', 's<left>', ':vertical resize -1<cr>', },
-  { 'n', 's<up>', ':resize +1<cr>', },
-  { 'n', 's<down>', ':resize -1<cr>', },
 
   { 'n', 'sd', ':SwapDelete<cr>', },
   { 'n', '<leader>t', ':tabnew<cr>', },

@@ -6,6 +6,7 @@ lsp.configure('clangd', {
     'clangd',
     '--offset-encoding=utf-8',
     '--header-insertion=never',
+    '--enable-config',
   },
 })
 lsp.configure('lua_ls', {
