@@ -1,4 +1,6 @@
-require'tokyonight'.setup{
+local scheme = require'tokyonight'
+
+scheme.setup({
   style = 'night',
   styles = {
     comments = { italic = false },
@@ -10,5 +12,6 @@ require'tokyonight'.setup{
       bg = "None",
     }
   end,
-}
+})
+
 vim.cmd.colorscheme'tokyonight-night'

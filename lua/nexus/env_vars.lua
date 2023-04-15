@@ -1,3 +1,0 @@
-return {
-  MANWIDTH = 94,
-}

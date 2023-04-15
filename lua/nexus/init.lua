@@ -1,6 +1,0 @@
-local utils = require'utils'
-utils.set_opts'nexus.options'
-utils.set_vars'nexus.variables'
-utils.set_env_vars'nexus.env_vars'
-utils.set_mapping'nexus.mappings'
-require'nexus.cmds'
