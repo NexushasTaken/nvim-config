@@ -49,16 +49,6 @@ return {
     'numToStr/Comment.nvim',
     config = load_config'comment',
   },
-  { -- Auto close tag
-    'windwp/nvim-ts-autotag',
-    lazy = true,
-    ft = {
-      'html', 'javascript', 'typescript', 'javascriptreact',
-      'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx', 'rescript',
-      'xml', 'php', 'markdown', 'glimmer','handlebars','hbs'
-    },
-    config = true,
-  },
   { -- Auto close chars
     'windwp/nvim-autopairs',
     config = true,
@@ -72,6 +62,17 @@ return {
       }
     }
   },
+  { -- Auto close tag
+    'windwp/nvim-ts-autotag',
+    lazy = true,
+    ft = {
+      'html', 'javascript', 'typescript', 'javascriptreact',
+      'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx', 'rescript',
+      'xml', 'php', 'markdown', 'glimmer','handlebars','hbs'
+    },
+    config = true,
+  },
+
   {
     'nvim-telescope/telescope.nvim',
     lazy = true,
@@ -91,6 +92,7 @@ return {
     lazy = true,
     config = load_config'which-key',
   },
+
   { -- Lsp Manager
     'VonHeikemen/lsp-zero.nvim',
     cmd = { 'LspStart' },
@@ -99,7 +101,6 @@ return {
     dependencies = {
       -- LSP Support
       'neovim/nvim-lspconfig',             -- Required
-      'williamboman/mason.nvim',           -- Optional
       'williamboman/mason-lspconfig.nvim', -- Optional
 
       -- Autocompletion
@@ -115,7 +116,21 @@ return {
       'rafamadriz/friendly-snippets', -- Optional
     },
   },
+
+  --[[ {
+    'jose-elias-alvarez/null-ls.nvim',
+    config = load_config'null-ls',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'williamboman/mason.nvim',
+      'neovim/nvim-lspconfig',
+      'mfussenegger/nvim-dap',
+    }
+  }, ]]
+
+
   'nvim-treesitter/nvim-treesitter', -- Better syntax highlighting
+  'iamcco/markdown-preview.nvim',
   'manzeloth/live-server', -- Live server
   'stevearc/vim-arduino', -- Arduino
   'jghauser/mkdir.nvim', -- Make dirs when saving files
