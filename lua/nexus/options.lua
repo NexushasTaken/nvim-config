@@ -1,21 +1,22 @@
 local fn = vim.fn
+local g = vim.g
 local options = {
   magic = true,
   number = true,
+  digraph = true,
   undofile = true,
+  autoread = true,
+  autowrite = true,
   smartcase = true,
   linebreak = true,
   shiftround = true,
-  autoread = true,
-  autowrite = true,
-  autowriteall = true,
   autoindent = true,
-  equalalways = true,
-  termguicolors = true,
-  relativenumber = true,
   cursorline = true,
   foldenable = true,
-  digraph = true,
+  equalalways = true,
+  autowriteall = true,
+  termguicolors = true,
+  relativenumber = true,
   wrap = false,
   backup = false,
   timeout = false,
@@ -27,7 +28,7 @@ local options = {
   shiftwidth = 2,
   softtabstop = 2,
   showtabline = 2,
-    fillchars = {
+  fillchars = {
     fold = ' ',
     horiz = '━',
     horizup = '┻',
@@ -37,7 +38,6 @@ local options = {
     vertleft = '┫',
     verthoriz = '╋',
   },
-  shortmess = 'ilmnrxc',
   foldtext = 'v:lua.myFoldText()',
   foldexpr = 'nvim_treesitter#foldexpr()',
   cursorlineopt = 'number',
@@ -58,3 +58,12 @@ vim.opt.formatoptions:remove({ "c", "r", "o" })
 vim.opt.runtimepath:remove("/usr/share/vim/vimfiles")  -- separate vim plugins from neovim in case vim still in use
 
 vim.fn.setenv('MANWIDTH', 94)
+
+g.python_recommended_style = 0
+g.rust_recommended_style = 0
+g.meson_recommended_style = 0
+g.yaml_recommended_style = 0
+g.markdown_recommended_style = 0
+g.loaded_ruby_provider = 0
+g.loaded_perl_provider = 0
+g.loaded_node_provider = 0

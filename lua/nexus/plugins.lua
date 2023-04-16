@@ -14,6 +14,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local opts = {
+  defaults = { lazy = true, },
   lockfile = data_dir .. '/lazy-lock.json',
   install = { colorscheme = { "tokyonight" } },
   performance = {
@@ -26,105 +27,111 @@ local opts = {
         "synmenu", "optwin", "compiler", "bugreport", "ftplugin",
       }
     }
-  }
+  },
+  checker = {
+    enabled = false,
+  },
+  change_detection = {
+    -- automatically check for config file changes and reload the ui
+    enabled = false,
+    notify = false, -- get a notification when changes are found
+  },
+  ui = {
+    icons = {
+      ft = "",
+      lazy = "鈴 ",
+      loaded = "",
+      not_loaded = "",
+    },
+  },
 }
 
 local function load_config(plug)
   return function()
-    require('nexus.lazy-config.'..plug)
+    require('nexus.lazy-config.' .. plug)
   end
 end
-local lazy = require'lazy'
+local lazy = require 'lazy'
+local web_extensions = {
+  'html', 'javascript', 'typescript', 'javascriptreact',
+  'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx', 'rescript',
+  'xml', 'php', 'markdown', 'glimmer', 'handlebars', 'hbs'
+}
 
 lazy.setup({
-  { -- Theme
+  {
+    -- Theme
     'folke/tokyonight.nvim',
-    priority = 1000,
-    config = load_config'colorscheme',
+    lazy = false,
+    priority = 100,
+    config = load_config 'colorscheme',
   },
-  { -- Status line
+  {
+    -- Status line
     'itchyny/lightline.vim',
-    config = load_config'lightline',
+    lazy = false,
+    priority = 99,
+    config = load_config 'lightline',
   },
-  { -- Session Manager
-    'natecraddock/sessions.nvim',
-    lazy = true,
-    cmd = { 'SessionsSave', 'SessionsLoad' },
-    config = true,
-    opts = {
-      session_filepath =
-        vim.fn.stdpath'data' .. '/sessions/'.. vim.fn.getcwd():gsub('/', '_'),
-    },
-  },
-  { -- Highlight pairs
-    'andymass/vim-matchup',
-    priority = 999,
-    config = load_config'matchup',
-  },
-  { -- Undo tree
-    'mbbill/undotree',
-    lazy = true,
-    cmd = { 'UndotreeShow' },
-    config = load_config'undotree',
-  },
-  { -- File browser
-    'nvim-tree/nvim-tree.lua',
-    lazy = true,
-    cmd = { 'NvimTreeFocus' },
-    config = load_config'nvim-tree',
-    dependencies = {
-      'kyazdani42/nvim-web-devicons', -- Icons
-    }
-  },
-  { -- Commenter
-    'numToStr/Comment.nvim',
-    config = true,
-  },
-  { -- Auto close chars
-    'windwp/nvim-autopairs',
-    dependencies = {
-      "hrsh7th/nvim-cmp",
-    },
-    config = true,
-  },
-  { -- Relative numbers disabler
+  {
+    -- Relative numbers disabler
     'nkakouros-original/numbers.nvim',
+    lazy = false,
     config = true,
+    priority = 98,
     opts = {
       excluded_filetypes = {
         'nerdtree', 'unite', 'man', 'help',
       }
     }
   },
-  { -- Auto close tag
-    'windwp/nvim-ts-autotag',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter'
-    },
-    ft = {
-      'html', 'javascript', 'typescript', 'javascriptreact',
-      'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx', 'rescript',
-      'xml', 'php', 'markdown', 'glimmer','handlebars','hbs'
-    },
+  {
+   -- Highlight pairs
+    'andymass/vim-matchup',
+    lazy = false,
+    config = load_config 'matchup',
+  },
+
+  {
+    -- Session Manager
+    'natecraddock/sessions.nvim',
+    cmd = { 'SessionsSave', 'SessionsLoad' },
     config = true,
+    opts = {
+      session_filepath =
+          vim.fn.stdpath 'data' .. '/sessions/' .. vim.fn.getcwd():gsub('/', '_'),
+    },
+  },
+  {
+    -- Undo tree
+    'mbbill/undotree',
+    cmd = { 'UndotreeToggle' },
+    config = load_config 'undotree',
+  },
+  {
+    -- File browser
+    'nvim-tree/nvim-tree.lua',
+    cmd = { 'NvimTreeFocus' },
+    config = load_config 'nvim-tree',
+    dependencies = {
+      'kyazdani42/nvim-web-devicons', -- Icons
+    }
   },
   {
     'nvim-telescope/telescope.nvim',
-    lazy = true,
     cmd = { 'Telescope' },
     dependencies = {
       'nvim-lua/plenary.nvim', -- Some tools for Lua?
     }
   },
-  { -- Fix tab formats
+  {
+    -- Fix tab formats
     'godlygeek/tabular',
     cmd = { 'Tabularize' },
-    lazy = true,
   },
   {
     'folke/which-key.nvim',
     cmd = { 'WhichKey' },
-    lazy = true,
     opt = {
       popup_mappings = {
         scroll_up = "<c-p>",
@@ -133,90 +140,96 @@ lazy.setup({
     }
   },
   {
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      'L3MON4D3/LuaSnip',
-      'hrsh7th/cmp-path',
-    }
+    'iamcco/markdown-preview.nvim',
+    ft = { 'markdown' },
   },
   {
-    'lewis6991/impatient.nvim',
-    config = function()
-      require'impatient'.enable_profile()
-    end
+    -- Live server
+    'manzeloth/live-server',
+    ft = web_extensions,
   },
-
-  { -- Lsp Manager
-    'VonHeikemen/lsp-zero.nvim',
-    cmd = { 'LspStart' },
-    lazy = true,
-    config = load_config'lsp-zero',
-    dependencies = {
-      -- LSP Support
-      'neovim/nvim-lspconfig',             -- Required
-      'williamboman/mason-lspconfig.nvim', -- Optional
-
-      -- Autocompletion
-      'hrsh7th/nvim-cmp',         -- Required
-      'hrsh7th/cmp-nvim-lsp',     -- Required
-      'hrsh7th/cmp-buffer',       -- Optional
-      'hrsh7th/cmp-path',         -- Optional
-      'saadparwaiz1/cmp_luasnip', -- Optional
-      'hrsh7th/cmp-nvim-lua',     -- Optional
-
-      -- Snippets
-      'L3MON4D3/LuaSnip',             -- Required
-      'rafamadriz/friendly-snippets', -- Optional
+  {
+    -- Make dirs when saving files
+    'jghauser/mkdir.nvim',
+    lazy = false,
+  },
+  {
+    -- Better language support
+    'sheerun/vim-polyglot',
+    lazy = false,
+  },
+  {
+    'tpope/vim-fugitive',
+    lazy = false,
+  },
+  {
+    'moll/vim-bbye',
+    lazy = false,
+  },
+  {
+    -- Auto close chars
+    'windwp/nvim-autopairs',
+    lazy = false,
+    config = true,
+    opts = {
+      excluded_filetypes = {
+        'TelescopePrompt', 'vim',
+      }
     },
   },
-
-
-  'iamcco/markdown-preview.nvim',
-  'manzeloth/live-server', -- Live server
-  'stevearc/vim-arduino', -- Arduino
-  'jghauser/mkdir.nvim', -- Make dirs when saving files
-  'sheerun/vim-polyglot', -- Better language support
-  'kyazdani42/nvim-web-devicons', -- Icons
-
-  -- I might need these
-  -- "ahmedkhalf/project.nvim",
+  {
+    'neovim/nvim-lspconfig',
+    config = function()
+      require 'nexus.lsp'
+    end,
+    cmd = { 'LspStart' },
+    dependencies = {
+      'stevearc/vim-arduino',
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+      {
+        'ray-x/lsp_signature.nvim',
+        config = true,
+        opts = {
+          hint_enable = false,
+          handler_opts = {
+            border = 'none',
+          },
+        },
+      },
+      {
+        -- Commenter
+        'numToStr/Comment.nvim',
+        config = true,
+      },
+      {
+        -- Auto close tag
+        'windwp/nvim-ts-autotag',
+        ft = web_extensions,
+        config = true,
+        dependencies = {
+          'nvim-treesitter/nvim-treesitter',
+        },
+      },
+      {
+        'hrsh7th/nvim-cmp',
+        config = function()
+          require 'nexus.lsp.cmp'
+        end,
+        dependencies = {
+          'L3MON4D3/LuaSnip', -- Required
+          'hrsh7th/cmp-path',
+          'hrsh7th/cmp-nvim-lsp',
+          'hrsh7th/cmp-buffer',
+          -- 'rafamadriz/friendly-snippets',
+          'saadparwaiz1/cmp_luasnip',
+          'hrsh7th/cmp-nvim-lua',
+        }
+      },
+      {
+        'nvim-treesitter/nvim-treesitter',
+        config = load_config 'treesitter',
+      }
+    }
+  },
 }, opts)
-
---[[
--- Install your plugins here
-return packer.startup(function(use)
-  use { "JoosepAlviste/nvim-ts-context-commentstring", commit = "4d3a68c41a53add8804f471fcc49bb398fe8de08" }
-	use { "moll/vim-bbye", commit = "25ef93ac5a87526111f43e5110675032dbcacf56" }
-  use { "lewis6991/impatient.nvim", commit = "b842e16ecc1a700f62adb9802f8355b99b52a5a6" }
-
-	-- Cmp 
-  use { "hrsh7th/nvim-cmp", commit = "b0dff0ec4f2748626aae13f011d1a47071fe9abc" } -- The completion plugin
-  use { "hrsh7th/cmp-buffer", commit = "3022dbc9166796b644a841a02de8dd1cc1d311fa" } -- buffer completions
-  use { "hrsh7th/cmp-path", commit = "447c87cdd6e6d6a1d2488b1d43108bfa217f56e1" } -- path completions
-	use { "saadparwaiz1/cmp_luasnip", commit = "a9de941bcbda508d0a45d28ae366bb3f08db2e36" } -- snippet completions
-	use { "hrsh7th/cmp-nvim-lsp", commit = "3cf38d9c957e95c397b66f91967758b31be4abe6" }
-	use { "hrsh7th/cmp-nvim-lua", commit = "d276254e7198ab7d00f117e88e223b4bd8c02d21" }
-
-	-- Snippets
-  use { "L3MON4D3/LuaSnip", commit = "8f8d493e7836f2697df878ef9c128337cbf2bb84" } --snippet engine
-  use { "rafamadriz/friendly-snippets", commit = "2be79d8a9b03d4175ba6b3d14b082680de1b31b1" } -- a bunch of snippets to use
-
-	-- LSP
-	use { "neovim/nvim-lspconfig", commit = "f11fdff7e8b5b415e5ef1837bdcdd37ea6764dda" } -- enable LSP
-  use { "williamboman/mason.nvim", commit = "c2002d7a6b5a72ba02388548cfaf420b864fbc12"} -- simple to use language server installer
-  use { "williamboman/mason-lspconfig.nvim", commit = "0051870dd728f4988110a1b2d47f4a4510213e31" }
-	use { "jose-elias-alvarez/null-ls.nvim", commit = "c0c19f32b614b3921e17886c541c13a72748d450" } -- for formatters and linters
-  -- use { "RRethy/vim-illuminate", commit = "a2e8476af3f3e993bb0d6477438aad3096512e42" }
-
-	-- Telescope
-	use { "nvim-telescope/telescope.nvim", commit = "76ea9a898d3307244dce3573392dcf2cc38f340f" }
-
-	-- Treesitter
-	use {
-		"nvim-treesitter/nvim-treesitter",
-		commit = "8e763332b7bf7b3a426fd8707b7f5aa85823a5ac",
-	}
-
-	-- Git
-	use { "lewis6991/gitsigns.nvim", commit = "2c6f96dda47e55fa07052ce2e2141e8367cbaaf2" }
-end) ]]

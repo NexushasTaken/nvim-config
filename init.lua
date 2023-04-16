@@ -1,7 +1,5 @@
-require "nexus.options"
-require "nexus.keymaps"
-require "nexus.plugins"
-require "nexus.cmp"
--- require "nexus.lsp"
-require "nexus.autocommands"
-require "nexus.commands"
+require'nexus.options'
+require'nexus.keymaps'
+require'nexus.plugins'
+require'nexus.autocommands'
+require'nexus.commands'

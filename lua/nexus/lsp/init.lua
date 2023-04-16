@@ -3,6 +3,6 @@ if not status_ok then
   return
 end
 
-require "user.lsp.mason"
-require("user.lsp.handlers").setup()
-require "user.lsp.null-ls"
+require'nexus.lsp.mason'
+require'nexus.lsp.handlers'.setup()
+require'nexus.lsp.null-ls'
