@@ -189,6 +189,7 @@ lazy.setup({
       'williamboman/mason-lspconfig.nvim',
       {
         'ray-x/lsp_signature.nvim',
+        enabled = false,
         config = true,
         opts = {
           hint_enable = false,

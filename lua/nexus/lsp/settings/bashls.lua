@@ -22,7 +22,7 @@ return {
         globPattern = vim.env.GLOB_PATTERN or '*@(.sh|.inc|.bash|.command)',
       },
     },
-    filetypes = { 'sh' },
+    filetypes = { 'sh', 'bash' },
     root_dir = util.find_git_ancestor,
     single_file_support = true,
   },
