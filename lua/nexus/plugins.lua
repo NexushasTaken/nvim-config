@@ -32,9 +32,8 @@ local opts = {
     enabled = false,
   },
   change_detection = {
-    -- automatically check for config file changes and reload the ui
     enabled = false,
-    notify = false, -- get a notification when changes are found
+    notify = false,
   },
   ui = {
     icons = {
@@ -178,6 +177,16 @@ lazy.setup({
     },
   },
   {
+    -- Commenter
+    'numToStr/Comment.nvim',
+    keys = {
+      'gc', 'gb',
+      'gcc', 'gbc',
+      'gco', 'gcO', 'gcA',
+    },
+    config = true,
+  },
+  {
     'neovim/nvim-lspconfig',
     config = function()
       require 'nexus.lsp'
@@ -197,11 +206,6 @@ lazy.setup({
             border = 'none',
           },
         },
-      },
-      {
-        -- Commenter
-        'numToStr/Comment.nvim',
-        config = true,
       },
       {
         -- Auto close tag
@@ -229,7 +233,7 @@ lazy.setup({
       },
       {
         'nvim-treesitter/nvim-treesitter',
-        config = load_config 'treesitter',
+        config = load_config'treesitter',
       }
     }
   },
