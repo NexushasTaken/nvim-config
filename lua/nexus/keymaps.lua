@@ -15,7 +15,7 @@ map('n', 'sw', ':w!<cr>', opts)
 map('n', 'saw', ':wa!<cr>', opts)
 map('n', 'ss', ':split<cr>', opts)
 map('n', 'sv', ':vsplit<cr>', opts)
-map('n', 's<s-T>', ':tabnew<cr>', opts)
+map('n', 's<s-T>', ':tab ', opts)
 map('n', 'sh', ':wincmd h<cr>', opts)
 map('n', 'sk', ':wincmd k<cr>', opts)
 map('n', 'sj', ':wincmd j<cr>', opts)
@@ -44,23 +44,48 @@ map('n', '<leader>ff', ':Telescope find_files<cr>', opts)
 map('n', '<leader>fg', ':Telescope live_grep<cr>', opts)
 map('n', '<leader>fh', ':Telescope help_tags<cr>', opts)
 
-map('n', '<leader>h', ':tab h ')
+map('n', '<leader>dd', ':Bdelete!<cr>', opts)
+map('n', '<leader>dc', function()
+  local choose = { 'Choose a buffer' }
+  for _, buf in pairs(vim.fn.getbufinfo({ bufloaded = 1 })) do
+    if #buf.name == 0 then
+      vim.api.nvim_buf_delete(buf.bufnr, {force=true})
+    else
+      table.insert(choose, buf.bufnr .. ': ' .. buf.name)
+    end
+  end
 
-map('n', '<leader>dd', ':bd!<cr>', opts)
-map('n', '<leader>dD', ':ls<cr>:bd! ', opts)
-
-map('n', '<leader>sl', function()
-  cmd'SessionsLoad'
-  print'Session Loaded'
-end, opts)
-
-map('n', '<leader>ss', function()
-  cmd'SessionsSave'
-  print'Session Saved'
+  local input = vim.fn.inputlist(choose)
+  if input ~= 0 then
+    vim.api.nvim_buf_delete(input, { force = true })
+  end
 end, opts)
 
 map('n', '<leader>wk', function()
   local input = vim.fn.input'WhichKey: '
+  if #input == 0 then
+    return
+  end
   input = input:gsub(vim.g.mapleader, '<leader>')
-  cmd('WhichKey ' .. input)
+  cmd.WhichKey(input)
+end, opts)
+
+
+local path = vim.fn.stdpath'data'..'/sessions'
+local dir = vim.fn.getcwd():gsub('/', '_')
+local sessionfile = string.format('%s/%s', path, dir)
+
+map('n', '<leader>sl', function()
+  if vim.fn.filereadable(sessionfile) == 1 then
+    print'Loading Session'
+    cmd.source(sessionfile)
+    print'Session Loaded'
+  else
+    print'Session not found'
+  end
+end, opts)
+
+map('n', '<leader>ss', function()
+  cmd(string.format('mksession! %s', sessionfile))
+  print'Session Saved'
 end, opts)

@@ -1,13 +1,13 @@
-local data_dir = vim.fn.stdpath("data")
-local lazypath = data_dir .. "/lazy/lazy.nvim"
+local data_dir = vim.fn.stdpath'data'
+local lazypath = data_dir .. '/lazy/lazy.nvim'
 
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
     lazypath,
   })
 end
@@ -16,15 +16,15 @@ vim.opt.rtp:prepend(lazypath)
 local opts = {
   defaults = { lazy = true, },
   lockfile = data_dir .. '/lazy-lock.json',
-  install = { colorscheme = { "tokyonight" } },
+  install = { colorscheme = { 'tokyonight' } },
   performance = {
     rtp = {
       disabled_plugins = {
-        "2html_plugin", "tohtml", "getscript", "getscriptPlugin", "gzip",
-        "logipat", "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers",
-        "matchit", "tar", "tarPlugin", "rrhelper", "spellfile_plugin", "vimball",
-        "vimballPlugin", "zip", "zipPlugin", "tutor", "rplugin", "syntax",
-        "synmenu", "optwin", "compiler", "bugreport", "ftplugin",
+        '2html_plugin', 'tohtml', 'getscript', 'getscriptPlugin', 'gzip',
+        'logipat', 'netrw', 'netrwPlugin', 'netrwSettings', 'netrwFileHandlers',
+        'matchit', 'tar', 'tarPlugin', 'rrhelper', 'spellfile_plugin', 'vimball',
+        'vimballPlugin', 'zip', 'zipPlugin', 'tutor', 'rplugin', 'syntax',
+        'synmenu', 'optwin', 'compiler', 'bugreport', 'ftplugin',
       }
     }
   },
@@ -37,10 +37,10 @@ local opts = {
   },
   ui = {
     icons = {
-      ft = "",
-      lazy = "鈴 ",
-      loaded = "",
-      not_loaded = "",
+      ft = '',
+      lazy = '鈴 ',
+      loaded = '',
+      not_loaded = '',
     },
   },
 }
@@ -88,30 +88,20 @@ lazy.setup({
    -- Highlight pairs
     'andymass/vim-matchup',
     lazy = false,
-    config = load_config 'matchup',
+    config = load_config'matchup',
   },
 
-  {
-    -- Session Manager
-    'natecraddock/sessions.nvim',
-    cmd = { 'SessionsSave', 'SessionsLoad' },
-    config = true,
-    opts = {
-      session_filepath =
-          vim.fn.stdpath 'data' .. '/sessions/' .. vim.fn.getcwd():gsub('/', '_'),
-    },
-  },
   {
     -- Undo tree
     'mbbill/undotree',
     cmd = { 'UndotreeToggle' },
-    config = load_config 'undotree',
+    config = load_config'undotree',
   },
   {
     -- File browser
     'nvim-tree/nvim-tree.lua',
     cmd = { 'NvimTreeFocus' },
-    config = load_config 'nvim-tree',
+    config = load_config'nvim-tree',
     dependencies = {
       'kyazdani42/nvim-web-devicons', -- Icons
     }
@@ -133,8 +123,8 @@ lazy.setup({
     cmd = { 'WhichKey' },
     opt = {
       popup_mappings = {
-        scroll_up = "<c-p>",
-        scroll_down = "<c-n>",
+        scroll_up = '<c-p>',
+        scroll_down = '<c-n>',
       },
     }
   },
@@ -159,9 +149,10 @@ lazy.setup({
   },
   {
     'tpope/vim-fugitive',
+    enabled = false,
     lazy = false,
   },
-  {
+  { -- Buffer remover
     'moll/vim-bbye',
     lazy = false,
   },
@@ -176,14 +167,15 @@ lazy.setup({
       }
     },
   },
+  { 
+    'kylechui/nvim-surround',
+    lazy = false,
+    config = true,
+  },
   {
     -- Commenter
     'numToStr/Comment.nvim',
-    keys = {
-      'gc', 'gb',
-      'gcc', 'gbc',
-      'gco', 'gcO', 'gcA',
-    },
+    lazy = false,
     config = true,
   },
   {

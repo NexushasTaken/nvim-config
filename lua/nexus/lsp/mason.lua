@@ -9,6 +9,7 @@ local servers = {
   'pyright',
   'html',
   'rust_analyzer',
+  'cmake',
 }
 
 local settings = {
