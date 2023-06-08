@@ -133,11 +133,6 @@ lazy.setup({
     ft = { 'markdown' },
   },
   {
-    -- Live server
-    'manzeloth/live-server',
-    ft = web_extensions,
-  },
-  {
     -- Make dirs when saving files
     'jghauser/mkdir.nvim',
     lazy = false,
