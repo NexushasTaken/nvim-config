@@ -38,6 +38,7 @@ local options = {
     vertleft = '┫',
     verthoriz = '╋',
   },
+  mouse = '',
   foldtext = 'v:lua.myFoldText()',
   foldexpr = 'nvim_treesitter#foldexpr()',
   cursorlineopt = 'number',
