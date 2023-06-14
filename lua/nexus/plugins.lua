@@ -50,6 +50,7 @@ local function load_config(plug)
     require('nexus.lazy-config.' .. plug)
   end
 end
+
 local lazy = require 'lazy'
 local web_extensions = {
   'html', 'javascript', 'typescript', 'javascriptreact',
@@ -63,14 +64,14 @@ lazy.setup({
     'folke/tokyonight.nvim',
     lazy = false,
     priority = 100,
-    config = load_config 'colorscheme',
+    config = load_config'colorscheme',
   },
   {
     -- Status line
     'itchyny/lightline.vim',
     lazy = false,
     priority = 99,
-    config = load_config 'lightline',
+    config = load_config'lightline',
   },
   {
     -- Relative numbers disabler
@@ -130,7 +131,7 @@ lazy.setup({
   },
   {
     'iamcco/markdown-preview.nvim',
-    ft = { 'markdown' },
+    ft = 'markdown',
   },
   {
     -- Make dirs when saving files
@@ -172,6 +173,11 @@ lazy.setup({
     'numToStr/Comment.nvim',
     lazy = false,
     config = true,
+  },
+  {
+    'mfussenegger/nvim-lint',
+    lazy = false,
+    config = load_config'nvim-lint',
   },
   {
     'neovim/nvim-lspconfig',
