@@ -70,6 +70,10 @@ map('n', '<leader>wk', function()
   cmd.WhichKey(input)
 end, opts)
 
+map('n', 'gl', ':lua vim.diagnostic.open_float()<CR>', opts)
+map('n', '<leader>lj', ':lua vim.diagnostic.goto_next({buffer=0})<cr>', opts)
+map('n', '<leader>lk', ':lua vim.diagnostic.goto_prev({buffer=0})<cr>', opts)
+
 
 local path = vim.fn.stdpath'data'..'/sessions'
 local dir = vim.fn.getcwd():gsub('/', '_')

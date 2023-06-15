@@ -13,7 +13,7 @@ lint.linters_by_ft = {
 }
 
 lint.linters.cpplint.args = {
-  '--filter=-legal/copyright',
+  '--filter=-legal/copyright,-build/header_guard,-build/c++11',
 }
 
 create_cmd('Lint', function() lint.try_lint() end, { nargs = 0 })
@@ -21,7 +21,7 @@ create_cmd('Lint', function() lint.try_lint() end, { nargs = 0 })
 create_cmd('LintEnable', function()
     if not enabled then
       enabled = true
-      api.nvim_create_autocmd({ 'BufWritePost' }, {
+      api.nvim_create_autocmd({ 'BufWritePost', 'BufReadPost' }, {
         group = glint,
         callback = function() cmd.Lint() end,
       })
