@@ -19,9 +19,7 @@ lint.linters.cpplint.args = {
 create_cmd('Lint', function() lint.try_lint() end, { nargs = 0 })
 
 create_cmd('LintEnable', function()
-    if enabled then
-      print('Linter is already enabled')
-    else
+    if not enabled then
       enabled = true
       api.nvim_create_autocmd({ 'BufWritePost' }, {
         group = glint,
@@ -39,8 +37,6 @@ create_cmd('LintDisable', function()
       vim.diagnostic.hide()
       api.nvim_clear_autocmds({ group = glint })
       print('Linter Disabled')
-    else
-      print('Linter is already disabled')
     end
   end, { nargs = 0 })
 

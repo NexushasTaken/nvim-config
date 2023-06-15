@@ -51,7 +51,7 @@ local function load_config(plug)
   end
 end
 
-local lazy = require 'lazy'
+local lazy = require'lazy'
 local web_extensions = {
   'html', 'javascript', 'typescript', 'javascriptreact',
   'typescriptreact', 'svelte', 'vue', 'tsx', 'jsx', 'rescript',
@@ -182,7 +182,8 @@ lazy.setup({
   {
     'neovim/nvim-lspconfig',
     config = function()
-      require 'nexus.lsp'
+      require'nexus.lsp'
+      vim.cmd.LintEnable()
     end,
     cmd = { 'LspStart' },
     dependencies = {
