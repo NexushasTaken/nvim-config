@@ -175,15 +175,9 @@ lazy.setup({
     config = true,
   },
   {
-    'mfussenegger/nvim-lint',
-    lazy = false,
-    config = load_config'nvim-lint',
-  },
-  {
     'neovim/nvim-lspconfig',
     config = function()
       require'nexus.lsp'
-      vim.cmd.LintEnable()
     end,
     cmd = { 'LspStart' },
     dependencies = {

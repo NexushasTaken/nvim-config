@@ -39,11 +39,7 @@ local options = {
     verthoriz = '╋',
   },
   mouse = '',
-  foldtext = 'v:lua.myFoldText()',
-  foldexpr = 'nvim_treesitter#foldexpr()',
   cursorlineopt = 'number',
-  foldmethod = 'expr',
-  foldlevel = 999999,
   expandtab = fn.tolower(fn.expand'#') ~= 'makefile',
 }
 
