@@ -1,8 +1,5 @@
 -- Setup nvim-cmp.
-local status_ok, npairs = pcall(require, "nvim-autopairs")
-if not status_ok then
-  return
-end
+local npairs = require"nvim-autopairs"
 
 npairs.setup {
   check_ts = true,
@@ -11,7 +8,7 @@ npairs.setup {
     javascript = { "string", "template_string" },
     java = false,
   },
-  disable_filetype = { "TelescopePrompt", "spectre_panel" },
+  disable_filetype = { "TelescopePrompt", "spectre_panel", "vim" },
   fast_wrap = {
     map = "<M-e>",
     chars = { "{", "[", "(", '"', "'" },

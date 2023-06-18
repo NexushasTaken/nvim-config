@@ -156,12 +156,7 @@ lazy.setup({
     -- Auto close chars
     'windwp/nvim-autopairs',
     lazy = false,
-    config = true,
-    opts = {
-      excluded_filetypes = {
-        'TelescopePrompt', 'vim',
-      }
-    },
+    config = load_config"autopairs",
   },
   { 
     'kylechui/nvim-surround',
