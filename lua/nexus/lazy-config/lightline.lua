@@ -1,1 +1,1 @@
-vim.g.lightline = { colorscheme = 'tokyonight' }
+vim.g.lightline = { colorscheme = "tokyonight", };

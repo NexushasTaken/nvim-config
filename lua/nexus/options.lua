@@ -1,5 +1,6 @@
-local fn = vim.fn
-local g = vim.g
+local fn = vim.fn;
+local g = vim.g;
+local opt = vim.opt;
 local options = {
   magic = true,
   number = true,
@@ -29,39 +30,39 @@ local options = {
   softtabstop = 2,
   showtabline = 2,
   fillchars = {
-    fold = ' ',
-    horiz = '━',
-    horizup = '┻',
-    horizdown = '┳',
-    vert = '┃',
-    vertright = '┣',
-    vertleft = '┫',
-    verthoriz = '╋',
+    fold = " ",
+    horiz = "━",
+    horizup = "┻",
+    horizdown = "┳",
+    vert = "┃",
+    vertright = "┣",
+    vertleft = "┫",
+    verthoriz = "╋",
   },
-  mouse = '',
-  cursorlineopt = 'number',
-  expandtab = fn.tolower(fn.expand'#') ~= 'makefile',
-}
+  mouse = "",
+  cursorlineopt = "number",
+  expandtab = fn.tolower(fn.expand"#") ~= "makefile",
+  -- "langmap" is the best feature! (in the context of switching keyboard layouts)
+  langmap = "nir;jkl,jkl;nir,NIR;JKL,JKL;NIR",
+};
 
 for k, v in pairs(options) do
-  vim.opt[k] = v
+  vim.opt[k] = v;
 end
 
-vim.opt.iskeyword:append'-' -- hyphenated words recognized by searches
--- don't insert the current comment leader automatically
---  for auto-wrapping comments using 'textwidth',
---  hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode.
-vim.opt.formatoptions:remove({ "c", "r", "o" })
-vim.opt.runtimepath:remove("/usr/share/vim/vimfiles")  -- separate vim plugins from neovim in case vim still in use
+opt.iskeyword:remove("_")
+opt.matchpairs:append("<:>,=:;")
+opt.runtimepath:remove("/usr/share/vim/vimfiles")  -- separate vim plugins from neovim in case vim still in use
+vim.cmd.syntax("clear");
 
-vim.fn.setenv('MANWIDTH', 94)
+fn.setenv("MANWIDTH", 94);
 
-g.python_recommended_style = 0
-g.rust_recommended_style = 0
-g.meson_recommended_style = 0
-g.yaml_recommended_style = 0
-g.markdown_recommended_style = 0
-g.loaded_ruby_provider = 0
-g.loaded_perl_provider = 0
-g.loaded_node_provider = 0
-g.loaded_python3_provider = 0
+g.python_recommended_style = 0;
+g.rust_recommended_style = 0;
+g.meson_recommended_style = 0;
+g.yaml_recommended_style = 0;
+g.markdown_recommended_style = 0;
+g.loaded_ruby_provider = 0;
+g.loaded_perl_provider = 0;
+g.loaded_node_provider = 0;
+g.loaded_python3_provider = 0;

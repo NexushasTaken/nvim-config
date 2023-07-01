@@ -1,5 +1,5 @@
-require'nvim-tree'.setup{
-  sort_by = 'extension',
+require("nvim-tree").setup{
+  sort_by = "extension",
   hijack_cursor = true,
   hijack_netrw = true,
   open_on_tab = false,
@@ -30,7 +30,7 @@ require'nvim-tree'.setup{
   },
   filters = {
     dotfiles = true,
-    custom = { '\\.sw.$' },
+    custom = { "\\.sw.$" },
   },
   actions = {
     change_dir = {
@@ -47,4 +47,4 @@ require'nvim-tree'.setup{
   git = {
     ignore = true,
   },
-}
+};
