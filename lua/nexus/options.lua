@@ -19,6 +19,7 @@ local options = {
   timeout = false,
   showmode = false,
   autochdir = false,
+  foldenable = false,
   compatible = false,
   fixendofline = false,
   tabstop = 2,

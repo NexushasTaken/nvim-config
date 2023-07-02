@@ -157,6 +157,7 @@ lazy.setup({
       "stevearc/vim-arduino",
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
+      "jose-elias-alvarez/null-ls.nvim",
       {
         "ray-x/lsp_signature.nvim",
         enabled = false,
@@ -195,7 +196,6 @@ lazy.setup({
         "nvim-treesitter/nvim-treesitter",
         config = load_config("treesitter"),
       },
-      -- TODO Add null-ls plugin.
     }
   },
 }, opts);
