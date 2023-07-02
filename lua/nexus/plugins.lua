@@ -45,7 +45,7 @@ local opts = {
   },
 };
 
-local function load_config(plug)
+local load_config = function(plug)
   return function()
     require("nexus.lazy-config." .. plug);
   end
@@ -59,87 +59,82 @@ local web_extensions = {
 };
 
 lazy.setup({
-  {
-    -- Theme
+  { -- Theme
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 100,
     config = load_config("colorscheme"),
   },
-  {
-    -- Status line
+  { -- Status line
     "itchyny/lightline.vim",
     lazy = false,
     priority = 99,
     config = load_config("lightline"),
   },
-  {
-    -- Relative numbers disabler
+  { -- Relative numbers disabler
     "nkakouros-original/numbers.nvim",
     lazy = false,
     config = true,
-    priority = 98,
-    opts = {
-      excluded_filetypes = {
-        "nerdtree", "unite", "man", "help",
-      }
-    }
   },
-  {
-   -- Highlight pairs
+  { -- Highlight pairs
     "andymass/vim-matchup",
     lazy = false,
     config = load_config("matchup"),
   },
-
-  {
-    -- Undo tree
-    "mbbill/undotree",
-    cmd = { "UndotreeToggle" },
-    config = load_config("undotree"),
-  },
-  {
-    -- File browser
+  { -- File browser
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeFocus" },
     config = load_config("nvim-tree"),
     dependencies = {
       "kyazdani42/nvim-web-devicons", -- Icons
-    }
+    },
+  },
+  { -- Auto close chars
+    "windwp/nvim-autopairs",
+    lazy = false,
+    config = load_config("autopairs"),
+  },
+  {
+    "kylechui/nvim-surround",
+    lazy = false,
+    config = true,
+  },
+  { -- Commenter
+    "numToStr/Comment.nvim",
+    lazy = false,
+    config = true,
+  },
+
+  { -- Undo tree
+    "mbbill/undotree",
+    cmd = { "UndotreeToggle" },
+    config = load_config("undotree"),
   },
   {
     "nvim-telescope/telescope.nvim",
     cmd = { "Telescope" },
     dependencies = {
       "nvim-lua/plenary.nvim", -- Some tools for Lua?
-    }
+    },
   },
-  {
-    -- Fix tab formats
+  { -- Fix tab formats
     "godlygeek/tabular",
     cmd = { "Tabularize" },
   },
   {
     "folke/which-key.nvim",
-    cmd = { "WhichKey" },
-    opt = {
-      popup_mappings = {
-        scroll_up = "<c-p>",
-        scroll_down = "<c-n>",
-      },
-    }
+    lazy = false,
+    config = load_config('which-key'),
   },
   {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
   },
-  {
-    -- Make dirs when saving files
+  { -- Make dirs when saving files
     "jghauser/mkdir.nvim",
     lazy = false,
   },
-  {
-    -- Better language support
+  { -- Better language support
     "sheerun/vim-polyglot",
     lazy = false,
   },
@@ -151,23 +146,6 @@ lazy.setup({
   { -- Buffer remover
     "moll/vim-bbye",
     lazy = false,
-  },
-  {
-    -- Auto close chars
-    "windwp/nvim-autopairs",
-    lazy = false,
-    config = load_config("autopairs"),
-  },
-  {
-    "kylechui/nvim-surround",
-    lazy = false,
-    config = true,
-  },
-  {
-    -- Commenter
-    "numToStr/Comment.nvim",
-    lazy = false,
-    config = true,
   },
   {
     "neovim/nvim-lspconfig",
@@ -190,8 +168,7 @@ lazy.setup({
           },
         },
       },
-      {
-        -- Auto close tag
+      { -- Auto close tag
         "windwp/nvim-ts-autotag",
         ft = web_extensions,
         config = true,

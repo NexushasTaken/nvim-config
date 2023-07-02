@@ -60,23 +60,31 @@ map("n", "<leader>dc", function()
   end
 end, opts)
 
-map("n", "<leader>wk", function()
-  local input = vim.fn.input("WhichKey: ");
-  if #input == 0 then
-    return;
-  end
-  input = input:gsub(vim.g.mapleader, "<leader>");
-  cmd.WhichKey(input);
-end, opts)
-
 map("n", "gl", ":lua vim.diagnostic.open_float()<CR>", opts);
 map("n", "<leader>lj", ":lua vim.diagnostic.goto_next({buffer=0})<cr>", opts);
 map("n", "<leader>lk", ":lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts);
+map("n", "<leader>m", function()
+  local lbuf = vim.bo[vim.api.nvim_get_current_buf()];
+  lbuf.modifiable = not lbuf.modifiable;
+  print(lbuf.modifiable and "ReadWrite" or "Readonly");
+end);
+
+local is_qwerty = true;
+map("n", "<leader>cl", function()
+  if is_qwerty then
+   vim.opt["langmap"] = "nir;jkl,jkl;nir,NIR;JKL,JKL;NIR";
+   print("Layout: Colemak Niro");
+  else
+   vim.opt["langmap"] = "";
+   print("Layout: QWERTY");
+  end
+  is_qwerty = not is_qwerty;
+end);
 
 
-local path = vim.fn.stdpath("data").."/sessions";
-local dir = vim.fn.getcwd():gsub("/", "_");
-local sessionfile = string.format("%s/%s", path, dir);
+local sessionfile = string.format("%s/%s",
+  vim.fn.stdpath("data").."/sessions",
+  vim.fn.getcwd():gsub("/", "_"));
 
 map("n", "<leader>sl", function()
   if vim.fn.filereadable(sessionfile) == 1 then

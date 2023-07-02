@@ -4,18 +4,14 @@ local opt = vim.opt;
 local options = {
   magic = true,
   number = true,
-  digraph = true,
   undofile = true,
   autoread = true,
-  autowrite = true,
   smartcase = true,
   linebreak = true,
-  shiftround = true,
   autoindent = true,
+  shiftround = true,
   cursorline = true,
-  foldenable = true,
   equalalways = true,
-  autowriteall = true,
   termguicolors = true,
   relativenumber = true,
   wrap = false,
@@ -24,6 +20,7 @@ local options = {
   showmode = false,
   autochdir = false,
   compatible = false,
+  fixendofline = false,
   tabstop = 2,
   scrolloff = 2,
   shiftwidth = 2,
@@ -40,17 +37,15 @@ local options = {
     verthoriz = "╋",
   },
   mouse = "",
+  belloff = "",
   cursorlineopt = "number",
-  expandtab = fn.tolower(fn.expand"#") ~= "makefile",
-  -- "langmap" is the best feature! (in the context of switching keyboard layouts)
-  langmap = "nir;jkl,jkl;nir,NIR;JKL,JKL;NIR",
+  expandtab = vim.bo.filetype ~= "make",
 };
 
 for k, v in pairs(options) do
   vim.opt[k] = v;
 end
 
-opt.iskeyword:remove("_")
 opt.matchpairs:append("<:>,=:;")
 opt.runtimepath:remove("/usr/share/vim/vimfiles")  -- separate vim plugins from neovim in case vim still in use
 vim.cmd.syntax("clear");
