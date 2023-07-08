@@ -73,8 +73,11 @@ lazy.setup({
   },
   { -- Relative numbers disabler
     "nkakouros-original/numbers.nvim",
-    lazy = false,
+    keys = { "i", },
     config = true,
+    opt = {
+      excluded_filetypes = { man = true, },
+    },
   },
   { -- Highlight pairs
     "andymass/vim-matchup",
@@ -91,17 +94,40 @@ lazy.setup({
   },
   { -- Auto close chars
     "windwp/nvim-autopairs",
-    lazy = false,
+    keys = {
+      { "{", mode = "i" },
+      { "[", mode = "i" },
+      { "(", mode = "i" },
+      { '"', mode = "i" },
+      { "'", mode = "i" },
+    },
     config = load_config("autopairs"),
   },
   {
     "kylechui/nvim-surround",
-    lazy = false,
+    keys = {
+      { "<C-g>s", mode = "i", },
+      { "<C-g>S", mode = "i", },
+      { "ys", mode = "n", },
+      { "yss", mode = "n", },
+      { "yS", mode = "n", },
+      { "ySS", mode = "n", },
+      { "S", mode = "v", },
+      { "gS", mode = "v", },
+      "ds","cs",
+    },
     config = true,
   },
   { -- Commenter
     "numToStr/Comment.nvim",
-    lazy = false,
+    keys = {
+      { "gcc", mode = "n", desc = "Comment toggle current line" },
+      { "gc", mode = { "n", "o" }, desc = "Comment toggle linewise" },
+      { "gc", mode = "x", desc = "Comment toggle linewise (visual)" },
+      { "gbc", mode = "n", desc = "Comment toggle current block" },
+      { "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
+      { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
+    },
     config = true,
   },
 
@@ -123,7 +149,7 @@ lazy.setup({
   },
   {
     "folke/which-key.nvim",
-    lazy = false,
+    keys = { "<leader>wk", },
     config = load_config('which-key'),
   },
   {
@@ -136,7 +162,6 @@ lazy.setup({
   },
   { -- Better language support
     "sheerun/vim-polyglot",
-    lazy = false,
   },
   {
     "tpope/vim-fugitive",
@@ -145,7 +170,12 @@ lazy.setup({
   },
   { -- Buffer remover
     "moll/vim-bbye",
+    cmd = { "Bdelete", "Bwipeout" },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
     lazy = false,
+    config = load_config("treesitter"),
   },
   {
     "neovim/nvim-lspconfig",
@@ -158,7 +188,7 @@ lazy.setup({
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "jose-elias-alvarez/null-ls.nvim",
-      {
+      --[[ {
         "ray-x/lsp_signature.nvim",
         enabled = false,
         config = true,
@@ -168,7 +198,7 @@ lazy.setup({
             border = "none",
           },
         },
-      },
+      }, ]]
       { -- Auto close tag
         "windwp/nvim-ts-autotag",
         ft = web_extensions,
@@ -191,10 +221,6 @@ lazy.setup({
           "saadparwaiz1/cmp_luasnip",
           "hrsh7th/cmp-nvim-lua",
         }
-      },
-      {
-        "nvim-treesitter/nvim-treesitter",
-        config = load_config("treesitter"),
       },
     }
   },

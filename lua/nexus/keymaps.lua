@@ -31,7 +31,6 @@ map("n", "<m-J>", ":resize -1<cr>", opts);
 
 map("n", "<leader>t", ":tabnew<cr>", opts);
 map("n", "<leader><S-L>", ":nohl<cr>", opts);
-map("n", "<leader>e", ":Explore<cr>", opts);
 map("n", "<leader>u", ":UndotreeToggle<cr>", opts);
 map("n", "<leader>n", ":NvimTreeFocus<cr>", opts);
 

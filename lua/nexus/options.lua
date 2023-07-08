@@ -11,6 +11,7 @@ local options = {
   autoindent = true,
   shiftround = true,
   cursorline = true,
+  smartindent = true,
   equalalways = true,
   termguicolors = true,
   relativenumber = true,
@@ -41,6 +42,7 @@ local options = {
   belloff = "",
   cursorlineopt = "number",
   expandtab = vim.bo.filetype ~= "make",
+  cinoptions = "l1,N-s,E-s,t0,U1",
 };
 
 for k, v in pairs(options) do
@@ -50,8 +52,6 @@ end
 opt.matchpairs:append("<:>,=:;")
 opt.runtimepath:remove("/usr/share/vim/vimfiles")  -- separate vim plugins from neovim in case vim still in use
 vim.cmd.syntax("clear");
-
-fn.setenv("MANWIDTH", 94);
 
 g.python_recommended_style = 0;
 g.rust_recommended_style = 0;
