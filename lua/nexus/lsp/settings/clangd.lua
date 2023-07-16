@@ -46,6 +46,8 @@ return {
       '--offset-encoding=utf-8',
       '--header-insertion=never',
       '--enable-config',
+      '--background-index',
+      '--include-cleaner-stdlib',
     },
     filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
     root_dir = function(fname)
