@@ -12,6 +12,7 @@ local servers = {
   "cmake",
   "tsserver",
   "asm_lsp",
+  "gopls"
 };
 
 local settings = {

@@ -75,7 +75,7 @@ lazy.setup({
     "nkakouros-original/numbers.nvim",
     keys = { "i", },
     config = true,
-    opt = {
+    opts = {
       excluded_filetypes = { man = true, },
     },
   },
