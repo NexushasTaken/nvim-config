@@ -29,6 +29,7 @@ map("n", "<m-H>", ":vertical resize -1<cr>", opts);
 map("n", "<m-K>", ":resize +1<cr>", opts);
 map("n", "<m-J>", ":resize -1<cr>", opts);
 
+map("n", "<leader>b", ":buffer ", opts);
 map("n", "<leader>t", ":tabnew<cr>", opts);
 map("n", "<leader><S-L>", ":nohl<cr>", opts);
 map("n", "<leader>u", ":UndotreeToggle<cr>", opts);
@@ -41,6 +42,7 @@ map("v", "<leader>y", '"+y', opts);
 map("n", "<leader>ff", ":Telescope find_files<cr>", opts);
 map("n", "<leader>fg", ":Telescope live_grep<cr>", opts);
 map("n", "<leader>fh", ":Telescope help_tags<cr>", opts);
+map("n", "<leader>fb", ":Telescope buffers<cr>", opts);
 
 map("n", "<leader>dd", ":Bdelete!<cr>", opts);
 map("n", "<leader>dc", function()

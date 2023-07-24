@@ -175,6 +175,12 @@ lazy.setup({
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
+    dependencies = {
+      { -- Auto close tag
+        "windwp/nvim-ts-autotag",
+        ft = web_extensions,
+      },
+    },
     config = load_config("treesitter"),
   },
   {
@@ -199,14 +205,6 @@ lazy.setup({
           },
         },
       }, ]]
-      { -- Auto close tag
-        "windwp/nvim-ts-autotag",
-        ft = web_extensions,
-        config = true,
-        dependencies = {
-          "nvim-treesitter/nvim-treesitter",
-        },
-      },
       {
         "hrsh7th/nvim-cmp",
         config = function()

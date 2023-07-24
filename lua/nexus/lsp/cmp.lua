@@ -2,9 +2,14 @@ local fn = vim.fn;
 local cmp = require("cmp");
 local luasnip = require("luasnip");
 
-require("luasnip/loaders/from_vscode").lazy_load({
-  paths = { fn.stdpath("config") .. "/friendly-snippets", },
-})
+local lazy_load = function(snip)
+  require("luasnip/loaders/from_vscode").lazy_load({
+    paths = { fn.stdpath("config") .. "/snippets/" .. snip, },
+  });
+end
+
+lazy_load("friendly-snippets");
+lazy_load("odoo-snippets");
 
 local check_backspace = function()
   local col = fn.col(".") - 1;

@@ -1,8 +1,10 @@
+local html_conf = {
+  tagnameonly = 1,
+  nolists = 1,
+};
 vim.g.matchup_matchpref = {
-  html = {
-    tagnameonly = 1,
-    nolists = 1,
-  },
+  html = html_conf,
+  xml = html_conf,
 };
 vim.g.matchup_matchparen_deferred = 1;
 vim.g.matchup_matchparen_offscreen = {};
