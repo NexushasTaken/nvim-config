@@ -72,22 +72,23 @@ local function lsp_keymaps(bufnr)
   map(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts);
 end
 
+local toSnakeCase = function(str)
+  return string.gsub(str, "%s*[- ]%s*", "_")
+end
+
 M.on_attach = function(client, bufnr)
   lsp_keymaps(bufnr);
+
+  -- https://github.com/OmniSharp/omnisharp-roslyn/issues/2483
   if client.name == "omnisharp" then
-    client.server_capabilities.semanticTokensProvider = nil;
-    -- local tokenModifiers = client
-    --   .server_capabilities.semanticTokensProvider
-    --   .legend.tokenModifiers;
-    -- for i, v in ipairs(tokenModifiers) do
-    --   tokenModifiers[i] = v:gsub(" ", "_");
-    -- end
-    -- local tokenTypes = client
-    --   .server_capabilities.semanticTokensProvider
-    --   .legend.tokenTypes;
-    -- for i, v in ipairs(tokenTypes) do
-    --   tokenTypes[i] = v:gsub(" ", "_");
-    -- end
+    local tokenModifiers = client.server_capabilities.semanticTokensProvider.legend.tokenModifiers
+    for i, v in ipairs(tokenModifiers) do
+      tokenModifiers[i] = toSnakeCase(v)
+    end
+    local tokenTypes = client.server_capabilities.semanticTokensProvider.legend.tokenTypes
+    for i, v in ipairs(tokenTypes) do
+      tokenTypes[i] = toSnakeCase(v)
+    end
   end
 end
 
