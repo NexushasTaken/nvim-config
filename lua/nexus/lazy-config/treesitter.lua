@@ -1,16 +1,18 @@
-local configs = require("nvim-treesitter.configs")
-local parsers = require("nvim-treesitter.parsers")
+local configs = require("nvim-treesitter.configs");
+local parsers = require("nvim-treesitter.parsers");
 
 configs.setup({
+  parser_install_dir = vim.fn.stdpath("data"),
   highlight = {
     enable = true,
     use_languagetree = true,
+    additional_vim_regex_highlighting = false,
 	},
   autotag = {
     enable = true,
     enable_rename = true,
     enable_close = true,
-    enable_close_on_slash = true,
+    enable_close_on_slash = false,
   },
 });
 
@@ -23,3 +25,4 @@ parsers.list.xml = {
   },
   filetype = "xml",
 };
+vim.opt.runtimepath:append(vim.fn.stdpath("data"))

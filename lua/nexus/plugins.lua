@@ -24,7 +24,7 @@ local opts = {
         "logipat", "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers",
         "matchit", "tar", "tarPlugin", "rrhelper", "spellfile_plugin", "vimball",
         "vimballPlugin", "zip", "zipPlugin", "tutor", "rplugin", "syntax",
-        "synmenu", "optwin", "compiler", "bugreport", "ftplugin",
+        "synmenu", "optwin", "compiler", "bugreport", "ftplugin", "spellfile"
       },
     },
   },
@@ -171,6 +171,18 @@ lazy.setup({
   { -- Buffer remover
     "moll/vim-bbye",
     cmd = { "Bdelete", "Bwipeout" },
+  },
+  {
+    "mechatroner/rainbow_csv",
+    ft = {
+      "csv",
+      "tsv",
+      "csv_semicolon",
+      "csv_whitespace",
+      "csv_pipe",
+      "rfc_csv",
+      "rfc_semicolon",
+    },
   },
   {
     "nvim-treesitter/nvim-treesitter",

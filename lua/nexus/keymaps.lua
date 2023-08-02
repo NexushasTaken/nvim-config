@@ -43,6 +43,7 @@ map("n", "<leader>ff", ":Telescope find_files<cr>", opts);
 map("n", "<leader>fg", ":Telescope live_grep<cr>", opts);
 map("n", "<leader>fh", ":Telescope help_tags<cr>", opts);
 map("n", "<leader>fb", ":Telescope buffers<cr>", opts);
+map("n", "<leader>ft", ":Telescope tags<cr>", opts);
 
 map("n", "<leader>dd", ":Bdelete!<cr>", opts);
 map("n", "<leader>dc", function()
