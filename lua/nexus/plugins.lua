@@ -76,7 +76,11 @@ lazy.setup({
     keys = { "i", },
     config = true,
     opts = {
-      excluded_filetypes = { man = true, },
+      excluded_filetypes = {
+        "man", "unite", "tagbar", "startify",
+        "gundo", "vimshell", "w3m", "nerdtree",
+        "Mundo", "MundoDiff",
+      },
     },
   },
   { -- Highlight pairs
