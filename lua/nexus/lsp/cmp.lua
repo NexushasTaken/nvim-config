@@ -6,7 +6,7 @@ local lazy_load = function(snip)
   require("luasnip/loaders/from_vscode").lazy_load({
     paths = { fn.stdpath("config") .. "/snippets/" .. snip, },
   });
-end
+end;
 
 lazy_load("friendly-snippets");
 lazy_load("odoo-snippets");
@@ -14,7 +14,7 @@ lazy_load("odoo-snippets");
 local check_backspace = function()
   local col = fn.col(".") - 1;
   return col == 0 or fn.getline("."):sub(col, col):match("%s");
-end
+end;
 
 --  פּ ﯟ   some other good icons
 local kind_icons = {
@@ -54,7 +54,7 @@ cmp.setup({
       return true;
     else
       return not context.in_treesitter_capture("comment")
-        and not context.in_syntax_group("Comment");
+          and not context.in_syntax_group("Comment");
     end
   end,
   snippet = {
@@ -63,12 +63,16 @@ cmp.setup({
     end,
   },
   mapping = {
-    ["<C-k>"] = cmp.mapping.select_prev_item(),
-    ["<C-j>"] = cmp.mapping.select_next_item(),
+    ["<ESC>"] = cmp.mapping({
+      i = function(fallback)
+        if cmp.visible() then
+          cmp.abort()
+        end
+        fallback()
+      end
+    }),
     ["<C-p>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c", }),
     ["<C-n>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c", }),
-    ["<C-y>"] = cmp.config.disable,
-    ["<C-Space>"] = cmp.config.disable,
     ["<C-e>"] = cmp.mapping({
       i = function()
         if cmp.visible() then
@@ -78,37 +82,30 @@ cmp.setup({
         end
       end,
     }),
+    ["<C-Space>"] = cmp.config.disable,
     -- Accept currently selected item. If none selected, `select` first item.
     -- Set `select` to `false` to only confirm explicitly selected items.
-    ["<CR>"] = cmp.mapping.confirm({ select = true, }),
+    ["<CR>"] = cmp.mapping.confirm({ select = false, }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.select_next_item();
-      elseif luasnip.expandable() then
-        luasnip.expand();
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump();
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select, });
+      elseif luasnip.jumpable(1) then
+        luasnip.jump(1);
       elseif check_backspace() then
         fallback();
       else
         fallback();
       end
-    end, {
-      "i",
-      "s",
-    }),
+    end, { "i", "s", }),
     ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.select_prev_item();
+        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select, });
       elseif luasnip.jumpable(-1) then
         luasnip.jump(-1);
       else
         fallback();
       end
-    end, {
-      "i",
-      "s",
-    }),
+    end, { "i", "s", }),
   },
   formatting = {
     fields = { "kind", "abbr", "menu", },
@@ -125,25 +122,21 @@ cmp.setup({
     end,
   },
   sources = {
-    { name = "nvim_lsp", },
     { name = "nvim_lua", },
+    { name = "nvim_lsp", },
     { name = "luasnip", },
     { name = "buffer", },
     { name = "path", },
   },
   confirm_opts = {
-    behavior = cmp.ConfirmBehavior.Replace,
-    select = true,
+    behavior = cmp.ConfirmBehavior.Select,
+    select = false,
   },
   window = {
-    documentation = {
-      max_width = 0,
-      max_height = 0,
-    },
+    documentation = cmp.config.disable,
   },
   experimental = {
     ghost_text = false,
-    native_menu = false,
   },
   completion = {
     autocomplete = false,

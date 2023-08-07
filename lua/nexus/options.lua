@@ -1,4 +1,3 @@
-local fn = vim.fn;
 local g = vim.g;
 local opt = vim.opt;
 local options = {
@@ -24,6 +23,7 @@ local options = {
   compatible = false,
   fixendofline = false,
   tabstop = 2,
+  foldlevel = 0,
   scrolloff = 2,
   shiftwidth = 2,
   softtabstop = 2,
@@ -43,14 +43,16 @@ local options = {
   cursorlineopt = "number",
   expandtab = vim.bo.filetype ~= "make",
   cinoptions = "l1,N-s,E-s,t0,U1",
+  --[[ foldmethod = "expr",
+  foldexpr = "nvim_treesitter#foldexpr()", ]]
 };
 
 for k, v in pairs(options) do
-  vim.opt[k] = v;
+  opt[k] = v;
 end
 
-opt.matchpairs:append("<:>,=:;")
-opt.runtimepath:remove("/usr/share/vim/vimfiles")  -- separate vim plugins from neovim in case vim still in use
+opt.matchpairs:append("<:>");
+opt.runtimepath:remove("/usr/share/vim/vimfiles");  -- separate vim plugins from neovim in case vim still in use
 vim.cmd.syntax("clear");
 
 g.python_recommended_style = 0;
