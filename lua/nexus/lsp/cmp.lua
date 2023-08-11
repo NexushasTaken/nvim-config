@@ -66,9 +66,9 @@ cmp.setup({
     ["<ESC>"] = cmp.mapping({
       i = function(fallback)
         if cmp.visible() then
-          cmp.abort()
+          cmp.abort();
         end
-        fallback()
+        fallback();
       end
     }),
     ["<C-p>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c", }),
@@ -82,7 +82,6 @@ cmp.setup({
         end
       end,
     }),
-    ["<C-Space>"] = cmp.config.disable,
     -- Accept currently selected item. If none selected, `select` first item.
     -- Set `select` to `false` to only confirm explicitly selected items.
     ["<CR>"] = cmp.mapping.confirm({ select = false, }),
@@ -102,6 +101,13 @@ cmp.setup({
         cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select, });
       elseif luasnip.jumpable(-1) then
         luasnip.jump(-1);
+      else
+        fallback();
+      end
+    end, { "i", "s", }),
+    ["<C-Space>"] = cmp.mapping(function(fallback)
+      if luasnip.in_snippet() then
+        luasnip.unlink_current();
       else
         fallback();
       end
