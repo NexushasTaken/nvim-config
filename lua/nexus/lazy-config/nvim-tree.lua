@@ -31,7 +31,7 @@ require("nvim-tree").setup({
   },
   filters = {
     dotfiles = true,
-    custom = { "\\.sw.$" },
+    custom = { "\\(\\.s\\_[a-w]\\_[a-w]\\)$", "__pycache__", },
   },
   actions = {
     change_dir = {

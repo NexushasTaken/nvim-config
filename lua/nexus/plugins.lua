@@ -189,6 +189,10 @@ lazy.setup({
     },
   },
   {
+    "turbio/bracey.vim",
+    ft = web_extensions,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
     dependencies = {
