@@ -1,5 +1,4 @@
 local configs = require("nvim-treesitter.configs");
-local parsers = require("nvim-treesitter.parsers");
 
 configs.setup({
   parser_install_dir = vim.fn.stdpath("data"),
@@ -16,13 +15,4 @@ configs.setup({
   },
 });
 
-parsers.list.xml = {
-  install_info = {
-    url = "https://github.com/Trivernis/tree-sitter-xml",
-    files = { "src/parser.c" },
-    generate_requires_npm = true,
-    branch = "main",
-  },
-  filetype = "xml",
-};
 vim.opt.runtimepath:append(vim.fn.stdpath("data"))

@@ -3,7 +3,6 @@ local M = {};
 local cmp_nvim_lsp = require("cmp_nvim_lsp");
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities();
---[[ -- Is this even needed?
 M.capabilities.textDocument.completion.completionItem = {
   documentationFormat = { "markdown", "plaintext" },
   snippetSupport = true,
@@ -20,7 +19,7 @@ M.capabilities.textDocument.completion.completionItem = {
       "additionalTextEdits",
     },
   },
-} ]]
+}
 M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities);
 
 M.setup = function()
