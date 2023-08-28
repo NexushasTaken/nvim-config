@@ -46,6 +46,7 @@ require("nvim-tree").setup({
     update_root = false,
   },
   git = {
+    enable = false,
     ignore = true,
   },
   on_attach = function(bufnr)
