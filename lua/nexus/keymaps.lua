@@ -20,8 +20,8 @@ map("n", "sk", ":wincmd k<cr>", opts);
 map("n", "sj", ":wincmd j<cr>", opts);
 map("n", "sl", ":wincmd l<cr>", opts);
 map("n", "st", ":tabnew ", opts);
-map("n", "sp", ":tabp<cr>", opts);
-map("n", "sn", ":tabn<cr>", opts);
+map("n", "sp", ":tabprev<cr>", opts);
+map("n", "sn", ":tabnext<cr>", opts);
 map("n", "sd", ":SwapDelete<cr>", opts);
 
 map("n", "<m-L>", ":vertical resize +1<cr>", opts);
