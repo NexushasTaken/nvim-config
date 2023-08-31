@@ -193,6 +193,11 @@ lazy.setup({
     ft = web_extensions,
   },
   {
+    "phaazon/hop.nvim",
+    config = load_config("hop"),
+    keys = "<leader>h",
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
     dependencies = {
