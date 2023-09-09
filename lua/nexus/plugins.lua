@@ -43,6 +43,9 @@ local opts = {
       not_loaded = "",
     },
   },
+  dev = {
+    path = "~/workspace/vim_plugins",
+  },
 };
 
 local load_config = function(plug)

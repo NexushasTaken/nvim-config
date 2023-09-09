@@ -1,7 +1,6 @@
 local configs = require("nvim-treesitter.configs");
 
 configs.setup({
-  parser_install_dir = vim.fn.stdpath("data"),
   highlight = {
     enable = true,
     use_languagetree = true,
@@ -14,5 +13,3 @@ configs.setup({
     enable_close_on_slash = false,
   },
 });
-
-vim.opt.runtimepath:append(vim.fn.stdpath("data"))
