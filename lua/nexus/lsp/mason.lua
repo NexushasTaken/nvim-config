@@ -14,6 +14,7 @@ local servers = {
   "asm_lsp",
   "gopls",
   "cssls",
+  "serve_d",
 };
 
 local settings = {
