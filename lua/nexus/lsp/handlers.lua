@@ -58,11 +58,11 @@ end
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true, };
   local map = vim.api.nvim_buf_set_keymap;
-  map(bufnr, "n", "g<S-D>", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts);
-  map(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts);
-  map(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts);
-  map(bufnr, "n", "g<S-I>", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts);
-  map(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts);
+  map(bufnr, "n", "<leader>ge", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts);
+  map(bufnr, "n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts);
+  map(bufnr, "n", "<leader>K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts);
+  map(bufnr, "n", "<leader>gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts);
+  map(bufnr, "n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts);
   map(bufnr, "n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts);
   map(bufnr, "n", "<leader>li", "<cmd>LspInfo<cr>", opts);
   map(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts);
