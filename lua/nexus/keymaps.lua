@@ -45,6 +45,9 @@ map("n", "<leader>fh", ":Telescope help_tags<cr>", opts);
 map("n", "<leader>fb", ":Telescope buffers<cr>", opts);
 map("n", "<leader>ft", ":Telescope tags<cr>", opts);
 
+map("n", "<leader>o", ":Oil<cr>", opts);
+map("n", "<leader>O", ":Oil ", opts);
+
 map("n", "<leader>dd", ":Bdelete!<cr>", opts);
 map("n", "<leader>dc", function()
   local choose = { "Choose a buffer", };
