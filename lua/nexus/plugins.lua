@@ -61,9 +61,6 @@ local web_extensions = {
   "xml", "php", "markdown", "glimmer", "handlebars", "hbs",
 };
 
--- TODO: Find a way to removed this while keeping the leader key.
-vim.cmd("let g:user_emmet_leader_key='<c-m>'");
-
 lazy.setup({
   { -- Theme
     "folke/tokyonight.nvim",
@@ -228,6 +225,10 @@ lazy.setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
+    "mattn/emmet-vim",
+    ft = web_extensions,
+  },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       require("nexus.lsp")
@@ -250,13 +251,6 @@ lazy.setup({
         },
       }, ]]
       {
-        "mattn/emmet-vim",
-        config = function()
-          vim.cmd.EmmetInstall();
-        end,
-        ft = web_extensions,
-      },
-      {
         "hrsh7th/nvim-cmp",
         config = function()
           require("nexus.lsp.cmp")
@@ -270,6 +264,10 @@ lazy.setup({
           "saadparwaiz1/cmp_luasnip",
           "hrsh7th/cmp-nvim-lua",
         }
+      },
+      {
+        "simrat39/symbols-outline.nvim",
+        config = load_config("symbols-outline"),
       },
     }
   },
