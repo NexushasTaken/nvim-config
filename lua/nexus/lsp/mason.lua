@@ -1,4 +1,5 @@
 local servers = {
+  "ols",
   "bashls",
   "lua_ls",
   "jsonls",
