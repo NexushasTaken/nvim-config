@@ -30,7 +30,6 @@ map("n", "<m-K>", ":resize +1<cr>", opts);
 map("n", "<m-J>", ":resize -1<cr>", opts);
 
 map("n", "<leader>b", ":buffer ", opts);
-map("n", "<leader>t", ":tabnew<cr>", opts);
 map("n", "<leader><S-L>", ":nohl<cr>", opts);
 map("n", "<leader>u", ":UndotreeToggle<cr>", opts);
 map("n", "<leader>n", ":NvimTreeFocus<cr>", opts);
@@ -104,4 +103,16 @@ end, opts);
 map("n", "<leader>ss", function()
   cmd(string.format("mksession! %s", sessionfile));
   print("Session Saved");
+end, opts);
+
+map("n", "<leader>t", function()
+  if #vim.fn.bufname("%") > 0 then
+    local save = vim.fn.winsaveview();
+    for _, pattern in ipairs({ [[%s/\s\+$//e]], [[%s/\%^\n\+//]], [[%s/\($\n\s*\)\+\%$//]] }) do
+      vim.api.nvim_exec2(string.format("keepjumps keeppatterns silent! %s", pattern), { output = false });
+    end
+    vim.fn.winrestview(save);
+
+    vim.api.nvim_exec2("silent! write", { output = false });
+  end
 end, opts);
