@@ -60,4 +60,4 @@ require("symbols-outline").setup({
     Component = { icon = "", hl = "@function" },
     Fragment = { icon = "", hl = "@constant" },
   },
-})
+});

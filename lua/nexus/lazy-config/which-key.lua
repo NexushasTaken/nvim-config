@@ -1,5 +1,4 @@
 local wk = require("which-key");
-local map = vim.keymap.set;
 
 wk.setup({
   popup_mappings = {
