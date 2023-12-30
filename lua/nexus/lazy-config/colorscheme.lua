@@ -7,7 +7,10 @@ require("tokyonight").setup({
   on_highlights = function(hl)
     hl.Todo = {
       fg = hl.Todo.bg,
-      bg = "None",
+      bg = hl.Normal.bg,
+    };
+    hl.Folded = {
+      fg = hl.Comment.fg,
     };
   end,
 });
