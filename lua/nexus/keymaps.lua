@@ -47,6 +47,18 @@ map("n", "<leader>ft", ":Telescope tags<cr>", opts);
 map("n", "<leader>o", ":Oil<cr>", opts);
 map("n", "<leader>O", ":Oil ", opts);
 
+map("n", "zZ", function()
+  if vim.opt.foldmethod:get() == "manual" then
+    vim.opt.foldmethod = "expr";
+    vim.opt.foldexpr = "nvim_treesitter#foldexpr()";
+    print("fold method: expr");
+  elseif vim.opt.foldmethod:get() == "expr" then
+    vim.opt.foldmethod = "manual";
+    vim.opt.foldexpr = "0";
+    print("fold method: manual");
+  end
+end, opts);
+
 map("n", "<leader>dd", ":Bdelete!<cr>", opts);
 map("n", "<leader>dc", function()
   local choose = { "Choose a buffer", };

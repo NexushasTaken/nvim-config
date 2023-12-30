@@ -47,8 +47,6 @@ local options = {
   cursorlineopt = "number",
   expandtab = vim.bo.filetype ~= "make",
   cinoptions = "l1,N-s,E-s,t0,U1",
-  --[[ foldmethod = "expr",
-  foldexpr = "nvim_treesitter#foldexpr()", ]]
 };
 
 for k, v in pairs(options) do
