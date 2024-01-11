@@ -16,6 +16,7 @@ local servers = {
   "gopls",
   "cssls",
   "serve_d",
+  "gdscript",
 };
 
 local settings = {

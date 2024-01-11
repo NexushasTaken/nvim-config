@@ -1,0 +1,41 @@
+#!/bin/bash
+# vi: ft=sh
+SOCKET=${GDScript_Pipe:-"/tmp/nvim.godot.socket"}
+CLIENT_EXE="nvim --listen $SOCKET"
+ST_NAME='godot-st'
+
+if [[ $# -eq 0 ]]; then
+  $CLIENT_EXE
+elif [[ $1 = "open" ]]; then
+  project=$2
+  file=$3
+  col=${4:-1}
+  line=${5:-1}
+
+  if [[ ! -S $SOCKET ]]; then
+    session_name='godot-session'
+    tmux has-session -t $session_name && tmux kill-session -t $session_name
+    st -T $ST_NAME -e tmux new-session -s $session_name -c $project &
+
+    # is there a better way to wait for st to launch?
+    until tmux has-session -t $session_name; do
+      continue
+    done
+    tmux rename-window -t $session_name:0 'godot'
+    tmux send-keys -t $session_name:0 "$CLIENT_EXE" Enter
+
+    # is there a better way to wait for $0 to launch?
+    until [[ -S $SOCKET ]]; do
+      continue
+    done
+  fi
+  cmd="nvim --server $SOCKET --remote-send"
+  $cmd ":silent cd $project | edit $file | call cursor($line, $col)<CR>"
+  wmctrl -a $ST_NAME || wmctrl -a st
+else
+  name=$(basename $0)
+  echo "usage:"
+  echo "  $name"
+  echo "  $name server <project> <file> [<column> [<line>]]"
+  exit 1
+fi
