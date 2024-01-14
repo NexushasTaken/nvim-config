@@ -30,7 +30,7 @@ elif [[ $1 = "open" ]]; then
     done
   fi
   cmd="nvim --server $SOCKET --remote-send"
-  $cmd ":silent cd $project | edit $file | call cursor($line, $col)<CR>"
+  $cmd "<ESC>:silent cd $project | edit $file | call cursor($line, $col)<CR>"
   wmctrl -a $ST_NAME || wmctrl -a st
 else
   name=$(basename $0)
