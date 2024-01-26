@@ -5,7 +5,7 @@ return {
     cmd = { "omnisharp" },
     -- Enables support for reading code style, naming convention and analyzer
     -- settings from .editorconfig.
-    enable_editorconfig_support = true,
+    enable_editorconfig_support = false,
 
     -- If true, MSBuild project system will only load projects for files that
     -- were opened in the editor. This setting is useful for big C# codebases
