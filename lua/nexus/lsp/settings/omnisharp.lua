@@ -16,7 +16,7 @@ return {
     enable_ms_build_load_projects_on_demand = false,
 
     -- Enables support for roslyn analyzers, code fixes and rulesets.
-    enable_roslyn_analyzers = true,
+    enable_roslyn_analyzers = false,
 
     -- Specifies whether 'using' directives should be grouped and sorted during
     -- document formatting.
@@ -63,7 +63,7 @@ return {
       end
 
       if new_config.enable_roslyn_analyzers then
-        table.insert(new_config.cmd, 'RoslynExtensionsOptions:EnableAnalyzersSupport=true')
+        table.insert(new_config.cmd, 'RoslynExtensionsOptions:EnableAnalyzersSupport=false')
       end
 
       if new_config.enable_import_completion then
