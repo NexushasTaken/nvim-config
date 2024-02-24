@@ -17,6 +17,7 @@ local servers = {
   "cssls",
   "serve_d",
   "gdscript",
+  "svelte",
 };
 
 local settings = {
