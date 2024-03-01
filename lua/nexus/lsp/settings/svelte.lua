@@ -12,6 +12,14 @@ return {
     cmd = cmd,
     filetypes = { 'svelte' },
     root_dir = util.root_pattern('package.json', '.git'),
+    settings = {
+      html = {
+        completion = {
+          enable = true,
+          emmet = false,
+        },
+      },
+    },
   },
   docs = {
     description = [[
