@@ -269,6 +269,13 @@ lazy.setup({
         "simrat39/symbols-outline.nvim",
         config = load_config("symbols-outline"),
       },
+      {
+        "mfussenegger/nvim-dap",
+        config = load_config("dap"),
+        dependencies = {
+          "rcarriga/nvim-dap-ui",
+        },
+      },
     }
   },
 }, opts);
