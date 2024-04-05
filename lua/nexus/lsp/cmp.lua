@@ -65,7 +65,9 @@ cmp.setup({
   mapping = {
     ["<ESC>"] = cmp.mapping({
       i = function(fallback)
-        if cmp.visible() then
+        if luasnip.in_snippet() then
+          luasnip.unlink_current();
+        elseif cmp.visible() then
           cmp.abort();
         end
         fallback();
@@ -101,13 +103,6 @@ cmp.setup({
         cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select, });
       elseif luasnip.jumpable(-1) then
         luasnip.jump(-1);
-      else
-        fallback();
-      end
-    end, { "i", "s", }),
-    ["<C-Space>"] = cmp.mapping(function(fallback)
-      if luasnip.in_snippet() then
-        luasnip.unlink_current();
       else
         fallback();
       end
