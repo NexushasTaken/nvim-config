@@ -18,6 +18,7 @@ local servers = {
   "serve_d",
   "gdscript",
   "svelte",
+  "nimls",
 };
 
 local settings = {
