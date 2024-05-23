@@ -19,6 +19,7 @@ local servers = {
   "gdscript",
   "svelte",
   "nimls",
+  "zls",
 };
 
 local settings = {
