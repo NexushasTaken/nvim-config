@@ -157,7 +157,10 @@ lazy.setup({
   {
     "folke/which-key.nvim",
     keys = { "<leader>wk", },
-    config = load_config('which-key'),
+    config = load_config("which-key"),
+  },
+  {
+    "echasnovski/mini.nvim",
   },
   {
     "iamcco/markdown-preview.nvim",
@@ -169,6 +172,10 @@ lazy.setup({
   },
   { -- Better language support
     "sheerun/vim-polyglot",
+  },
+  {
+    "johmsalas/text-case.nvim",
+    lazy = false,
   },
   {
     "tpope/vim-fugitive",
