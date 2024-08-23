@@ -54,6 +54,16 @@ local load_config = function(plug)
   end
 end
 
+local load_config = function(plug, as_opt)
+  if as_opt then
+    return require("nexus.lazy-config." .. plug);
+  else
+    return function()
+      require("nexus.lazy-config." .. plug);
+    end
+  end
+end
+
 local lazy = require("lazy");
 local web_extensions = {
   "html", "javascript", "typescript", "javascriptreact",
@@ -153,6 +163,14 @@ lazy.setup({
   { -- Fix tab formats
     "godlygeek/tabular",
     cmd = { "Tabularize" },
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    },
+    opts = load_config("todo-comments", true),
+    lazy = false,
   },
   {
     "folke/which-key.nvim",
