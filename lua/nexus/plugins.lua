@@ -145,7 +145,7 @@ lazy.setup({
       { "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
       { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
     },
-    config = true,
+    config = load_config("comment"),
   },
 
   { -- Undo tree
