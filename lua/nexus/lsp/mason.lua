@@ -20,6 +20,7 @@ local servers = {
   "svelte",
   "nimls",
   "zls",
+  "c3_lsp",
 };
 
 local settings = {
@@ -37,6 +38,11 @@ local settings = {
 require("mason").setup(settings);
 
 local lspconfig = require("lspconfig");
+local configs = require("lspconfig.configs");
+
+if not configs.c3_lsp then
+  configs.c3_lsp = require("nexus.lsp.settings.c3_lsp");
+end
 
 local opts = {};
 
