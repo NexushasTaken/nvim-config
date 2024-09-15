@@ -22,7 +22,6 @@ local options = {
   autochdir = false,
   foldenable = false,
   compatible = false,
-  fixendofline = false,
   tabstop = 2,
   foldlevel = 0,
   scrolloff = 2,
