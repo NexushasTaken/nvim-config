@@ -296,4 +296,9 @@ lazy.setup({
       },
     }
   },
+  {
+    "Exafunction/codeium.vim",
+    config = load_config("codeium"),
+    cmd = { "Codeium" },
+  },
 }, opts);
