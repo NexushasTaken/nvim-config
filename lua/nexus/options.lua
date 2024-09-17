@@ -65,6 +65,3 @@ g.loaded_ruby_provider = 0;
 g.loaded_perl_provider = 0;
 g.loaded_node_provider = 0;
 g.bracey_refresh_on_save = 1
-
-g.codeium_manual = true;
-g.codeium_disable_bindings = true;

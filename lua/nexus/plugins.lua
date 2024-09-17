@@ -48,12 +48,6 @@ local opts = {
   },
 };
 
-local load_config = function(plug)
-  return function()
-    require("nexus.lazy-config." .. plug);
-  end
-end
-
 local load_config = function(plug, as_opt)
   if as_opt then
     return require("nexus.lazy-config." .. plug);
@@ -298,7 +292,7 @@ lazy.setup({
   },
   {
     "Exafunction/codeium.vim",
-    config = load_config("codeium"),
-    cmd = { "Codeium" },
+    config = load_config("codeium", true)(),
+    lazy = false,
   },
 }, opts);

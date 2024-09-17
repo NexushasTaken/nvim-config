@@ -158,8 +158,3 @@ map("v", "<leader>ac", function() require("textcase").current_word("to_camel_cas
 map("v", "<leader>ap", function() require("textcase").current_word("to_pascal_case");   remove_w(); end, { noremap = true, desc="ToPascalCase", });
 map("v", "<leader>at", function() require("textcase").current_word("to_title_case");    remove_w(); end, { noremap = true, desc="To Title Case", });
 map("v", "<leader>af", function() require("textcase").current_word("to_path_case");     remove_w(); end, { noremap = true, desc="to/path/case", });
-
-map("i", "<m-g>", function() return vim.fn["codeium#Accept"]() end, { expr = true, silent = true })
-map("i", "<m-;>", function() return vim.fn["codeium#CycleCompletions"](1) end, { expr = true, silent = true })
-map("i", "<m-,>", function() return vim.fn["codeium#CycleCompletions"](-1) end, { expr = true, silent = true })
-map("i", "<m-x>", function() return vim.fn["codeium#Clear"]() end, { expr = true, silent = true })
