@@ -14,6 +14,7 @@ configs.setup({
   },
 });
 
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs();
 -- # c3 language
 vim.filetype.add({
   extension = {
@@ -23,7 +24,6 @@ vim.filetype.add({
   },
 });
 
-local parser_config = require("nvim-treesitter.parsers").get_parser_configs();
 parser_config.c3 = {
   install_info = {
     url = "https://github.com/c3lang/tree-sitter-c3",
@@ -32,3 +32,22 @@ parser_config.c3 = {
   },
 };
 -- > c3 language
+
+-- # tup
+vim.filetype.add({
+  extension = {
+    tup = "tup",
+  },
+  filename = {
+    ["tup.config"] = "tup",
+    ["Tupfile"] = "tup",
+  },
+});
+parser_config.tup = {
+  install_info = {
+    url = "https://github.com/RoBaertschi/tree-sitter-tup",
+    files = {"src/parser.c", "src/scanner.c"},
+    branch = "main",
+  },
+};
+-- > tup
