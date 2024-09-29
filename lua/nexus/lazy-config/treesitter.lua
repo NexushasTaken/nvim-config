@@ -51,3 +51,36 @@ parser_config.tup = {
   },
 };
 -- > tup
+
+vim.api.nvim_create_user_command("TSAddCurrentProject", function(opts)
+  if #opts.fargs < 1 or #opts.fargs > 2 then
+    print("Usage: TSAddCurrentProject <language_name> [<extension>]");
+    return;
+  end
+
+  local name = opts.fargs[1];
+  local ext = opts.fargs[2] or name;
+  local cwd = vim.fn.getcwd();
+  local grammar = cwd .. "/grammar.js";
+  if vim.fn.filereadable(grammar) == 0 then
+    print("Current directory is not a tree-sitter project");
+    return;
+  end
+
+  if parser_config[name] == nil then
+    vim.opt.runtimepath:append(cwd);
+  end
+
+  vim.filetype.add({
+    extension = { [ext] = ext },
+  });
+  parser_config[name] = {
+    install_info = {
+      url = cwd,
+      files = { "src/parser.c" },
+    },
+  };
+  vim.treesitter.language.register(name, ext);
+  vim.cmd.TSUninstall(name);
+  vim.cmd.TSInstall(name);
+end, { nargs = "+" });
