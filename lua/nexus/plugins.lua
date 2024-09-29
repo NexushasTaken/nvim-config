@@ -48,12 +48,6 @@ local opts = {
   },
 };
 
-local load_config = function(plug)
-  return function()
-    require("nexus.lazy-config." .. plug);
-  end
-end
-
 local load_config = function(plug, as_opt)
   if as_opt then
     return require("nexus.lazy-config." .. plug);
@@ -247,6 +241,12 @@ lazy.setup({
       },
     },
     config = true,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+  {
+    "matbme/JABS.nvim",
+    cmd = { "JABSOpen" },
+    config = load_config("jabs"),
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
