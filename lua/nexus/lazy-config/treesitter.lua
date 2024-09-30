@@ -52,23 +52,20 @@ parser_config.tup = {
 };
 -- > tup
 
-vim.api.nvim_create_user_command("TSAddCurrentProject", function(opts)
-  if #opts.fargs < 1 or #opts.fargs > 2 then
-    print("Usage: TSAddCurrentProject <language_name> [<extension>]");
-    return;
-  end
+local ts_add = function(dir, name, ext)
+  dir = dir or vim.fn.getcwd();
+  dir = vim.uv.fs_realpath(dir) or dir;
+  name = name or string.gsub(vim.fs.basename(dir), "tree%-sitter%-(.+)", "%1");
+  ext = ext or name;
 
-  local name = opts.fargs[1];
-  local ext = opts.fargs[2] or name;
-  local cwd = vim.fn.getcwd();
-  local grammar = cwd .. "/grammar.js";
+  local grammar = dir .. "/grammar.js";
   if vim.fn.filereadable(grammar) == 0 then
-    print("Current directory is not a tree-sitter project");
+    vim.notify(string.format("%s is not a proper tree-sitter project", dir), vim.log.levels.ERROR);
     return;
   end
 
   if parser_config[name] == nil then
-    vim.opt.runtimepath:append(cwd);
+    vim.opt.runtimepath:append(dir);
   end
 
   vim.filetype.add({
@@ -76,11 +73,24 @@ vim.api.nvim_create_user_command("TSAddCurrentProject", function(opts)
   });
   parser_config[name] = {
     install_info = {
-      url = cwd,
+      url = dir,
       files = { "src/parser.c" },
     },
   };
   vim.treesitter.language.register(name, ext);
-  vim.cmd.TSUninstall(name);
-  vim.cmd.TSInstall(name);
+    -- Uninstall the grammar
+  vim.fn.jobstart("nvim --headless -c 'TSUninstall " .. name .. "' -c 'q'", {
+    on_exit = function()
+      -- Once the uninstall finishes, install it again
+      vim.cmd("TSInstall " .. name)
+    end
+  })
+end
+
+vim.api.nvim_create_user_command("TSAdd", function(opts)
+  --if #opts.fargs < 1 or #opts.fargs > 2 then
+  --  print("Usage: TSAddCWD <language_name> [<extension>]");
+  --  return;
+  --end
+  ts_add(opts.fargs[1], opts.fargs[2], opts.fargs[3]);
 end, { nargs = "+" });
