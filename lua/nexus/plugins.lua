@@ -231,6 +231,14 @@ lazy.setup({
     config = load_config("treesitter"),
   },
   {
+    "nvim-treesitter/playground",
+    lazy = false,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = load_config("playground"),
+  },
+  {
     'stevearc/oil.nvim',
     cmd = { "Oil" },
     opts = {
