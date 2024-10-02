@@ -66,25 +66,25 @@ local ts_add = function(dir, name, ext)
 
   if parser_config[name] == nil then
     vim.opt.runtimepath:append(dir);
+    parser_config[name] = {
+      install_info = {
+        url = dir,
+        files = { "src/parser.c", "src/scanner.c" },
+      },
+    };
+    vim.filetype.add({
+      extension = { [ext] = ext },
+    });
+    vim.treesitter.language.register(name, ext);
   end
 
-  vim.filetype.add({
-    extension = { [ext] = ext },
-  });
-  parser_config[name] = {
-    install_info = {
-      url = dir,
-      files = { "src/parser.c" },
-    },
-  };
-  vim.treesitter.language.register(name, ext);
-    -- Uninstall the grammar
-  vim.fn.jobstart("nvim --headless -c 'TSUninstall " .. name .. "' -c 'q'", {
-    on_exit = function()
-      -- Once the uninstall finishes, install it again
-      vim.cmd("TSInstall " .. name)
-    end
-  })
+  vim.cmd("silent TSUpdateSync aotcl");
+  --vim.fn.jobstart("nvim --headless -c 'TSUninstall " .. name .. "' -c 'q'", {
+  --  on_exit = function()
+  --    -- Once the uninstall finishes, install it again
+  --    vim.cmd("TSInstallSync " .. name);
+  --  end,
+  --});
 end
 
 vim.api.nvim_create_user_command("TSAdd", function(opts)
