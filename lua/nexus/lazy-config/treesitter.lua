@@ -78,7 +78,7 @@ local ts_add = function(dir, name, ext)
     vim.treesitter.language.register(name, ext);
   end
 
-  vim.cmd("silent TSUpdateSync aotcl");
+  vim.cmd("silent TSUpdateSync " .. name);
   --vim.fn.jobstart("nvim --headless -c 'TSUninstall " .. name .. "' -c 'q'", {
   --  on_exit = function()
   --    -- Once the uninstall finishes, install it again
