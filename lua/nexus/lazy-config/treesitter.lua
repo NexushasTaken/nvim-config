@@ -65,11 +65,16 @@ local ts_add = function(dir, name, ext)
   end
 
   if parser_config[name] == nil then
+    local files = { "src/parser.c", };
+    if vim.fn.filereadable(dir .. "/src/scanner.c") == 1 then
+      table.insert(files, "src/scanner.c")
+    end
+
     vim.opt.runtimepath:append(dir);
     parser_config[name] = {
       install_info = {
         url = dir,
-        files = { "src/parser.c", "src/scanner.c" },
+        files = files,
       },
     };
     vim.filetype.add({
@@ -79,12 +84,6 @@ local ts_add = function(dir, name, ext)
   end
 
   vim.cmd("silent TSUpdateSync " .. name);
-  --vim.fn.jobstart("nvim --headless -c 'TSUninstall " .. name .. "' -c 'q'", {
-  --  on_exit = function()
-  --    -- Once the uninstall finishes, install it again
-  --    vim.cmd("TSInstallSync " .. name);
-  --  end,
-  --});
 end
 
 vim.api.nvim_create_user_command("TSAdd", function(opts)
