@@ -1,17 +1,10 @@
 local util = require 'lspconfig.util'
 
-local bin_name = 'docker-compose-langserver'
-local cmd = { bin_name, '--stdio' }
-
-if vim.fn.has 'win32' == 1 then
-  cmd = { 'cmd.exe', '/C', bin_name, '--stdio' }
-end
-
 return {
   default_config = {
-    cmd = cmd,
-    filetypes = { 'yaml' },
-    root_dir = util.root_pattern 'docker-compose.yaml',
+    cmd = { 'docker-compose-langserver', '--stdio' },
+    filetypes = { 'yaml.docker-compose' },
+    root_dir = util.root_pattern('docker-compose.yaml', 'docker-compose.yml', 'compose.yaml', 'compose.yml'),
     single_file_support = true,
   },
   docs = {
@@ -24,9 +17,11 @@ This project contains a language service for Docker Compose.
 ```sh
 npm install @microsoft/compose-language-service
 ```
+
+Note: If the docker-compose-langserver doesn't startup when entering a `docker-compose.yaml` file, make sure that the filetype is `yaml.docker-compose`. You can set with: `:set filetype=yaml.docker-compose`.
 ]],
     default_config = {
-      root_dir = [[root_pattern("docker-compose.yaml")]],
+      root_dir = [[root_pattern("docker-compose.yaml", "docker-compose.yml", "compose.yaml", "compose.yml")]],
     },
   },
 }
