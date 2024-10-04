@@ -1,7 +1,7 @@
 require("nvim-tree").setup({
   auto_reload_on_write = true,
   sort_by = "extension",
-  hijack_cursor = true,
+  hijack_cursor = false,
   hijack_netrw = true,
   open_on_tab = false,
   reload_on_bufenter = true,
