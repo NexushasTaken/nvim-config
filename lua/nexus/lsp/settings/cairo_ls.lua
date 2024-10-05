@@ -1,25 +1,19 @@
 local util = require 'lspconfig.util'
 
-local bin_name = 'cairo-language-server'
-local cmd = { bin_name, '/C', '--node-ipc' }
-
 return {
   default_config = {
     init_options = { hostInfo = 'neovim' },
-    cmd = cmd,
+    cmd = { 'scarb-cairo-language-server', '/C', '--node-ipc' },
     filetypes = { 'cairo' },
-    root_dir = function(fname)
-      return util.root_pattern 'Scarb.toml'(fname)
-        or util.root_pattern('Scarb.toml', 'cairo_project.toml', '.git')(fname)
-    end,
+    root_dir = util.root_pattern('Scarb.toml', 'cairo_project.toml', '.git'),
   },
   docs = {
     description = [[
 [Cairo Language Server](https://github.com/starkware-libs/cairo/tree/main/crates/cairo-lang-language-server)
 
-First, install cairo following [this tutorial](https://medium.com/@elias.tazartes/ahead-of-the-curve-install-cairo-1-0-alpha-and-prepare-for-regenesis-85f4e3940e20)
+First, install Cairo following [this tutorial](https://book.cairo-lang.org/ch01-01-installation.html)
 
-Then enable cairo language server in your lua configuration.
+Then enable Cairo Language Server in your Lua configuration.
 ```lua
 require'lspconfig'.cairo_ls.setup{}
 ```
@@ -27,7 +21,7 @@ require'lspconfig'.cairo_ls.setup{}
 *cairo-language-server is still under active development, some features might not work yet !*
 ]],
     default_config = {
-      root_dir = [[root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git")]],
+      root_dir = [[root_pattern("Scarb.toml", "cairo_project.toml", ".git")]],
     },
   },
 }

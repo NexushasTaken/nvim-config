@@ -231,6 +231,14 @@ lazy.setup({
     config = load_config("treesitter"),
   },
   {
+    "nvim-treesitter/playground",
+    lazy = false,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = load_config("playground"),
+  },
+  {
     'stevearc/oil.nvim',
     cmd = { "Oil" },
     opts = {
@@ -241,6 +249,12 @@ lazy.setup({
       },
     },
     config = true,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+  {
+    "matbme/JABS.nvim",
+    cmd = { "JABSOpen" },
+    config = load_config("jabs"),
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {

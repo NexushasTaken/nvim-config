@@ -11,7 +11,7 @@ local servers = {
   "html",
   "rust_analyzer",
   "cmake",
-  "tsserver",
+  "ts_ls",
   "asm_lsp",
   "gopls",
   "cssls",
