@@ -30,6 +30,7 @@ local options = {
   softtabstop = 2,
   showtabline = 2,
   sidescrolloff = 2,
+  conceallevel = 2,
   fillchars = {
     fold = " ",
     horiz = "━",
