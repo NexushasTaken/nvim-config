@@ -290,6 +290,10 @@ lazy.setup({
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "jose-elias-alvarez/null-ls.nvim",
+      {
+        "mfussenegger/nvim-lint",
+        config = load_config("lint"),
+      },
       --[[ {
         "ray-x/lsp_signature.nvim",
         enabled = false,
