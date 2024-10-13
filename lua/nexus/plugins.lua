@@ -262,6 +262,24 @@ lazy.setup({
     ft = web_extensions,
   },
   {
+    "Julian/lean.nvim",
+    event = { "BufReadPre *.lean", "BufNewFile *.lean", },
+
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "nvim-lua/plenary.nvim",
+      -- you also will likely want nvim-cmp or some completion engine
+    },
+
+    -- see details below for full configuration options
+    opts = {
+      lsp = {},
+      mappings = true,
+    },
+
+    config = load_config("lean"),
+  },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       require("nexus.lsp")
@@ -272,6 +290,10 @@ lazy.setup({
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "jose-elias-alvarez/null-ls.nvim",
+      {
+        "mfussenegger/nvim-lint",
+        config = load_config("lint"),
+      },
       --[[ {
         "ray-x/lsp_signature.nvim",
         enabled = false,
