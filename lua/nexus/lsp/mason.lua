@@ -22,7 +22,7 @@ local servers = {
   "zls",
   "c3_lsp",
   "glsl_analyzer",
-  "vls"
+  "v_analyzer",
 };
 
 local settings = {
