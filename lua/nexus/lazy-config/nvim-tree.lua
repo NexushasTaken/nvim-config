@@ -109,7 +109,7 @@ require("nvim-tree").setup({
     set("n", "R",     api.tree.reload,                    opts("Refresh"));
     set("n", "S",     api.tree.search_node,               opts("Search"));
     set("n", "U",     api.tree.toggle_custom_filter,      opts("Toggle Filter: Hidden"));
-    set("n", "W",     api.tree.collapse_all,              opts("Collapse"));
+    set("n", "W",     api.tree.collapse_all,              opts("Collapse All"));
     set("n", "x",     api.fs.cut,                         opts("Cut"));
     set("n", "y",     api.fs.copy.filename,               opts("Copy Name"));
     set("n", "Y",     api.fs.copy.relative_path,          opts("Copy Relative Path"));
