@@ -276,6 +276,11 @@ lazy.setup({
     config = load_config("lean"),
   },
   {
+    "stevearc/conform.nvim",
+    lazy = false,
+    config = load_config("conform"),
+  },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       require("nexus.lsp")

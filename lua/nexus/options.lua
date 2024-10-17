@@ -46,6 +46,7 @@ local options = {
   cursorlineopt = "number",
   expandtab = vim.bo.filetype ~= "make",
   cinoptions = "l1,N-s,E-s,t0,U1",
+  formatexpr = [[v:lua.require("conform").formatexpr()]],
 };
 
 for k, v in pairs(options) do
