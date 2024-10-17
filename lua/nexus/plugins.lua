@@ -276,10 +276,15 @@ lazy.setup({
     config = load_config("lean"),
   },
   { -- Debugger
-    "mfussenegger/nvim-dap",
-    config = load_config("dap"),
+    "rcarriga/nvim-dap-ui",
+    lazy = false,
+    config = load_config("dap-ui"),
     dependencies = {
-      "rcarriga/nvim-dap-ui",
+      {
+        "mfussenegger/nvim-dap",
+        config = load_config("dap"),
+      },
+      "nvim-neotest/nvim-nio",
     },
   },
   {
