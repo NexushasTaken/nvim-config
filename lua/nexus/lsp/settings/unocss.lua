@@ -1,25 +1,36 @@
 local util = require 'lspconfig.util'
 
-local bin_name = 'unocss-language-server'
-local cmd = { bin_name, '--stdio' }
-
-if vim.fn.has 'win32' == 1 then
-  cmd = { 'cmd.exe', '/C', bin_name, '--stdio' }
-end
-
 return {
   default_config = {
-    cmd = cmd,
+    cmd = { 'unocss-language-server', '--stdio' },
+    -- copied from https://github.com/unocss/unocss/blob/35297359bf61917bda499db86e3728a7ebd05d6c/packages/vscode/src/autocomplete.ts#L12-L35
     filetypes = {
+      'erb',
+      'haml',
+      'hbs',
       'html',
+      'css',
+      'postcss',
+      'javascript',
       'javascriptreact',
-      'rescript',
-      'typescriptreact',
-      'vue',
+      'markdown',
+      'ejs',
+      'php',
       'svelte',
+      'typescript',
+      'typescriptreact',
+      'vue-html',
+      'vue',
+      'sass',
+      'scss',
+      'less',
+      'stylus',
+      'astro',
+      'rescript',
+      'rust',
     },
     root_dir = function(fname)
-      return util.root_pattern('unocss.config.js', 'unocss.config.ts')(fname)
+      return util.root_pattern('unocss.config.js', 'unocss.config.ts', 'uno.config.js', 'uno.config.ts')(fname)
     end,
   },
   docs = {
@@ -32,7 +43,7 @@ npm i unocss-language-server -g
 ```
 ]],
     default_config = {
-      root_dir = [[root_pattern('unocss.config.js', 'unocss.config.ts')]],
+      root_dir = [[root_pattern('unocss.config.js', 'unocss.config.ts', 'uno.config.js', 'uno.config.ts')]],
     },
   },
 }

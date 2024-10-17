@@ -1,5 +1,3 @@
-local opts = { noremap = true, };
-
 local map = vim.keymap.set;
 local cmd = vim.cmd;
 local g = vim.g;
@@ -7,45 +5,38 @@ local g = vim.g;
 g.mapleader = " ";
 g.maplocalleader = g.mapleader;
 
-map("n", "<leader>q", ":qa!<cr>", opts);
-map("n", "sq", ":q!<cr>", opts);
-map("n", "saq", ":wqa!<cr>", opts);
-map("n", "sw", ":w!<cr>", opts);
-map("n", "saw", ":wa!<cr>", opts);
-map("n", "ss", ":split<cr>", opts);
-map("n", "sv", ":vsplit<cr>", opts);
-map("n", "s<s-T>", ":tab ", opts);
-map("n", "sh", ":wincmd h<cr>", opts);
-map("n", "sk", ":wincmd k<cr>", opts);
-map("n", "sj", ":wincmd j<cr>", opts);
-map("n", "sl", ":wincmd l<cr>", opts);
-map("n", "st", ":tabnew ", opts);
-map("n", "sp", ":tabprev<cr>", opts);
-map("n", "sn", ":tabnext<cr>", opts);
-map("n", "sd", ":SwapDelete<cr>", opts);
+map("n", "<leader>q", ":qa!<cr>", { noremap = true, });
+map("n", "sq", ":q!<cr>", { noremap = true, });
+map("n", "saq", ":wqa!<cr>", { noremap = true, });
+map("n", "sw", ":w!<cr>", { noremap = true, });
+map("n", "saw", ":wa!<cr>", { noremap = true, });
+map("n", "ss", ":split<cr>", { noremap = true, });
+map("n", "sv", ":vsplit<cr>", { noremap = true, });
+map("n", "s<s-T>", ":tab ", { noremap = true, });
+map("n", "sh", ":wincmd h<cr>", { noremap = true, });
+map("n", "sk", ":wincmd k<cr>", { noremap = true, });
+map("n", "sj", ":wincmd j<cr>", { noremap = true, });
+map("n", "sl", ":wincmd l<cr>", { noremap = true, });
+map("n", "st", ":tabnew ", { noremap = true, });
+map("n", "sp", ":tabprev<cr>", { noremap = true, });
+map("n", "sn", ":tabnext<cr>", { noremap = true, });
+map("n", "sd", ":SwapDelete<cr>", { noremap = true, });
 
-map("n", "<m-L>", ":vertical resize +1<cr>", opts);
-map("n", "<m-H>", ":vertical resize -1<cr>", opts);
-map("n", "<m-K>", ":resize +1<cr>", opts);
-map("n", "<m-J>", ":resize -1<cr>", opts);
+map("n", "<m-L>", ":vertical resize +1<cr>", { noremap = true, });
+map("n", "<m-H>", ":vertical resize -1<cr>", { noremap = true, });
+map("n", "<m-K>", ":resize +1<cr>", { noremap = true, });
+map("n", "<m-J>", ":resize -1<cr>", { noremap = true, });
 
-map("n", "<leader>b", ":buffer ", opts);
-map("n", "<leader><S-L>", ":nohl<cr>", opts);
-map("n", "<leader>u", ":UndotreeToggle<cr>", opts);
-map("n", "<leader>n", ":NvimTreeFocus<cr>", opts);
+map("n", "<leader><S-L>", ":nohl<cr>", { noremap = true, });
+map("n", "<leader>u", ":UndotreeToggle<cr>", { noremap = true, });
+map("n", "<leader>n", ":NvimTreeFocus<cr>", { noremap = true, });
 
-map("n", "<leader>p", '<esc>"+p', opts);
-map("n", "<leader>yy", '<esc>"+yy', opts);
-map("v", "<leader>y", '"+y', opts);
+map("n", "<leader>p", '<esc>"+p', { noremap = true, });
+map("n", "<leader>yy", '<esc>"+yy', { noremap = true, });
+map("v", "<leader>y", '"+y', { noremap = true, });
 
-map("n", "<leader>ff", ":Telescope find_files<cr>", opts);
-map("n", "<leader>fg", ":Telescope live_grep<cr>", opts);
-map("n", "<leader>fh", ":Telescope help_tags<cr>", opts);
-map("n", "<leader>fb", ":Telescope buffers<cr>", opts);
-map("n", "<leader>ft", ":Telescope tags<cr>", opts);
-
-map("n", "<leader>o", ":Oil<cr>", opts);
-map("n", "<leader>O", ":Oil ", opts);
+map("n", "<leader>o", ":Oil<cr>", { noremap = true, });
+map("n", "<leader>O", ":Oil ", { noremap = true, });
 
 map("n", "zZ", function()
   if vim.opt.foldmethod:get() == "manual" then
@@ -57,9 +48,9 @@ map("n", "zZ", function()
     vim.opt.foldexpr = "0";
     print("fold method: manual");
   end
-end, opts);
+end, { noremap = true, });
 
-map("n", "<leader>dd", ":Bdelete!<cr>", opts);
+map("n", "<leader>dd", ":Bdelete!<cr>", { noremap = true, });
 map("n", "<leader>dc", function()
   local choose = { "Choose a buffer", };
   for _, buf in pairs(vim.fn.getbufinfo({ bufloaded = 1 })) do
@@ -74,11 +65,11 @@ map("n", "<leader>dc", function()
   if input ~= 0 then
     vim.api.nvim_buf_delete(input, { force = true });
   end
-end, opts)
+end, { noremap = true, })
 
-map("n", "gl", ":lua vim.diagnostic.open_float()<CR>", opts);
-map("n", "<leader>lj", ":lua vim.diagnostic.goto_next({buffer=0})<cr>", opts);
-map("n", "<leader>lk", ":lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts);
+map("n", "gl", ":lua vim.diagnostic.open_float()<CR>", { noremap = true, });
+map("n", "<leader>lj", ":lua vim.diagnostic.goto_next({buffer=0})<cr>", { noremap = true, });
+map("n", "<leader>lk", ":lua vim.diagnostic.goto_prev({buffer=0})<cr>", { noremap = true, });
 map("n", "<leader>m", function()
   local lbuf = vim.bo[vim.api.nvim_get_current_buf()];
   lbuf.modifiable = not lbuf.modifiable;
@@ -110,12 +101,12 @@ map("n", "<leader>sl", function()
   else
     print("Session not found");
   end
-end, opts);
+end, { noremap = true, });
 
 map("n", "<leader>ss", function()
   cmd(string.format("mksession! %s", sessionfile));
   print("Session Saved");
-end, opts);
+end, { noremap = true, });
 
 map("n", "<leader>t", function()
   if #vim.fn.bufname("%") > 0 then
@@ -127,4 +118,37 @@ map("n", "<leader>t", function()
 
     vim.api.nvim_exec2("silent! write", { output = false });
   end
-end, opts);
+end, { noremap = true, });
+
+-- TODO: Figure this out why 'w' is appending when testcase keybinds are executed.
+local remove_w = function()
+  local keys = vim.api.nvim_replace_termcodes("<BS><ESC>", true, false, true)
+  vim.api.nvim_feedkeys(keys, "x", false)
+end
+
+map("n", "<leader>au", function() require("textcase").current_word("to_upper_case");    remove_w(); end, { noremap = true, desc="TO UPPER CASE", });
+map("n", "<leader>al", function() require("textcase").current_word("to_lower_case");    remove_w(); end, { noremap = true, desc="to lower case", });
+map("n", "<leader>as", function() require("textcase").current_word("to_snake_case");    remove_w(); end, { noremap = true, desc="to_snake_case", });
+map("n", "<leader>ad", function() require("textcase").current_word("to_dash_case");     remove_w(); end, { noremap = true, desc="to.dash.case", });
+map("n", "<leader>an", function() require("textcase").current_word("to_constant_case"); remove_w(); end, { noremap = true, desc="TO_CONSTANT_CASE", });
+map("n", "<leader>ad", function() require("textcase").current_word("to_dot_case");      remove_w(); end, { noremap = true, desc="to.dot.case", });
+map("n", "<leader>a,", function() require("textcase").current_word("to_comma_case");    remove_w(); end, { noremap = true, desc="to,comma,case", });
+map("n", "<leader>aa", function() require("textcase").current_word("to_phrase_case");   remove_w(); end, { noremap = true, desc="To phrase case", });
+map("n", "<leader>ac", function() require("textcase").current_word("to_camel_case");    remove_w(); end, { noremap = true, desc="toCamelCase", });
+map("n", "<leader>ap", function() require("textcase").current_word("to_pascal_case");   remove_w(); end, { noremap = true, desc="ToPascalCase", });
+map("n", "<leader>at", function() require("textcase").current_word("to_title_case");    remove_w(); end, { noremap = true, desc="To Title Case", });
+map("n", "<leader>af", function() require("textcase").current_word("to_path_case");     remove_w(); end, { noremap = true, desc="to/path/case", });
+
+map("v", "<leader>au", function() require("textcase").current_word("to_upper_case");    remove_w(); end, { noremap = true, desc="TO UPPER CASE", });
+map("v", "<leader>al", function() require("textcase").current_word("to_lower_case");    remove_w(); end, { noremap = true, desc="to lower case", });
+map("v", "<leader>as", function() require("textcase").current_word("to_snake_case");    remove_w(); end, { noremap = true, desc="to_snake_case", });
+map("v", "<leader>ad", function() require("textcase").current_word("to_dash_case");     remove_w(); end, { noremap = true, desc="to.dash.case", });
+map("v", "<leader>an", function() require("textcase").current_word("to_constant_case"); remove_w(); end, { noremap = true, desc="TO_CONSTANT_CASE", });
+map("v", "<leader>ad", function() require("textcase").current_word("to_dot_case");      remove_w(); end, { noremap = true, desc="to.dot.case", });
+map("v", "<leader>a,", function() require("textcase").current_word("to_comma_case");    remove_w(); end, { noremap = true, desc="to,comma,case", });
+map("v", "<leader>aa", function() require("textcase").current_word("to_phrase_case");   remove_w(); end, { noremap = true, desc="To phrase case", });
+map("v", "<leader>ac", function() require("textcase").current_word("to_camel_case");    remove_w(); end, { noremap = true, desc="toCamelCase", });
+map("v", "<leader>ap", function() require("textcase").current_word("to_pascal_case");   remove_w(); end, { noremap = true, desc="ToPascalCase", });
+map("v", "<leader>at", function() require("textcase").current_word("to_title_case");    remove_w(); end, { noremap = true, desc="To Title Case", });
+map("v", "<leader>af", function() require("textcase").current_word("to_path_case");     remove_w(); end, { noremap = true, desc="to/path/case", });
+

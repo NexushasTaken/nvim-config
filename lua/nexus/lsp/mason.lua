@@ -11,13 +11,18 @@ local servers = {
   "html",
   "rust_analyzer",
   "cmake",
-  "tsserver",
+  "ts_ls",
   "asm_lsp",
   "gopls",
   "cssls",
   "serve_d",
   "gdscript",
   "svelte",
+  "nimls",
+  "zls",
+  "c3_lsp",
+  "glsl_analyzer",
+  "v_analyzer",
 };
 
 local settings = {
@@ -35,6 +40,11 @@ local settings = {
 require("mason").setup(settings);
 
 local lspconfig = require("lspconfig");
+local configs = require("lspconfig.configs");
+
+if not configs.c3_lsp then
+  configs.c3_lsp = require("nexus.lsp.settings.c3_lsp");
+end
 
 local opts = {};
 

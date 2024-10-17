@@ -8,6 +8,9 @@ return {
       return util.find_git_ancestor(dir)
     end,
     settings = {},
+    capabilities = {
+      offsetEncoding = { 'utf-8', 'utf-16' },
+    },
   },
   docs = {
     description = [[

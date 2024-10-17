@@ -2,41 +2,51 @@ local util = require 'lspconfig.util'
 
 return {
   default_config = {
-    cmd = {},
+    cmd = { 'rescript-language-server', '--stdio' },
     filetypes = { 'rescript' },
-    root_dir = util.root_pattern('bsconfig.json', '.git'),
+    root_dir = util.root_pattern('bsconfig.json', 'rescript.json', '.git'),
     settings = {},
+    init_options = {
+      extensionConfiguration = {
+        -- buggy, prompts much too often, superseded by incrementalTypechecking, below
+        askToStartBuild = false,
+
+        allowBuiltInFormatter = true, -- lower latency
+        incrementalTypechecking = { -- removes the need for external build process
+          enabled = true,
+          acrossFiles = true,
+        },
+        cache = { projectConfig = { enabled = true } }, -- speed up latency dramatically
+        codeLens = true,
+        inlayHints = { enable = true },
+      },
+    },
   },
   docs = {
     description = [[
-https://github.com/rescript-lang/rescript-vscode
+https://github.com/rescript-lang/rescript-vscode/tree/master/server
 
-ReScript language server
-
-**By default, rescriptls doesn't have a `cmd` set.** This is because nvim-lspconfig does not make assumptions about your path.
-You have to install the language server manually.
-
-You can use the bundled language server inside the [vim-rescript](https://github.com/rescript-lang/vim-rescript) repo.
-
-Clone the vim-rescript repo and point `cmd` to `server.js` inside `server/out` directory:
-
-```lua
-cmd = {'node', '<path_to_repo>/server/out/server.js', '--stdio'}
-
+ReScript Language Server can be installed via npm:
+```sh
+npm install -g @rescript/language-server
 ```
 
-If you have vim-rescript installed you can also use that installation. for example if you're using packer.nvim you can set cmd to something like this:
+See [package.json](https://github.com/rescript-lang/rescript-vscode/blob/master/package.json#L139)
+for init_options supported.
 
+For example, in order to disable the `inlayHints` option:
 ```lua
-cmd = {
-  'node',
-  '/home/username/.local/share/nvim/site/pack/packer/start/vim-rescript/server/out/server.js',
-  '--stdio'
+require'lspconfig'.pylsp.setup{
+  settings = {
+    rescript = {
+      settings = {
+        inlayHints = { enable = false },
+      },
+    },
+  }
 }
 ```
-
-Another option is to use vscode extension [release](https://github.com/rescript-lang/rescript-vscode/releases).
-Take a look at [here](https://github.com/rescript-lang/rescript-vscode#use-with-other-editors) for instructions.
 ]],
+    root_dir = [[root_pattern('bsconfig.json', 'rescript.json', '.git')]],
   },
 }

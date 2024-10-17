@@ -65,7 +65,9 @@ cmp.setup({
   mapping = {
     ["<ESC>"] = cmp.mapping({
       i = function(fallback)
-        if cmp.visible() then
+        if luasnip.in_snippet() then
+          luasnip.unlink_current();
+        elseif cmp.visible() then
           cmp.abort();
         end
         fallback();
@@ -105,13 +107,6 @@ cmp.setup({
         fallback();
       end
     end, { "i", "s", }),
-    ["<C-Space>"] = cmp.mapping(function(fallback)
-      if luasnip.in_snippet() then
-        luasnip.unlink_current();
-      else
-        fallback();
-      end
-    end, { "i", "s", }),
   },
   formatting = {
     fields = { "kind", "abbr", "menu", },
@@ -119,6 +114,7 @@ cmp.setup({
       -- Kind icons
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       vim_item.menu = ({
+        nvim_lua = "[Lua]",
         nvim_lsp = "[LSP]",
         luasnip = "[Snippet]",
         buffer = "[Buffer]",
@@ -131,8 +127,8 @@ cmp.setup({
     { name = "nvim_lua", },
     { name = "nvim_lsp", },
     { name = "luasnip", },
-    { name = "buffer", },
     { name = "path", },
+    { name = "buffer", },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Select,

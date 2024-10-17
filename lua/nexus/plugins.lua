@@ -21,7 +21,7 @@ local opts = {
     rtp = {
       disabled_plugins = {
         "2html_plugin", "tohtml", "getscript", "getscriptPlugin", "gzip",
-        "logipat", "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers",
+        "logipat", --[[ "netrw", "netrwPlugin", "netrwSettings", "netrwFileHandlers", ]]
         "matchit", "tar", "tarPlugin", "rrhelper", "spellfile_plugin", "vimball",
         "vimballPlugin", "zip", "zipPlugin", "tutor", "rplugin", "syntax",
         "synmenu", "optwin", "compiler", "bugreport", "ftplugin", "spellfile"
@@ -48,9 +48,13 @@ local opts = {
   },
 };
 
-local load_config = function(plug)
-  return function()
-    require("nexus.lazy-config." .. plug);
+local load_config = function(plug, as_opt)
+  if as_opt then
+    return require("nexus.lazy-config." .. plug);
+  else
+    return function()
+      require("nexus.lazy-config." .. plug);
+    end
   end
 end
 
@@ -68,11 +72,12 @@ lazy.setup({
     priority = 100,
     config = load_config("colorscheme"),
   },
-  { -- Status line
-    "itchyny/lightline.vim",
+  {
+    "nvim-lualine/lualine.nvim",
     lazy = false,
     priority = 99,
-    config = load_config("lightline"),
+    config = load_config("lualine"),
+    dependencies = { "nvim-tree/nvim-web-devicons", },
   },
   { -- Relative numbers disabler
     "nkakouros-original/numbers.nvim",
@@ -135,7 +140,7 @@ lazy.setup({
       { "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
       { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
     },
-    config = true,
+    config = load_config("comment"),
   },
 
   { -- Undo tree
@@ -145,7 +150,8 @@ lazy.setup({
   },
   {
     "nvim-telescope/telescope.nvim",
-    cmd = { "Telescope" },
+    lazy = false,
+    config = load_config("telescope"),
     dependencies = {
       "nvim-lua/plenary.nvim", -- Some tools for Lua?
     },
@@ -155,9 +161,20 @@ lazy.setup({
     cmd = { "Tabularize" },
   },
   {
+    "folke/todo-comments.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    },
+    opts = load_config("todo-comments", true),
+    lazy = false,
+  },
+  {
     "folke/which-key.nvim",
     keys = { "<leader>wk", },
-    config = load_config('which-key'),
+    config = load_config("which-key"),
+  },
+  {
+    "echasnovski/mini.nvim",
   },
   {
     "iamcco/markdown-preview.nvim",
@@ -169,6 +186,10 @@ lazy.setup({
   },
   { -- Better language support
     "sheerun/vim-polyglot",
+  },
+  {
+    "johmsalas/text-case.nvim",
+    lazy = false,
   },
   {
     "tpope/vim-fugitive",
@@ -212,6 +233,14 @@ lazy.setup({
     config = load_config("treesitter"),
   },
   {
+    "nvim-treesitter/playground",
+    lazy = false,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = load_config("playground"),
+  },
+  {
     'stevearc/oil.nvim',
     cmd = { "Oil" },
     opts = {
@@ -229,6 +258,29 @@ lazy.setup({
     ft = web_extensions,
   },
   {
+    "Julian/lean.nvim",
+    event = { "BufReadPre *.lean", "BufNewFile *.lean", },
+
+    dependencies = {
+      "neovim/nvim-lspconfig",
+      "nvim-lua/plenary.nvim",
+      -- you also will likely want nvim-cmp or some completion engine
+    },
+
+    -- see details below for full configuration options
+    opts = {
+      lsp = {},
+      mappings = true,
+    },
+
+    config = load_config("lean"),
+  },
+  {
+    "stevearc/conform.nvim",
+    lazy = false,
+    config = load_config("conform"),
+  },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       require("nexus.lsp")
@@ -239,6 +291,10 @@ lazy.setup({
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "jose-elias-alvarez/null-ls.nvim",
+      {
+        "mfussenegger/nvim-lint",
+        config = load_config("lint"),
+      },
       --[[ {
         "ray-x/lsp_signature.nvim",
         enabled = false,

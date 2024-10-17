@@ -22,14 +22,13 @@ local options = {
   autochdir = false,
   foldenable = false,
   compatible = false,
-  fixendofline = false,
   tabstop = 2,
   foldlevel = 0,
   scrolloff = 2,
   shiftwidth = 2,
   sidescroll = 0,
   softtabstop = 2,
-  showtabline = 2,
+  showtabline = 0,
   sidescrolloff = 2,
   fillchars = {
     fold = " ",
@@ -47,6 +46,7 @@ local options = {
   cursorlineopt = "number",
   expandtab = vim.bo.filetype ~= "make",
   cinoptions = "l1,N-s,E-s,t0,U1",
+  formatexpr = [[v:lua.require("conform").formatexpr()]],
 };
 
 for k, v in pairs(options) do

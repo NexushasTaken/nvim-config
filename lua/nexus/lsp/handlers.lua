@@ -1,5 +1,6 @@
 local M = {};
 
+local conform = require("conform");
 local cmp_nvim_lsp = require("cmp_nvim_lsp");
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities();
@@ -63,7 +64,6 @@ local function lsp_keymaps(bufnr)
   map(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts);
   map(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts);
   map(bufnr, "n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts);
-  map(bufnr, "n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts);
   map(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts);
   map(bufnr, "n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", opts);
   map(bufnr, "n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts);
