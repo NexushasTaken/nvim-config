@@ -150,7 +150,8 @@ lazy.setup({
   },
   {
     "nvim-telescope/telescope.nvim",
-    cmd = { "Telescope" },
+    lazy = false,
+    config = load_config("telescope"),
     dependencies = {
       "nvim-lua/plenary.nvim", -- Some tools for Lua?
     },

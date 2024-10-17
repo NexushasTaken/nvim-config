@@ -36,12 +36,6 @@ map("n", "<leader>p", '<esc>"+p', { noremap = true, });
 map("n", "<leader>yy", '<esc>"+yy', { noremap = true, });
 map("v", "<leader>y", '"+y', { noremap = true, });
 
-map("n", "<leader>ff", ":Telescope find_files<cr>", { noremap = true, });
-map("n", "<leader>fg", ":Telescope live_grep<cr>", { noremap = true, });
-map("n", "<leader>fh", ":Telescope help_tags<cr>", { noremap = true, });
-map("n", "<leader>fb", ":Telescope buffers<cr>", { noremap = true, });
-map("n", "<leader>ft", ":Telescope tags<cr>", { noremap = true, });
-
 map("n", "<leader>o", ":Oil<cr>", { noremap = true, });
 map("n", "<leader>O", ":Oil ", { noremap = true, });
 
