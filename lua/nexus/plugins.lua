@@ -72,11 +72,12 @@ lazy.setup({
     priority = 100,
     config = load_config("colorscheme"),
   },
-  { -- Status line
-    "itchyny/lightline.vim",
+  {
+    "nvim-lualine/lualine.nvim",
     lazy = false,
     priority = 99,
-    config = load_config("lightline"),
+    config = load_config("lualine"),
+    dependencies = { "nvim-tree/nvim-web-devicons", },
   },
   { -- Relative numbers disabler
     "nkakouros-original/numbers.nvim",
