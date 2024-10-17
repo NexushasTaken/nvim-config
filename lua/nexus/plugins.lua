@@ -254,12 +254,6 @@ lazy.setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
-    "matbme/JABS.nvim",
-    cmd = { "JABSOpen" },
-    config = load_config("jabs"),
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
-  {
     "mattn/emmet-vim",
     ft = web_extensions,
   },

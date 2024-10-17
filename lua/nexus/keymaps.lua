@@ -27,7 +27,6 @@ map("n", "<m-H>", ":vertical resize -1<cr>", { noremap = true, });
 map("n", "<m-K>", ":resize +1<cr>", { noremap = true, });
 map("n", "<m-J>", ":resize -1<cr>", { noremap = true, });
 
-map("n", "<leader>b", ":JABSOpen<cr>", { noremap = true, });
 map("n", "<leader><S-L>", ":nohl<cr>", { noremap = true, });
 map("n", "<leader>u", ":UndotreeToggle<cr>", { noremap = true, });
 map("n", "<leader>n", ":NvimTreeFocus<cr>", { noremap = true, });

@@ -50,6 +50,7 @@ map("n", "<leader>ff", prompt_cmd("find_files"), { noremap = true, });
 map("n", "<leader>fg", prompt_cmd("live_grep"), { noremap = true, });
 map("n", "<leader>fh", prompt_cmd("help_tags"), { noremap = true, });
 map("n", "<leader>fb", prompt_cmd("buffers"), { noremap = true, });
+map("n", "<leader>b",  prompt_cmd("buffers"), { noremap = true, });
 map("n", "<leader>ft", prompt_cmd("tags"), { noremap = true, });
 
 scope.setup({
