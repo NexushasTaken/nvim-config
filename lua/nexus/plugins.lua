@@ -275,6 +275,13 @@ lazy.setup({
 
     config = load_config("lean"),
   },
+  { -- Debugger
+    "mfussenegger/nvim-dap",
+    config = load_config("dap"),
+    dependencies = {
+      "rcarriga/nvim-dap-ui",
+    },
+  },
   {
     "stevearc/conform.nvim",
     lazy = false,
@@ -324,13 +331,6 @@ lazy.setup({
       {
         "simrat39/symbols-outline.nvim",
         config = load_config("symbols-outline"),
-      },
-      {
-        "mfussenegger/nvim-dap",
-        config = load_config("dap"),
-        dependencies = {
-          "rcarriga/nvim-dap-ui",
-        },
       },
     }
   },
