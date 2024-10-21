@@ -281,6 +281,15 @@ lazy.setup({
     config = load_config("conform"),
   },
   {
+    "m4xshen/hardtime.nvim",
+    lazy = false,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+    },
+    config = load_config("hardtime"),
+  },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       require("nexus.lsp")
