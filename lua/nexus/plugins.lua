@@ -170,7 +170,7 @@ lazy.setup({
   },
   {
     "folke/which-key.nvim",
-    keys = { "<leader>wk", },
+    cmd = { "WhichKey", },
     config = load_config("which-key"),
   },
   {
