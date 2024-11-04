@@ -234,7 +234,10 @@ lazy.setup({
   },
   {
     "nvim-treesitter/playground",
-    lazy = false,
+    cmd = {
+      "TSPlayground",
+      "TSPlaygroundToggle",
+    },
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
@@ -275,18 +278,6 @@ lazy.setup({
 
     config = load_config("lean"),
   },
-  { -- Debugger
-    "rcarriga/nvim-dap-ui",
-    lazy = false,
-    config = load_config("dap-ui"),
-    dependencies = {
-      {
-        "mfussenegger/nvim-dap",
-        config = load_config("dap"),
-      },
-      "nvim-neotest/nvim-nio",
-    },
-  },
   {
     "stevearc/conform.nvim",
     lazy = false,
@@ -301,10 +292,45 @@ lazy.setup({
     },
     config = load_config("hardtime"),
   },
+
+  { -- Debugger
+    "rcarriga/nvim-dap-ui",
+    cmd = {
+      "DapContinue",
+      "DapDisconnect",
+      "DapEval",
+      "DapInstall",
+      "DapLoadLaunchJSON",
+      "DapNew",
+      "DapRestartFrame",
+      "DapSetLogLevel",
+      "DapShowLog",
+      "DapStepInto",
+      "DapStepOut",
+      "DapStepOver",
+      "DapTerminate",
+      "DapToggleBreakpoint",
+      "DapToggleRepl",
+      "DapUninstall",
+    },
+    config = load_config("dap-ui"),
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      {
+        "jay-babu/mason-nvim-dap.nvim",
+        config = load_config("dap-mason"),
+        dependencies = {
+          "williamboman/mason.nvim",
+          "mfussenegger/nvim-dap",
+        },
+      },
+    },
+  },
+
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require("nexus.lsp")
+      require("nexus.lsp");
     end,
     cmd = { "LspStart" },
     dependencies = {
@@ -330,7 +356,7 @@ lazy.setup({
       {
         "hrsh7th/nvim-cmp",
         config = function()
-          require("nexus.lsp.cmp")
+          require("nexus.lsp.cmp");
         end,
         dependencies = {
           "L3MON4D3/LuaSnip", -- Required
