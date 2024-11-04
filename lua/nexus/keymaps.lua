@@ -6,13 +6,8 @@ g.mapleader = " ";
 g.maplocalleader = g.mapleader;
 
 map("n", "<leader>q", ":qa!<cr>", { noremap = true, });
-map("n", "sq", ":q!<cr>", { noremap = true, });
-map("n", "saq", ":wqa!<cr>", { noremap = true, });
-map("n", "sw", ":w!<cr>", { noremap = true, });
-map("n", "saw", ":wa!<cr>", { noremap = true, });
 map("n", "ss", ":split<cr>", { noremap = true, });
 map("n", "sv", ":vsplit<cr>", { noremap = true, });
-map("n", "s<s-T>", ":tab ", { noremap = true, });
 map("n", "sh", ":wincmd h<cr>", { noremap = true, });
 map("n", "sk", ":wincmd k<cr>", { noremap = true, });
 map("n", "sj", ":wincmd j<cr>", { noremap = true, });
@@ -37,6 +32,20 @@ map("v", "<leader>y", '"+y', { noremap = true, });
 
 map("n", "<leader>o", ":Oil<cr>", { noremap = true, });
 map("n", "<leader>O", ":Oil ", { noremap = true, });
+
+map("n", "<leader>wk", function()
+  local input = vim.fn.input("WhichKey: ");
+  local leader = vim.g.mapleader;
+  if #input == 0 then
+    return;
+  end
+  input = input:gsub(leader, "<leader>");
+
+  local lbuf = vim.bo[vim.api.nvim_get_current_buf()];
+  local lmod = lbuf.modifiable;
+  vim.cmd.WhichKey(input);
+  lbuf.modifiable = lmod;
+end, { noremap = true, desc = "WhichKey", });
 
 map("n", "zZ", function()
   if vim.opt.foldmethod:get() == "manual" then
@@ -151,4 +160,3 @@ map("v", "<leader>ac", function() require("textcase").current_word("to_camel_cas
 map("v", "<leader>ap", function() require("textcase").current_word("to_pascal_case");   remove_w(); end, { noremap = true, desc="ToPascalCase", });
 map("v", "<leader>at", function() require("textcase").current_word("to_title_case");    remove_w(); end, { noremap = true, desc="To Title Case", });
 map("v", "<leader>af", function() require("textcase").current_word("to_path_case");     remove_w(); end, { noremap = true, desc="to/path/case", });
-

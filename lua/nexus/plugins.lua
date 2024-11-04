@@ -170,7 +170,7 @@ lazy.setup({
   },
   {
     "folke/which-key.nvim",
-    keys = { "<leader>wk", },
+    cmd = { "WhichKey", },
     config = load_config("which-key"),
   },
   {
@@ -291,6 +291,15 @@ lazy.setup({
     "stevearc/conform.nvim",
     lazy = false,
     config = load_config("conform"),
+  },
+  {
+    "m4xshen/hardtime.nvim",
+    lazy = false,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+    },
+    config = load_config("hardtime"),
   },
   {
     "neovim/nvim-lspconfig",

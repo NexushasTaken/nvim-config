@@ -52,6 +52,17 @@ parser_config.tup = {
 };
 -- > tup
 
+-- # nu
+parser_config.nu = {
+  install_info = {
+    url = "https://github.com/nushell/tree-sitter-nu",
+    files = { "src/parser.c" },
+    branch = "main",
+  },
+  filetype = "nu",
+};
+-- > nu
+
 local ts_add = function(dir, name, ext)
   dir = dir or vim.fn.getcwd();
   dir = vim.uv.fs_realpath(dir) or dir;
