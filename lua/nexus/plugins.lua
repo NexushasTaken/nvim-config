@@ -72,6 +72,7 @@ lazy.setup({
     priority = 100,
     config = load_config("colorscheme"),
   },
+
   {
     "nvim-lualine/lualine.nvim",
     lazy = false,
@@ -79,6 +80,7 @@ lazy.setup({
     config = load_config("lualine"),
     dependencies = { "nvim-tree/nvim-web-devicons", },
   },
+
   { -- Relative numbers disabler
     "nkakouros-original/numbers.nvim",
     keys = { "i", },
@@ -91,11 +93,13 @@ lazy.setup({
       },
     },
   },
+
   { -- Highlight pairs
     "andymass/vim-matchup",
     lazy = false,
     config = load_config("matchup"),
   },
+
   { -- File browser
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeFocus" },
@@ -104,6 +108,7 @@ lazy.setup({
       "nvim-tree/nvim-web-devicons", -- Icons
     },
   },
+
   { -- Auto close chars
     "windwp/nvim-autopairs",
     keys = {
@@ -115,6 +120,7 @@ lazy.setup({
     },
     config = load_config("autopairs"),
   },
+
   {
     "kylechui/nvim-surround",
     keys = {
@@ -130,6 +136,7 @@ lazy.setup({
     },
     config = true,
   },
+
   { -- Commenter
     "numToStr/Comment.nvim",
     keys = {
@@ -148,6 +155,7 @@ lazy.setup({
     cmd = { "UndotreeToggle" },
     config = load_config("undotree"),
   },
+
   {
     "nvim-telescope/telescope.nvim",
     lazy = false,
@@ -156,10 +164,12 @@ lazy.setup({
       "nvim-lua/plenary.nvim", -- Some tools for Lua?
     },
   },
+
   { -- Fix tab formats
     "godlygeek/tabular",
     cmd = { "Tabularize" },
   },
+
   {
     "folke/todo-comments.nvim",
     dependencies = {
@@ -168,38 +178,47 @@ lazy.setup({
     opts = load_config("todo-comments", true),
     lazy = false,
   },
+
   {
     "folke/which-key.nvim",
     cmd = { "WhichKey", },
     config = load_config("which-key"),
   },
+
   {
     "echasnovski/mini.nvim",
   },
+
   {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
   },
+
   { -- Make dirs when saving files
     "jghauser/mkdir.nvim",
     lazy = false,
   },
+
   { -- Better language support
     "sheerun/vim-polyglot",
   },
+
   {
     "johmsalas/text-case.nvim",
     lazy = false,
   },
+
   {
     "tpope/vim-fugitive",
     enabled = false,
     lazy = false,
   },
+
   { -- Buffer remover
     "moll/vim-bbye",
     cmd = { "Bdelete", "Bwipeout" },
   },
+
   {
     "mechatroner/rainbow_csv",
     ft = {
@@ -212,15 +231,18 @@ lazy.setup({
       "rfc_semicolon",
     },
   },
+
   {
     "turbio/bracey.vim",
     ft = web_extensions,
   },
+
   {
     "phaazon/hop.nvim",
     config = load_config("hop"),
     keys = "<leader>h",
   },
+
   {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
@@ -232,6 +254,7 @@ lazy.setup({
     },
     config = load_config("treesitter"),
   },
+
   {
     "nvim-treesitter/playground",
     cmd = {
@@ -243,6 +266,7 @@ lazy.setup({
     },
     config = load_config("playground"),
   },
+
   {
     'stevearc/oil.nvim',
     cmd = { "Oil" },
@@ -256,10 +280,12 @@ lazy.setup({
     config = true,
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
+
   {
     "mattn/emmet-vim",
     ft = web_extensions,
   },
+
   {
     "Julian/lean.nvim",
     event = { "BufReadPre *.lean", "BufNewFile *.lean", },
@@ -278,11 +304,13 @@ lazy.setup({
 
     config = load_config("lean"),
   },
+
   {
     "stevearc/conform.nvim",
     lazy = false,
     config = load_config("conform"),
   },
+
   {
     "m4xshen/hardtime.nvim",
     lazy = false,
