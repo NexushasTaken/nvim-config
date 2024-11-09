@@ -1,4 +1,4 @@
-let org = require("orgmode");
+local org = require("orgmode");
 
 -- Setup orgmode
 org.setup({
