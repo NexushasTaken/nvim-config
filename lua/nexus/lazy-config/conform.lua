@@ -23,7 +23,7 @@ conform.setup({
       lsp_format = "fallback", stop_after_first = true,
     },
     python = {
-      "isort", "black",
+      "black", "isort",
       lsp_format = "fallback", stop_after_first = true,
     },
     rust = {
