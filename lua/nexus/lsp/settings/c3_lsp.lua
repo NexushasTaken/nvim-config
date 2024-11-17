@@ -2,7 +2,7 @@ local util = require 'lspconfig.util'
 
 return {
   default_config = {
-    cmd = { 'c3lsp' },
+    cmd = { 'c3-lsp' },
     root_dir = function(fname)
       return util.root_pattern { 'project.json', 'manifest.json', '.git' }(fname)
     end,
