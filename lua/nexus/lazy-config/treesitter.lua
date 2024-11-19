@@ -63,6 +63,10 @@ parser_config.nu = {
 };
 -- > nu
 
+vim.filetype.add({
+  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+});
+
 local ts_add = function(dir, name, ext)
   dir = dir or vim.fn.getcwd();
   dir = vim.uv.fs_realpath(dir) or dir;
