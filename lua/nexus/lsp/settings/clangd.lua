@@ -66,7 +66,7 @@ local default_capabilities = {
 
 return {
   default_config = {
-    cmd = { 'clangd' },
+    cmd = { 'clangd', '-header-insertion=never' },
     filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
     root_dir = function(fname)
       return util.root_pattern(unpack(root_files))(fname) or util.find_git_ancestor(fname)

@@ -26,9 +26,8 @@ vim.filetype.add({
 
 parser_config.c3 = {
   install_info = {
-    url = "https://github.com/c3lang/tree-sitter-c3",
+    url = "~/workspace/treesitter/tree-sitter-c3",
     files = {"src/parser.c", "src/scanner.c"},
-    branch = "main",
   },
 };
 -- > c3 language
@@ -64,7 +63,13 @@ parser_config.nu = {
 -- > nu
 
 vim.filetype.add({
-  pattern = { [".*/hypr/.*%.conf"] = "hyprlang" },
+  extension = {
+    vert = "glsl",
+    frag = "glsl",
+  },
+  pattern = {
+    [".*/hypr/.*%.conf"] = "hyprlang",
+  },
 });
 
 local ts_add = function(dir, name, ext)
