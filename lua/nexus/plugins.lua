@@ -313,6 +313,7 @@ lazy.setup({
 
   {
     "m4xshen/hardtime.nvim",
+    enabled = false,
     lazy = false,
     dependencies = {
       "MunifTanjim/nui.nvim",
@@ -414,9 +415,15 @@ lazy.setup({
     cmd = { "LspStart" },
     dependencies = {
       "stevearc/vim-arduino",
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
       "jose-elias-alvarez/null-ls.nvim",
+      {
+        "mason-org/mason-lspconfig.nvim",
+        opts = {},
+        dependencies = {
+          { "mason-org/mason.nvim", opts = {} },
+          "neovim/nvim-lspconfig",
+        },
+      },
       {
         "mfussenegger/nvim-lint",
         config = load_config("lint"),
