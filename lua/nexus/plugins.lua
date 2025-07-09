@@ -312,6 +312,12 @@ lazy.setup({
   },
 
   {
+    "norcalli/nvim-colorizer.lua",
+    lazy = false,
+    config = load_config("nvim-colorizer"),
+  },
+
+  {
     "m4xshen/hardtime.nvim",
     enabled = false,
     lazy = false,
