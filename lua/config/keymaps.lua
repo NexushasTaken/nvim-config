@@ -1,9 +1,5 @@
 local map = vim.keymap.set;
 local cmd = vim.cmd;
-local g = vim.g;
-
-g.mapleader = " ";
-g.maplocalleader = g.mapleader;
 
 map("n", "<leader>q", ":qa!<cr>", { noremap = true, });
 map("n", "ss", ":split<cr>", { noremap = true, });
@@ -98,9 +94,8 @@ map("n", "<leader>cl", function()
 end);
 
 
-local sessionfile = string.format("%s/%s",
-  vim.fn.stdpath("data").."/sessions",
-  vim.fn.getcwd():gsub("/", "_"));
+local sessiondir = vim.fn.stdpath("data").."/sessions";
+local sessionfile = string.format("%s/%s", sessiondir, vim.fn.getcwd():gsub("/", "_"));
 
 map("n", "<leader>sl", function()
   if vim.fn.filereadable(sessionfile) == 1 then
@@ -113,6 +108,7 @@ map("n", "<leader>sl", function()
 end, { noremap = true, });
 
 map("n", "<leader>ss", function()
+  vim.fn.mkdir(sessiondir, "p")
   cmd(string.format("mksession! %s", sessionfile));
   print("Session Saved");
 end, { noremap = true, });

@@ -16,34 +16,34 @@ local check_backspace = function()
   return col == 0 or fn.getline("."):sub(col, col):match("%s");
 end;
 
---  פּ ﯟ   some other good icons
+-- 󰀪פּ ﯟ  󰂚 some other good icons
 local kind_icons = {
-  Text          = "",
-  Method        = "m",
-  Function      = "",
-  Constructor   = "",
-  Field         = "",
-  Variable      = "",
-  Class         = "",
-  Interface     = "",
-  Module        = "",
-  Property      = "",
-  Unit          = "",
-  Value         = "",
-  Enum          = "",
-  Keyword       = "",
-  Snippet       = "",
-  Color         = "",
-  File          = "",
-  Reference     = "",
-  Folder        = "",
-  EnumMember    = "",
-  Constant      = "",
-  Struct        = "",
-  Event         = "",
-  Operator      = "",
-  TypeParameter = "",
-};
+  Text          = "󰉿", -- nf-md-text
+  Method        = "󰆧", -- nf-md-function_variant
+  Function      = "󰊕", -- nf-md-function
+  Constructor   = "", -- nf-oct-tools
+  Field         = "󰜢", -- nf-md-field
+  Variable      = "󰀫", -- nf-md-variable
+  Class         = "󰠱", -- nf-md-language_cpp
+  Interface     = "", -- nf-fa-sitemap (fallback)
+  Module        = "󰏗", -- nf-md-package_variant
+  Property      = "󰜢", -- nf-md-field (reuse)
+  Unit          = "", -- nf-dev-terminal (fallback)
+  Value         = "󰎠", -- nf-md-format_list_numbered
+  Enum          = "", -- nf-fa-list_ol
+  Keyword       = "󰌋", -- nf-md-keyboard
+  Snippet       = "", -- nf-fa-scissors
+  Color         = "󰏘", -- nf-md-palette
+  File          = "󰈙", -- nf-md-file_document
+  Reference     = "󰈇", -- nf-md-link_variant
+  Folder        = "󰉋", -- nf-md-folder
+  EnumMember    = "󰘦", -- nf-md-format_list_bulleted
+  Constant      = "󰏿", -- nf-md-alpha
+  Struct        = "󰙅", -- nf-md-vector_square
+  Event         = "", -- nf-fa-bolt
+  Operator      = "󰆕", -- nf-md-code_not_equal
+  TypeParameter = "󰊄", -- nf-md-code_tags
+}
 
 cmp.setup({
   enabled = function()
@@ -73,8 +73,6 @@ cmp.setup({
         fallback();
       end
     }),
-    ["<C-p>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c", }),
-    ["<C-n>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c", }),
     ["<C-e>"] = cmp.mapping({
       i = function()
         if cmp.visible() then

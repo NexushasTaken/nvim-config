@@ -10,6 +10,7 @@ local swapfilelist = function()
       table.insert(swapfiles, swapdir..item);
     end
   end
+
   return swapfiles;
 end
 

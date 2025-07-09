@@ -1,9 +1,9 @@
 [submodule "friendly-snippets"]
   path = snippets/friendly-snippets
-  url = git@github.com:rafamadriz/friendly-snippets.git
+  url = https://github.com/NexushasTaken/friendly-snippets.git
   branch = custom
 
 [submodule "odoo-snippets"]
   path = snippets/odoo-snippets
-  url = git@github.com:NexushasTaken/vscode-odoo-snippets.git
+  url = https://github.com/NexushasTaken/vscode-odoo-snippets.git
   branch = custom

@@ -1,5 +1,5 @@
-require("nexus.options")
-require("nexus.keymaps")
-require("nexus.plugins")
-require("nexus.autocommands")
-require("nexus.commands")
+require("config.lazy");
+require("config.options");
+require("config.keymaps");
+require("config.commands");
+

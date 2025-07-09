@@ -1,4 +1,4 @@
-require("nvim-tree").setup({
+return {
   auto_reload_on_write = true,
   sort_by = "extension",
   hijack_cursor = false,
@@ -114,4 +114,4 @@ require("nvim-tree").setup({
     set("n", "y",     api.fs.copy.filename,               opts("Copy Name"));
     set("n", "Y",     api.fs.copy.relative_path,          opts("Copy Relative Path"));
   end,
-});
+};
