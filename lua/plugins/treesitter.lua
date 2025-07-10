@@ -5,7 +5,7 @@ return {
     dependencies = {
       { -- Auto close tag
         "windwp/nvim-ts-autotag",
-        ft = web_extensions,
+        ft = require("config.global").web_extensions,
       },
     },
     config = require("plugins.config.treesitter"),

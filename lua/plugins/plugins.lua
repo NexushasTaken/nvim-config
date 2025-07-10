@@ -120,20 +120,28 @@ return {
   },
 
   { -- Colorizer
-    "norcalli/nvim-colorizer.lua",
+    "NvChad/nvim-colorizer.lua",
+    event = "BufReadPre",
     lazy = false,
-    config = function()
-      require("colorizer").setup({
-        "*",
-      }, {
-        RRGGBBAA = true,         -- #RRGGBBAA hex codes
-        rgb_fn   = true,         -- CSS rgb() and rgba() functions
-        hsl_fn   = true,         -- CSS hsl() and hsla() functions
-        css      = true,         -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-        css_fn   = true,         -- Enable all CSS *functions*: rgb_fn, hsl_fn
-        mode     = "foreground",
-      });
-    end,
+    opts = {
+      user_default_options = {
+        RRGGBBAA = false,
+        AARRGGBB = false,
+        rgb_fn   = true,
+        hsl_fn   = true,
+        css      = true,
+        css_fn   = true,
+        tailwind = true,
+        tailwind_opts = {
+          update_names = true,
+        },
+        sass = {
+          enable = true,
+          parsers = { "css" }
+        },
+        mode = "foreground",
+      }
+    },
   },
 
   { -- Surround
@@ -252,12 +260,12 @@ return {
 
   { -- Bracey
     "turbio/bracey.vim",
-    ft = web_extensions,
+    ft = require("config.global").web_extensions,
   },
 
   { -- Emmet
     "mattn/emmet-vim",
-    ft = web_extensions,
+    ft = require("config.global").web_extensions,
   },
 
   { -- Markdown preview

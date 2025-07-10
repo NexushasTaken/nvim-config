@@ -1,3 +1,17 @@
+function trailspace()
+  local api = require("mini.trailspace");
+  api.setup();
+end
+
+function indentscope()
+  local api = require("mini.indentscope");
+  api.setup({
+    draw = {
+      animation = api.gen_animation.none(),
+    };
+  });
+end
+
 function statusline()
   local api = require("mini.statusline");
   function active()
@@ -34,7 +48,9 @@ function statusline()
 end
 
 return function()
+  indentscope();
   statusline();
+  trailspace()
 
   local MiniDeps = require("mini.deps")
   --MiniDeps.add({
