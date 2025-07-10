@@ -1,3 +1,8 @@
+function splitjoin()
+  local api = require("mini.splitjoin");
+  api.setup();
+end
+
 function mini_pairs()
   local api = require("mini.pairs");
   api.setup({
@@ -67,8 +72,9 @@ function statusline()
 end
 
 return function()
-  mini_pairs();
   comment();
+  mini_pairs();
+  splitjoin();
 
   indentscope();
   statusline();
