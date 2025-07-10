@@ -1,3 +1,22 @@
+function mini_pairs()
+  local api = require("mini.pairs");
+  api.setup({
+    modes = {
+      command = true,
+      terminal = true,
+    }
+  });
+end
+
+function comment()
+  local api = require("mini.comment");
+  api.setup({
+    options = {
+      ignore_blank_line = true,
+    }
+  });
+end
+
 function trailspace()
   local api = require("mini.trailspace");
   api.setup();
@@ -48,6 +67,9 @@ function statusline()
 end
 
 return function()
+  mini_pairs();
+  comment();
+
   indentscope();
   statusline();
   trailspace()

@@ -1,35 +1,4 @@
 return {
-  { -- Auto close chars
-    "windwp/nvim-autopairs",
-    keys = {
-      { "{", mode = "i" },
-      { "[", mode = "i" },
-      { "(", mode = "i" },
-      { "\"", mode = "i" },
-      { "\"", mode = "i" },
-    },
-    opts = {
-      check_ts = true,
-      ts_config = {
-        lua = { "string", "source", },
-        javascript = { "string", "template_string", },
-        java = false,
-      },
-      disable_filetype = { "TelescopePrompt", "spectre_panel", "vim", },
-      fast_wrap = {
-        map = "<M-e>",
-        chars = { "{", "[", "(", '"', "'", },
-        pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
-        offset = 0, -- Offset from pattern match
-        end_key = "$",
-        keys = "qwertyuiopzxcvbnmasdfghjkl",
-        check_comma = true,
-        highlight = "PmenuSel",
-        highlight_grey = "LineNr",
-      },
-    },
-  },
-
   { -- Hop
     "phaazon/hop.nvim",
     config = function()
@@ -50,26 +19,6 @@ return {
       hop_map("ck", "HopChar2");
     end,
     keys = "<leader>h",
-  },
-
-  { -- Commenter
-    "numToStr/Comment.nvim",
-    keys = {
-      { "gcc", mode = "n",          desc = "Comment toggle current line" },
-      { "gc",  mode = { "n", "o" }, desc = "Comment toggle linewise" },
-      { "gc",  mode = "x",          desc = "Comment toggle linewise (visual)" },
-      { "gbc", mode = "n",          desc = "Comment toggle current block" },
-      { "gb",  mode = { "n", "o" }, desc = "Comment toggle blockwise" },
-      { "gb",  mode = "x",          desc = "Comment toggle blockwise (visual)" },
-    },
-    config = function()
-      local api = require("Comment");
-      local ft = require("Comment.ft");
-
-      ft.set("c3", {"// %s", "/*%s*/"})
-
-      api.setup();
-    end,
   },
 
   { -- Hard Time
