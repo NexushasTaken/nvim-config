@@ -93,22 +93,6 @@ return {
     },
   },
 
-  { -- Surround
-    "kylechui/nvim-surround",
-    keys = {
-      { "<C-g>s", mode = "i", },
-      { "<C-g>S", mode = "i", },
-      { "ys",     mode = "n", },
-      { "yss",    mode = "n", },
-      { "yS",     mode = "n", },
-      { "ySS",    mode = "n", },
-      { "S",      mode = "v", },
-      { "gS",     mode = "v", },
-      "ds", "cs",
-    },
-    config = true,
-  },
-
   { -- Undo tree
     "mbbill/undotree",
     cmd = { "UndotreeToggle" },

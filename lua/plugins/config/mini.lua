@@ -1,3 +1,8 @@
+function surround()
+  local api = require("mini.surround");
+  api.setup();
+end
+
 function splitjoin()
   local api = require("mini.splitjoin");
   api.setup();
@@ -75,6 +80,7 @@ return function()
   comment();
   mini_pairs();
   splitjoin();
+  surround();
 
   indentscope();
   statusline();
