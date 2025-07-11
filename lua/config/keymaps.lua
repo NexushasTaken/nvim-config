@@ -94,23 +94,23 @@ map("n", "<leader>cl", function()
 end);
 
 
-local sessiondir = vim.fn.stdpath("data").."/sessions";
-local sessionfile = string.format("%s/%s", sessiondir, vim.fn.getcwd():gsub("/", "_"));
+local sessionname = vim.fn.sha256(vim.fn.getcwd()) .. ".session";
+
+map("n", "<leader>sD", function()
+  MiniSessions.delete(sessionname, { force = true, verbose = true, })
+end, { noremap = true, });
 
 map("n", "<leader>sl", function()
-  if vim.fn.filereadable(sessionfile) == 1 then
-    print("Loading Session");
-    cmd.source(sessionfile);
-    print("Session Loaded");
-  else
-    print("Session not found");
-  end
+  MiniSessions.read(sessionname, { force = true, verbose = true, })
 end, { noremap = true, });
 
 map("n", "<leader>ss", function()
-  vim.fn.mkdir(sessiondir, "p")
-  cmd(string.format("mksession! %s", sessionfile));
-  print("Session Saved");
+  local ok, _ = pcall(MiniSessions.write, nil, {
+    verbose = true,
+  });
+  if not ok then
+    MiniSessions.write(sessionname);
+  end
 end, { noremap = true, });
 
 map("n", "<leader>t", function()

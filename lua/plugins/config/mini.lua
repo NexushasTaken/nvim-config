@@ -1,3 +1,8 @@
+function sessions()
+  local api = require("mini.sessions");
+  api.setup();
+end
+
 function surround()
   local api = require("mini.surround");
   api.setup();
@@ -81,6 +86,8 @@ return function()
   mini_pairs();
   splitjoin();
   surround();
+
+  sessions();
 
   indentscope();
   statusline();
