@@ -40,6 +40,7 @@ local function inside_comment_block()
   return false
 end
 
+---@module "lazy"
 ---@type LazyPluginSpec[]
 return {
   {
@@ -71,10 +72,10 @@ return {
           "Kaiser-Yang/blink-cmp-dictionary",
           dependencies = { "nvim-lua/plenary.nvim" },
         },
-        { "bydlw98/blink-cmp-env", keys = "$", },
-        { "Kaiser-Yang/blink-cmp-git", keys = { "#", "!", ":", "@" }, },
-        { "MahanRahmati/blink-nerdfont.nvim", keys = { ":", }, },
-        { "onsails/lspkind.nvim", opts = { preset = "default", }, },
+        { "bydlw98/blink-cmp-env",                   keys = "$", },
+        { "Kaiser-Yang/blink-cmp-git",               keys = { "#", "!", ":", "@" }, },
+        { "MahanRahmati/blink-nerdfont.nvim",        keys = { ":", }, },
+        { "onsails/lspkind.nvim",                    opts = { preset = "default", }, },
         "L3MON4D3/LuaSnip",
         config = function()
           local lazy_load = function(snip)
@@ -122,39 +123,6 @@ return {
           draw = {
             treesitter = { "lsp" },
             columns = { { "kind_icon" }, { "label", "label_description", "source_name", gap = 1 } },
-            components = {
-              kind_icon = {
-                --text = function(ctx)
-                --  local icon = ctx.kind_icon
-                --  if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                --    local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
-                --    if dev_icon then
-                --      icon = dev_icon
-                --    end
-                --  else
-                --    icon = require("lspkind").symbolic(ctx.kind, {
-                --      mode = "symbol",
-                --    })
-                --  end
-
-                --  return icon .. ctx.icon_gap
-                --end,
-
-                ---- Optionally, use the highlight groups from nvim-web-devicons
-                ---- You can also add the same function for `kind.highlight` if you want to
-                ---- keep the highlight groups in sync with the icons.
-                --highlight = function(ctx)
-                --  local hl = ctx.kind_hl
-                --  if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                --    local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
-                --    if dev_icon then
-                --      hl = dev_hl
-                --    end
-                --  end
-                --  return hl
-                --end,
-              },
-            },
           },
         },
       },
@@ -224,7 +192,7 @@ return {
         ["<C-p>"] = { function(cmp) cmp.scroll_documentation_up(1) end },
         ["<C-n>"] = { function(cmp) cmp.scroll_documentation_down(1) end },
         ["<C-a>"] = {
-          function(cmp)
+          function(_)
             vim.notify(vim.inspect(require("blink.cmp.types")))
           end
         }
@@ -249,124 +217,129 @@ return {
             "conventional_commits",
           };
           if -- ref: https://github.com/Kaiser-Yang/blink-cmp-dictionary?tab=readme-ov-file#how-to-enable-this-plugin-for-comment-blocks-or-specific-file-types-only
-            -- turn on dictionary in markdown or text file
-            (vim.tbl_contains({ "markdown", "text" }, vim.bo.filetype) or
-            -- or turn on dictionary if cursor is in the comment block
-            inside_comment_block()) and sources.dictionary
-            then
-              table.insert(result, "dictionary");
+          -- turn on dictionary in markdown or text file
+              (vim.tbl_contains({ "markdown", "text" }, vim.bo.filetype) or
+                -- or turn on dictionary if cursor is in the comment block
+                inside_comment_block()) and sources.dictionary
+          then
+            table.insert(result, "dictionary");
           end
           return result;
         end,
 
-          per_filetype = {
-            sql = { "snippets", "dadbod", "buffer" },
+        per_filetype = {
+          sql = { "snippets", "dadbod", "buffer" },
+        },
+
+        providers = {
+          lazydev = {
+            name = "LazyDev",
+            module = "lazydev.integrations.blink",
           },
-
-          providers = {
-            lazydev = {
-              name = "LazyDev",
-              module = "lazydev.integrations.blink",
+          nerdfont = {
+            module = "blink-nerdfont",
+            name = "Nerd Fonts",
+            score_offset = 15,          -- Tune by preference
+            opts = { insert = true },   -- Insert nerdfont icon (default) or complete its name
+          },
+          git = {
+            module = "blink-cmp-git",
+            name = "Git",
+          },
+          env = {
+            name = "Env",
+            module = "blink-cmp-env",
+            ---@module "blink-cmp-env"
+            ---@type blink-cmp-env.Options
+            opts = {
+              show_braces = false,
+              show_documentation_window = true,
             },
-            nerdfont = {
-              module = "blink-nerdfont",
-              name = "Nerd Fonts",
-              score_offset = 15,      -- Tune by preference
-              opts = { insert = true }, -- Insert nerdfont icon (default) or complete its name
-            },
-            git = {
-              module = "blink-cmp-git",
-              name = "Git",
-            },
-            env = {
-              name = "Env",
-              module = "blink-cmp-env",
-              --- @type blink-cmp-env.Options
-              opts = {
-                show_braces = false,
-                show_documentation_window = true,
-              },
-            },
-            ---@module "blink-cmp-dictionary"
-            --- @type blink-cmp-dictionary.Options
-            dictionary = {
-              module = "blink-cmp-dictionary",
-              name = "Dict",
-              min_keyword_length = 3,
-              opts = {
-                dictionary_files = { "/usr/share/wordnet/dict" },
-                dictionary_directories = { vim.fn.stdpath("config") .. "/dictionary/" },
-              }
-            },
-            conventional_commits = {
-              name = "Conventional Commits",
-              module = "blink-cmp-conventional-commits",
-              enabled = function()
-                return vim.bo.filetype == "gitcommit"
-              end,
-              ---@module "blink-cmp-conventional-commits"
-              ---@type blink-cmp-conventional-commits.Options
-              opts = {}, -- none so far
-            },
-            dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
-            cmdline = {
-              -- ignores cmdline completions when executing shell commands
-              enabled = function()
-                return vim.fn.has("win32") == 0
-                or vim.fn.getcmdtype() ~= ":"
-                or not vim.fn.getcmdline():match("^[%%0-9,'<>%-]*!")
-              end,
-            },
-            buffer = {
-              -- keep case of first char
-              transform_items = function(a, items)
-                local keyword = a.get_keyword()
-                local correct, case
-                if keyword:match("^%l") then
-                  correct = "^%u%l+$"
-                  case = string.lower
-                elseif keyword:match("^%u") then
-                  correct = "^%l+$"
-                  case = string.upper
-                else
-                  return items
-                end
-
-                -- avoid duplicates from the corrections
-                local seen = {}
-                local out = {}
-                for _, item in ipairs(items) do
-                  local raw = item.insertText
-                  if raw:match(correct) then
-                    local text = case(raw:sub(1, 1)) .. raw:sub(2)
-                    item.insertText = text
-                    item.label = text
-                  end
-                  if not seen[item.insertText] then
-                    seen[item.insertText] = true
-                    table.insert(out, item)
-                  end
-                end
-                return out
-              end
+          },
+          ---@module "blink-cmp-dictionary"
+          ---@type blink-cmp-dictionary.Options
+          dictionary = {
+            module = "blink-cmp-dictionary",
+            name = "Dict",
+            min_keyword_length = 3,
+            opts = {
+              dictionary_files = { "/usr/share/wordnet/dict" },
+              dictionary_directories = { vim.fn.stdpath("config") .. "/dictionary/" },
             }
           },
-        },
-        fuzzy = {
-          sorts = {
-            "exact",
-            -- defaults
-            "score",
-            "kind",
-            "sort_text",
-            function (a, b)
-              if a.kind_id == "env" then
-                print(a.kind_id == "env")
-              end
-            end
+          conventional_commits = {
+            name = "Conventional Commits",
+            module = "blink-cmp-conventional-commits",
+            enabled = function()
+              return vim.bo.filetype == "gitcommit"
+            end,
+            ---@module "blink-cmp-conventional-commits"
+            ---@type blink-cmp-conventional-commits.Options
+            opts = {},   -- none so far
           },
+          dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+          cmdline = {
+            -- ignores cmdline completions when executing shell commands
+            enabled = function()
+              return vim.fn.has("win32") == 0
+                  or vim.fn.getcmdtype() ~= ":"
+                  or not vim.fn.getcmdline():match("^[%%0-9,'<>%-]*!")
+            end,
+          },
+          buffer = {
+            -- keep case of first char
+            transform_items = function(a, items)
+              local keyword = a.get_keyword()
+              local correct, case
+              if keyword:match("^%l") then
+                correct = "^%u%l+$"
+                case = string.lower
+              elseif keyword:match("^%u") then
+                correct = "^%l+$"
+                case = string.upper
+              else
+                return items
+              end
+
+              -- avoid duplicates from the corrections
+              local seen = {}
+              local out = {}
+              for _, item in ipairs(items) do
+                local raw = item.insertText
+                if raw:match(correct) then
+                  local text = case(raw:sub(1, 1)) .. raw:sub(2)
+                  item.insertText = text
+                  item.label = text
+                end
+                if not seen[item.insertText] then
+                  seen[item.insertText] = true
+                  table.insert(out, item)
+                end
+              end
+              return out
+            end
+          }
         },
       },
-      opts_extend = { "sources.default" },
+      fuzzy = {
+        sorts = {
+          "exact",
+          -- defaults
+          "score",
+          "kind",
+          "sort_text",
+          ---@param a blink.cmp.CompletionItem
+          ---@param b blink.cmp.CompletionItem
+          function(a, b)
+            local variable_kind_id = require("blink.cmp.types").CompletionItemKind.Variable
+            if a.kind == variable_kind_id and b.kind == variable_kind_id then
+              --vim.notify(vim.inspect(a) .. " [compare] " .. vim.inspect(b))
+              --return a.source_id == "env";
+            end
+          end
+        },
+      },
     },
-  };
+    opts_extend = { "sources.default" },
+  },
+};
