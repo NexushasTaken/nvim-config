@@ -1,3 +1,8 @@
+function bracketed()
+  local api = require("mini.bracketed");
+  api.setup();
+end
+
 function sessions()
   local api = require("mini.sessions");
   api.setup({
@@ -90,6 +95,7 @@ return function()
   splitjoin();
   surround();
 
+  bracketed();
   sessions();
 
   indentscope();
