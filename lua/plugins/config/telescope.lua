@@ -16,7 +16,7 @@ return function()
       layout_config = {
         height = function(_, _, max_lines)
           local max = 15;
-          local lines = math.max(math.floor(max_lines/2), max);
+          local lines = math.max(math.floor(max_lines / 2), max);
           if lines < max then
             return max_lines;
           else
@@ -44,15 +44,17 @@ return function()
   end
 
   local prompt_cmd = function(name)
-    return ":Telescope " .. name .. " theme="..theme.."<cr>";
+    return ":Telescope " .. name .. " theme=" .. theme .. "<cr>";
   end
 
   map("n", "<leader>ff", prompt_cmd("find_files"), { noremap = true, });
   map("n", "<leader>fg", prompt_cmd("live_grep"), { noremap = true, });
   map("n", "<leader>fh", prompt_cmd("help_tags"), { noremap = true, });
   map("n", "<leader>fb", prompt_cmd("buffers"), { noremap = true, });
-  map("n", "<leader>b",  prompt_cmd("buffers"), { noremap = true, });
   map("n", "<leader>ft", prompt_cmd("tags"), { noremap = true, });
+
+  local action_state = require("telescope.actions.state")
+  local actions = require("telescope.actions")
 
   scope.setup({
     defaults = {

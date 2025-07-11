@@ -55,21 +55,35 @@ map("n", "zZ", function()
   end
 end, { noremap = true, });
 
-map("n", "<leader>dd", ":Bdelete!<cr>", { noremap = true, });
-map("n", "<leader>dc", function()
-  local choose = { "Choose a buffer", };
-  for _, buf in pairs(vim.fn.getbufinfo({ bufloaded = 1 })) do
-    if #buf.name == 0 then
-      vim.api.nvim_buf_delete(buf.bufnr, { force = true });
-    else
-      table.insert(choose, buf.bufnr .. ": " .. buf.name);
-    end
-  end
+local MiniBufremove = require("mini.bufremove");
 
-  local input = vim.fn.inputlist(choose);
-  if input ~= 0 then
-    vim.api.nvim_buf_delete(input, { force = true });
-  end
+map("n", "<leader>dd", function()
+  MiniBufremove.delete();
+end, { noremap = true, });
+map("n", "<leader>dD", function()
+  MiniBufremove.delete(0, true);
+end, { noremap = true, });
+
+map("n", "<leader>dc", function()
+  local opts = {
+    previewer = true,
+    show_all_buffers = true,
+    sort_lastused = true,
+    shorten_path = true,
+    attach_mappings = function(prompt_bufnr, map)
+      local action_state = require("telescope.actions.state")
+      local delete_buf = function()
+        local current_picker = action_state.get_current_picker(prompt_bufnr)
+
+        current_picker:delete_selection(function(selection)
+          vim.api.nvim_buf_delete(selection.bufnr, { force = true })
+        end)
+      end
+      map("i", "<C-d>", delete_buf)
+      return true;
+    end
+  };
+  require('telescope.builtin').buffers(require('telescope.themes').get_ivy(opts))
 end, { noremap = true, })
 
 map("n", "gl", ":lua vim.diagnostic.open_float()<CR>", { noremap = true, });
@@ -84,11 +98,11 @@ end);
 local is_qwerty = true;
 map("n", "<leader>cl", function()
   if is_qwerty then
-   vim.opt["langmap"] = "nir;jkl,jkl;nir,NIR;JKL,JKL;NIR";
-   print("Layout: Colemak Niro");
+    vim.opt["langmap"] = "nir;jkl,jkl;nir,NIR;JKL,JKL;NIR";
+    print("Layout: Colemak Niro");
   else
-   vim.opt["langmap"] = "";
-   print("Layout: QWERTY");
+    vim.opt["langmap"] = "";
+    print("Layout: QWERTY");
   end
   is_qwerty = not is_qwerty;
 end);
@@ -101,14 +115,14 @@ map("n", "<leader>sD", function()
 end, { noremap = true, });
 
 map("n", "<leader>ss", function()
-  local ok, _ = pcall(MiniSessions.write);
-  if not ok then
-    MiniSessions.write(sessionname);
-  end
+  MiniSessions.write(sessionname);
 end, { noremap = true, });
 
 map("n", "<leader>sl", function()
-  MiniSessions.read(sessionname)
+  local ok, _ = pcall(MiniSessions.read, sessionname)
+  if not ok then
+    vim.api.nvim_echo({ { "(mini.sessions) ", "WarningMsg" }, { "There is no detected sessions." } }, true, {});
+  end
 end, { noremap = true, });
 
 map("n", "<leader>t", function()
@@ -129,28 +143,76 @@ local remove_w = function()
   vim.api.nvim_feedkeys(keys, "x", false)
 end
 
-map("n", "<leader>au", function() require("textcase").current_word("to_upper_case");    remove_w(); end, { noremap = true, desc="TO UPPER CASE", });
-map("n", "<leader>al", function() require("textcase").current_word("to_lower_case");    remove_w(); end, { noremap = true, desc="to lower case", });
-map("n", "<leader>as", function() require("textcase").current_word("to_snake_case");    remove_w(); end, { noremap = true, desc="to_snake_case", });
-map("n", "<leader>ad", function() require("textcase").current_word("to_dash_case");     remove_w(); end, { noremap = true, desc="to.dash.case", });
-map("n", "<leader>an", function() require("textcase").current_word("to_constant_case"); remove_w(); end, { noremap = true, desc="TO_CONSTANT_CASE", });
-map("n", "<leader>ad", function() require("textcase").current_word("to_dot_case");      remove_w(); end, { noremap = true, desc="to.dot.case", });
-map("n", "<leader>a,", function() require("textcase").current_word("to_comma_case");    remove_w(); end, { noremap = true, desc="to,comma,case", });
-map("n", "<leader>aa", function() require("textcase").current_word("to_phrase_case");   remove_w(); end, { noremap = true, desc="To phrase case", });
-map("n", "<leader>ac", function() require("textcase").current_word("to_camel_case");    remove_w(); end, { noremap = true, desc="toCamelCase", });
-map("n", "<leader>ap", function() require("textcase").current_word("to_pascal_case");   remove_w(); end, { noremap = true, desc="ToPascalCase", });
-map("n", "<leader>at", function() require("textcase").current_word("to_title_case");    remove_w(); end, { noremap = true, desc="To Title Case", });
-map("n", "<leader>af", function() require("textcase").current_word("to_path_case");     remove_w(); end, { noremap = true, desc="to/path/case", });
+map("n", "<leader>au", function()
+  require("textcase").current_word("to_upper_case"); remove_w();
+end, { noremap = true, desc = "TO UPPER CASE", });
+map("n", "<leader>al", function()
+  require("textcase").current_word("to_lower_case"); remove_w();
+end, { noremap = true, desc = "to lower case", });
+map("n", "<leader>as", function()
+  require("textcase").current_word("to_snake_case"); remove_w();
+end, { noremap = true, desc = "to_snake_case", });
+map("n", "<leader>ad", function()
+  require("textcase").current_word("to_dash_case"); remove_w();
+end, { noremap = true, desc = "to.dash.case", });
+map("n", "<leader>an", function()
+  require("textcase").current_word("to_constant_case"); remove_w();
+end, { noremap = true, desc = "TO_CONSTANT_CASE", });
+map("n", "<leader>ad", function()
+  require("textcase").current_word("to_dot_case"); remove_w();
+end, { noremap = true, desc = "to.dot.case", });
+map("n", "<leader>a,", function()
+  require("textcase").current_word("to_comma_case"); remove_w();
+end, { noremap = true, desc = "to,comma,case", });
+map("n", "<leader>aa", function()
+  require("textcase").current_word("to_phrase_case"); remove_w();
+end, { noremap = true, desc = "To phrase case", });
+map("n", "<leader>ac", function()
+  require("textcase").current_word("to_camel_case"); remove_w();
+end, { noremap = true, desc = "toCamelCase", });
+map("n", "<leader>ap", function()
+  require("textcase").current_word("to_pascal_case"); remove_w();
+end, { noremap = true, desc = "ToPascalCase", });
+map("n", "<leader>at", function()
+  require("textcase").current_word("to_title_case"); remove_w();
+end, { noremap = true, desc = "To Title Case", });
+map("n", "<leader>af", function()
+  require("textcase").current_word("to_path_case"); remove_w();
+end, { noremap = true, desc = "to/path/case", });
 
-map("v", "<leader>au", function() require("textcase").current_word("to_upper_case");    remove_w(); end, { noremap = true, desc="TO UPPER CASE", });
-map("v", "<leader>al", function() require("textcase").current_word("to_lower_case");    remove_w(); end, { noremap = true, desc="to lower case", });
-map("v", "<leader>as", function() require("textcase").current_word("to_snake_case");    remove_w(); end, { noremap = true, desc="to_snake_case", });
-map("v", "<leader>ad", function() require("textcase").current_word("to_dash_case");     remove_w(); end, { noremap = true, desc="to.dash.case", });
-map("v", "<leader>an", function() require("textcase").current_word("to_constant_case"); remove_w(); end, { noremap = true, desc="TO_CONSTANT_CASE", });
-map("v", "<leader>ad", function() require("textcase").current_word("to_dot_case");      remove_w(); end, { noremap = true, desc="to.dot.case", });
-map("v", "<leader>a,", function() require("textcase").current_word("to_comma_case");    remove_w(); end, { noremap = true, desc="to,comma,case", });
-map("v", "<leader>aa", function() require("textcase").current_word("to_phrase_case");   remove_w(); end, { noremap = true, desc="To phrase case", });
-map("v", "<leader>ac", function() require("textcase").current_word("to_camel_case");    remove_w(); end, { noremap = true, desc="toCamelCase", });
-map("v", "<leader>ap", function() require("textcase").current_word("to_pascal_case");   remove_w(); end, { noremap = true, desc="ToPascalCase", });
-map("v", "<leader>at", function() require("textcase").current_word("to_title_case");    remove_w(); end, { noremap = true, desc="To Title Case", });
-map("v", "<leader>af", function() require("textcase").current_word("to_path_case");     remove_w(); end, { noremap = true, desc="to/path/case", });
+map("v", "<leader>au", function()
+  require("textcase").current_word("to_upper_case"); remove_w();
+end, { noremap = true, desc = "TO UPPER CASE", });
+map("v", "<leader>al", function()
+  require("textcase").current_word("to_lower_case"); remove_w();
+end, { noremap = true, desc = "to lower case", });
+map("v", "<leader>as", function()
+  require("textcase").current_word("to_snake_case"); remove_w();
+end, { noremap = true, desc = "to_snake_case", });
+map("v", "<leader>ad", function()
+  require("textcase").current_word("to_dash_case"); remove_w();
+end, { noremap = true, desc = "to.dash.case", });
+map("v", "<leader>an", function()
+  require("textcase").current_word("to_constant_case"); remove_w();
+end, { noremap = true, desc = "TO_CONSTANT_CASE", });
+map("v", "<leader>ad", function()
+  require("textcase").current_word("to_dot_case"); remove_w();
+end, { noremap = true, desc = "to.dot.case", });
+map("v", "<leader>a,", function()
+  require("textcase").current_word("to_comma_case"); remove_w();
+end, { noremap = true, desc = "to,comma,case", });
+map("v", "<leader>aa", function()
+  require("textcase").current_word("to_phrase_case"); remove_w();
+end, { noremap = true, desc = "To phrase case", });
+map("v", "<leader>ac", function()
+  require("textcase").current_word("to_camel_case"); remove_w();
+end, { noremap = true, desc = "toCamelCase", });
+map("v", "<leader>ap", function()
+  require("textcase").current_word("to_pascal_case"); remove_w();
+end, { noremap = true, desc = "ToPascalCase", });
+map("v", "<leader>at", function()
+  require("textcase").current_word("to_title_case"); remove_w();
+end, { noremap = true, desc = "To Title Case", });
+map("v", "<leader>af", function()
+  require("textcase").current_word("to_path_case"); remove_w();
+end, { noremap = true, desc = "to/path/case", });

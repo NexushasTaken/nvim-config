@@ -217,11 +217,6 @@ return {
     config = true,
   },
 
-  { -- Buffer remover
-    "moll/vim-bbye",
-    cmd = { "Bdelete", "Bwipeout" },
-  },
-
   { -- Better language support
     "sheerun/vim-polyglot",
   },

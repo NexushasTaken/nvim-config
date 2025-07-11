@@ -20,7 +20,7 @@ function mini_pairs()
   local api = require("mini.pairs");
   api.setup({
     modes = {
-      command = true,
+      command = false,
       terminal = true,
     }
   });
@@ -59,7 +59,7 @@ function statusline()
       signs = { ERROR = "󰅚 ", WARN = "󰀪 ", INFO = "󰋽 ", HINT = "󰌶 "
     }});
     local lsp           = MiniStatusline.section_lsp({ })
-    local filename      = MiniStatusline.section_filename({ })
+    local filename      = MiniStatusline.section_filename({ trunc_width = 110 })
     local fileinfo      = MiniStatusline.section_fileinfo({ })
     local location      = MiniStatusline.section_location({ })
     local search        = MiniStatusline.section_searchcount({ })
