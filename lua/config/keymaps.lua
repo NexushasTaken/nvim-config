@@ -97,20 +97,18 @@ end);
 local sessionname = vim.fn.sha256(vim.fn.getcwd()) .. ".session";
 
 map("n", "<leader>sD", function()
-  MiniSessions.delete(sessionname, { force = true, verbose = true, })
-end, { noremap = true, });
-
-map("n", "<leader>sl", function()
-  MiniSessions.read(sessionname, { force = true, verbose = true, })
+  MiniSessions.delete(sessionname)
 end, { noremap = true, });
 
 map("n", "<leader>ss", function()
-  local ok, _ = pcall(MiniSessions.write, nil, {
-    verbose = true,
-  });
+  local ok, _ = pcall(MiniSessions.write);
   if not ok then
     MiniSessions.write(sessionname);
   end
+end, { noremap = true, });
+
+map("n", "<leader>sl", function()
+  MiniSessions.read(sessionname)
 end, { noremap = true, });
 
 map("n", "<leader>t", function()

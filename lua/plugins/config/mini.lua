@@ -1,6 +1,9 @@
 function sessions()
   local api = require("mini.sessions");
-  api.setup();
+  api.setup({
+    force = { read = true, write = true, delete = true },
+    verbose = { read = true, write = true, delete = true },
+  });
 end
 
 function surround()
