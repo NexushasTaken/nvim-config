@@ -1,96 +1,80 @@
-local kind_icons = {
-  Value = "󰦨",
-
-  Variable = "󰆦",
-  Field = "󰜢",
-  Property = "󰖷",
-  EnumMember = "󰦨",
-
-  Method = "󰊕",
-  Function = "󰊕",
-
-  Constructor = "󰒓",
-
-  Keyword = "󰻾",
-  Unit = "󰪚",
-  TypeParameter = "󰬛",
-
-  Struct = "󱡠",
-  Class = "󱡠",
-  Enum = "󰦨",
-  Interface = "󱡠",
-  Module = "󰅩",
-
-  Reference = "󰬲",
-  Constant = "󰏿",
-  Event = "󱐋",
-
-  Operator = "󰪚",
-
-  Color = "󰏘",
-  Text = "󰉿",
-  Buffer = "",
-  Snippet = "󱄽",
-  Folder = "󰉋",
-  File = "󰈔",
+local sources = {
+  dictionary = false,
 };
 
-local kind_order = {
-  "value",
-
-  "variable",
-  "field",
-  "property",
-  "enummember",
-
-  "method",
-  "function",
-
-  "constructor",
-
-  "keyword",
-  "unit",
-  "typeparameter",
-
-  "struct",
-  "class",
-  "enum",
-  "interface",
-  "module",
-
-  "reference",
-  "constant",
-  "event",
-  "operator",
-
-  "color",
-  "text",
-  "buffer",
-  "snippet",
-  "folder",
-  "file",
-}
-
---- @param a blink.cmp.CompletionItem
---- @param b blink.cmp.CompletionItem
-local function predicate(a, b)
-  local ka = kind_order[a.kind_name or ""] or 999
-  local kb = kind_order[b.kind_name or ""] or 999
-
-  if ka == kb then
-    return (a.source_id or "") < (b.source_id or "")
+-- Use this function to check if the cursor is inside a comment block
+local function inside_comment_block()
+  if vim.api.nvim_get_mode().mode ~= 'i' then
+    return false
   end
-
-  return ka < kb
+  local node_under_cursor = vim.treesitter.get_node()
+  local parser = vim.treesitter.get_parser(nil, nil, { error = false })
+  local query = vim.treesitter.query.get(vim.bo.filetype, 'highlights')
+  if not parser or not node_under_cursor or not query then
+    return false
+  end
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  row = row - 1
+  for id, node, _ in query:iter_captures(node_under_cursor, 0, row, row + 1) do
+    if query.captures[id]:find('comment') then
+      local start_row, start_col, end_row, end_col = node:range()
+      if start_row <= row and row <= end_row then
+        if start_row == row and end_row == row then
+          if start_col <= col and col <= end_col then
+            return true
+          end
+        elseif start_row == row then
+          if start_col <= col then
+            return true
+          end
+        elseif end_row == row then
+          if col <= end_col then
+            return true
+          end
+        else
+          return true
+        end
+      end
+    end
+  end
+  return false
 end
 
+---@type LazyPluginSpec[]
 return {
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    dependencies = {
+      { "tpope/vim-dadbod", lazy = true },
+      { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
+    },
+    cmd = {
+      "DBUI",
+      "DBUIToggle",
+      "DBUIAddConnection",
+      "DBUIFindBuffer",
+    },
+    init = function()
+      -- Your DBUI configuration
+      vim.g.db_ui_use_nerd_fonts = 1
+    end,
+  },
+
   {
     "saghen/blink.cmp",
     version = "v1.4.*",
     lazy = false,
     dependencies = {
       {
+        { 'disrupted/blink-cmp-conventional-commits' },
+        {
+          "Kaiser-Yang/blink-cmp-dictionary",
+          dependencies = { "nvim-lua/plenary.nvim" },
+        },
+        { "bydlw98/blink-cmp-env", keys = "$", },
+        { "Kaiser-Yang/blink-cmp-git", keys = { "#", "!", ":", "@" }, },
+        { "MahanRahmati/blink-nerdfont.nvim", keys = { ":", }, },
+        { "onsails/lspkind.nvim", opts = { preset = "default", }, },
         "L3MON4D3/LuaSnip",
         config = function()
           local lazy_load = function(snip)
@@ -121,21 +105,58 @@ return {
     ---@type blink.cmp.Config
     opts = {
       completion = {
+        keyword = { range = "full", },
+        ghost_text = { enabled = true, },
         trigger = {
           show_on_keyword = false,
           show_on_trigger_character = false,
         },
         list = {
           selection = {
+            preselect = true,
             auto_insert = false,
           },
         },
         menu = {
+          auto_show = false,
           draw = {
             treesitter = { "lsp" },
             columns = { { "kind_icon" }, { "label", "label_description", "source_name", gap = 1 } },
-          }
-        }
+            components = {
+              kind_icon = {
+                --text = function(ctx)
+                --  local icon = ctx.kind_icon
+                --  if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                --    local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
+                --    if dev_icon then
+                --      icon = dev_icon
+                --    end
+                --  else
+                --    icon = require("lspkind").symbolic(ctx.kind, {
+                --      mode = "symbol",
+                --    })
+                --  end
+
+                --  return icon .. ctx.icon_gap
+                --end,
+
+                ---- Optionally, use the highlight groups from nvim-web-devicons
+                ---- You can also add the same function for `kind.highlight` if you want to
+                ---- keep the highlight groups in sync with the icons.
+                --highlight = function(ctx)
+                --  local hl = ctx.kind_hl
+                --  if vim.tbl_contains({ "Path" }, ctx.source_name) then
+                --    local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
+                --    if dev_icon then
+                --      hl = dev_hl
+                --    end
+                --  end
+                --  return hl
+                --end,
+              },
+            },
+          },
+        },
       },
 
       appearance = {
@@ -147,10 +168,15 @@ return {
         -- Set to "mono" for "Nerd Font Mono" or "normal" for "Nerd Font"
         -- Adjusts spacing to ensure icons are aligned
         nerd_font_variant = "mono",
-        kind_icons = kind_icons,
       },
 
-      signature = { enabled = true, },
+      signature = {
+        enabled = true,
+        trigger = {
+          show_on_insert = true,
+          show_on_accept = true,
+        },
+      },
 
       keymap = {
         preset = "default",
@@ -168,7 +194,7 @@ return {
         ["<Enter>"] = {
           "select_and_accept",
           "fallback",
-        };
+        },
 
         ["<Tab>"] = {
           function(cmp)
@@ -197,12 +223,11 @@ return {
         },
         ["<C-p>"] = { function(cmp) cmp.scroll_documentation_up(1) end },
         ["<C-n>"] = { function(cmp) cmp.scroll_documentation_down(1) end },
-        --["<C-a>"] = {
-        --  function(cmp)
-        --    print(vim.inspect(require("blink.cmp.types")));
-        --  end,
-        --  "fallback",
-        --}
+        ["<C-a>"] = {
+          function(cmp)
+            vim.notify(vim.inspect(require("blink.cmp.types")))
+          end
+        }
       },
 
       snippets = {
@@ -210,27 +235,132 @@ return {
       },
 
       sources = {
-        default = {
-          "lazydev",
-          "lsp",
-          "path",
-          "snippets",
-          "buffer"
-        },
+        default = function()
+          -- put those which will be shown always
+          local result = {
+            "lazydev",
+            "lsp",
+            "path",
+            "snippets",
+            "buffer",
+            "nerdfont",
+            "git",
+            "env",
+            "conventional_commits",
+          };
+          if -- ref: https://github.com/Kaiser-Yang/blink-cmp-dictionary?tab=readme-ov-file#how-to-enable-this-plugin-for-comment-blocks-or-specific-file-types-only
+            -- turn on dictionary in markdown or text file
+            (vim.tbl_contains({ "markdown", "text" }, vim.bo.filetype) or
+            -- or turn on dictionary if cursor is in the comment block
+            inside_comment_block()) and sources.dictionary
+            then
+              table.insert(result, "dictionary");
+          end
+          return result;
+        end,
 
-        providers = {
-          lazydev = {
-            name = "LazyDev",
-            module = "lazydev.integrations.blink",
+          per_filetype = {
+            sql = { "snippets", "dadbod", "buffer" },
+          },
+
+          providers = {
+            lazydev = {
+              name = "LazyDev",
+              module = "lazydev.integrations.blink",
+            },
+            nerdfont = {
+              module = "blink-nerdfont",
+              name = "Nerd Fonts",
+              score_offset = 15,      -- Tune by preference
+              opts = { insert = true }, -- Insert nerdfont icon (default) or complete its name
+            },
+            git = {
+              module = "blink-cmp-git",
+              name = "Git",
+            },
+            env = {
+              name = "Env",
+              module = "blink-cmp-env",
+              --- @type blink-cmp-env.Options
+              opts = {
+                show_braces = false,
+                show_documentation_window = true,
+              },
+            },
+            dictionary = {
+              module = "blink-cmp-dictionary",
+              name = "Dict",
+              min_keyword_length = 3,
+            },
+            conventional_commits = {
+              name = "Conventional Commits",
+              module = "blink-cmp-conventional-commits",
+              enabled = function()
+                return vim.bo.filetype == "gitcommit"
+              end,
+              ---@module "blink-cmp-conventional-commits"
+              ---@type blink-cmp-conventional-commits.Options
+              opts = {}, -- none so far
+            },
+            dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+            cmdline = {
+              -- ignores cmdline completions when executing shell commands
+              enabled = function()
+                return vim.fn.has("win32") == 0
+                or vim.fn.getcmdtype() ~= ":"
+                or not vim.fn.getcmdline():match("^[%%0-9,'<>%-]*!")
+              end,
+            },
+            buffer = {
+              -- keep case of first char
+              transform_items = function(a, items)
+                local keyword = a.get_keyword()
+                local correct, case
+                if keyword:match("^%l") then
+                  correct = "^%u%l+$"
+                  case = string.lower
+                elseif keyword:match("^%u") then
+                  correct = "^%l+$"
+                  case = string.upper
+                else
+                  return items
+                end
+
+                -- avoid duplicates from the corrections
+                local seen = {}
+                local out = {}
+                for _, item in ipairs(items) do
+                  local raw = item.insertText
+                  if raw:match(correct) then
+                    local text = case(raw:sub(1, 1)) .. raw:sub(2)
+                    item.insertText = text
+                    item.label = text
+                  end
+                  if not seen[item.insertText] then
+                    seen[item.insertText] = true
+                    table.insert(out, item)
+                  end
+                end
+                return out
+              end
+            }
+          },
+        },
+        fuzzy = {
+          sorts = {
+            "exact",
+            -- defaults
+            "score",
+            "kind",
+            "sort_text",
+            function (a, b)
+              if a.kind_id == "env" then
+                print(a.kind_id == "env")
+              end
+            end
           },
         },
       },
-      fuzzy = {
-        sorts = {
-          --predicate
-        },
-      },
+      opts_extend = { "sources.default" },
     },
-    opts_extend = { "sources.default" },
-  },
-};
+  };
