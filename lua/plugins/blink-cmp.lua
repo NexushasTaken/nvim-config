@@ -1,5 +1,5 @@
 local sources = {
-  dictionary = false,
+  dictionary = true,
 };
 
 -- Use this function to check if the cursor is inside a comment block
@@ -287,10 +287,16 @@ return {
                 show_documentation_window = true,
               },
             },
+            ---@module "blink-cmp-dictionary"
+            --- @type blink-cmp-dictionary.Options
             dictionary = {
               module = "blink-cmp-dictionary",
               name = "Dict",
               min_keyword_length = 3,
+              opts = {
+                dictionary_files = { "/usr/share/wordnet/dict" },
+                dictionary_directories = { vim.fn.stdpath("config") .. "/dictionary/" },
+              }
             },
             conventional_commits = {
               name = "Conventional Commits",
