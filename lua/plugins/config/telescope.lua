@@ -45,12 +45,11 @@ return function()
   end
 
   map("n", "<leader>ff", function()
-    builtin.find_files({ theme = theme });
+    builtin.find_files();
   end, { noremap = true });
 
   map("n", "<leader>fg", function()
     builtin.live_grep({
-      theme = theme,
       additional_args = function()
         return { "--hidden", "--glob", "!.git/*" };
       end
@@ -58,18 +57,25 @@ return function()
   end, { noremap = true });
 
   map("n", "<leader>fh", function()
-    builtin.help_tags({ theme = theme });
+    builtin.help_tags();
   end, { noremap = true });
 
   map("n", "<leader>fb", function()
-    builtin.buffers({ theme = theme });
+    builtin.buffers();
   end, { noremap = true });
 
   map("n", "<leader>ft", function()
-    builtin.tags({ theme = theme });
+    builtin.tags();
   end, { noremap = true });
 
   scope.setup({
+    pickers = {
+      find_files = { theme = "ivy2", },
+      live_grep = { theme = "ivy2", },
+      help_tags = { theme = "ivy2", },
+      buffers = { theme = "ivy2", },
+      tags = { theme = "ivy2", },
+    },
     defaults = {
       layout_strategy = "vertical",
     },
