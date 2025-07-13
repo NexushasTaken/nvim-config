@@ -2,10 +2,11 @@ return function()
   local map = vim.keymap.set;
   local scope = require("telescope");
   local themes = require("telescope.themes");
+  local builtin = require("telescope.builtin");
   local theme = "ivy2";
 
   function themes.get_ivy2(opts)
-    opts = opts or {}
+    opts = opts or {};
 
     local theme_opts = {
       theme = "ivy",
@@ -40,21 +41,33 @@ return function()
       }
     end
 
-    return vim.tbl_deep_extend("force", theme_opts, opts)
+    return vim.tbl_deep_extend("force", theme_opts, opts);
   end
 
-  local prompt_cmd = function(name)
-    return ":Telescope " .. name .. " theme=" .. theme .. "<cr>";
-  end
+  map("n", "<leader>ff", function()
+    builtin.find_files({ theme = theme });
+  end, { noremap = true });
 
-  map("n", "<leader>ff", prompt_cmd("find_files"), { noremap = true, });
-  map("n", "<leader>fg", prompt_cmd("live_grep"), { noremap = true, });
-  map("n", "<leader>fh", prompt_cmd("help_tags"), { noremap = true, });
-  map("n", "<leader>fb", prompt_cmd("buffers"), { noremap = true, });
-  map("n", "<leader>ft", prompt_cmd("tags"), { noremap = true, });
+  map("n", "<leader>fg", function()
+    builtin.live_grep({
+      theme = theme,
+      additional_args = function()
+        return { "--hidden", "--glob", "!.git/*" };
+      end
+    })
+  end, { noremap = true });
 
-  local action_state = require("telescope.actions.state")
-  local actions = require("telescope.actions")
+  map("n", "<leader>fh", function()
+    builtin.help_tags({ theme = theme });
+  end, { noremap = true });
+
+  map("n", "<leader>fb", function()
+    builtin.buffers({ theme = theme });
+  end, { noremap = true });
+
+  map("n", "<leader>ft", function()
+    builtin.tags({ theme = theme });
+  end, { noremap = true });
 
   scope.setup({
     defaults = {
