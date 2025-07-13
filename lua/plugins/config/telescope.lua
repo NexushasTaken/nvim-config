@@ -47,11 +47,17 @@ return function()
   map("n", "<leader>ff", function()
     builtin.find_files();
   end, { noremap = true });
+  map("n", "<leader>fF", function()
+    builtin.find_files({
+      find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
+    });
+  end, { noremap = true });
 
   map("n", "<leader>fg", function()
     builtin.live_grep({
+      glob_pattern = { "!.git/*" },
       additional_args = function()
-        return { "--hidden", "--glob", "!.git/*" };
+        return { "--hidden" };
       end
     })
   end, { noremap = true });
