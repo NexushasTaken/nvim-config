@@ -14,6 +14,7 @@ return {
         },
         log_level = vim.log.levels.INFO,
       });
+      require("plugins.config.lsp");
       require("mason-lspconfig").setup();
     end,
 

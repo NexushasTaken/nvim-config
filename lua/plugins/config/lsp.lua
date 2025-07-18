@@ -25,6 +25,9 @@ M.servers = {
   c3_lsp = {},
   glsl_analyzer = {},
   v_analyzer = {},
+  qmlls = {
+    cmd = { "qmlls", "-E" },
+  },
 };
 
 local blink = require("blink.cmp");
@@ -88,18 +91,10 @@ for server, server_config in pairs(M.servers) do
     capabilities = M.capabilities,
   };
 
-  local ok, server_settings = pcall(require, "nexus.lsp.settings." .. server);
-  if ok then
-    config = vim.tbl_deep_extend("force", config, server_settings.default_config);
-  end
+  config = vim.tbl_deep_extend("force", config, server_config);
 
-  vim.lsp.enable(server);
-  vim.lsp.config(server, {
-    -- Server-specific settings. See `:help lsp-quickstart`
-    settings = {
-      [server] = config,
-    },
-  })
+  --vim.lsp.enable(server);
+  vim.lsp.config(server, config);
 end
 
 
