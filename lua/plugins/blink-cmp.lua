@@ -107,7 +107,7 @@ return {
     opts = {
       completion = {
         keyword = { range = "full", },
-        ghost_text = { enabled = true, },
+        ghost_text = { enabled = false, },
         trigger = {
           show_on_keyword = false,
           show_on_trigger_character = false,
