@@ -28,6 +28,7 @@ M.servers = {
   qmlls = {
     cmd = { "qmlls", "-E" },
   },
+  basedpyright = {},
 };
 
 local blink = require("blink.cmp");
@@ -35,7 +36,7 @@ local blink = require("blink.cmp");
 M.capabilities = {
   textDocument = {
     foldingRange = {
-      dynamicRegistration = false,
+      dynamicRegistration = true,
       lineFoldingOnly = true,
     },
   },
