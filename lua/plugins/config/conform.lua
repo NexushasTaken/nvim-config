@@ -24,7 +24,7 @@ return function()
         lsp_format = "fallback", stop_after_first = true,
       },
       python = {
-        "black", "isort",
+        "yapf" , "black", "isort",
         lsp_format = "fallback", stop_after_first = true,
       },
       rust = {
