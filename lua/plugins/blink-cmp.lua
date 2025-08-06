@@ -153,6 +153,10 @@ return {
             if cmp.is_visible() then
               cmp.hide();
             end
+            local luasnip = require("luasnip");
+            if luasnip.in_snippet() then
+              luasnip.unlink_current();
+            end
             return false;
           end,
           "fallback",
@@ -237,6 +241,7 @@ return {
             module = "lazydev.integrations.blink",
           },
           nerdfont = {
+            enabled = false,
             module = "blink-nerdfont",
             name = "Nerd Fonts",
             score_offset = 15,          -- Tune by preference
@@ -247,6 +252,7 @@ return {
             name = "Git",
           },
           env = {
+            enabled = false,
             name = "Env",
             module = "blink-cmp-env",
             ---@module "blink-cmp-env"
