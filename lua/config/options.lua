@@ -43,6 +43,7 @@ local options = {
   mouse = "",
   belloff = "",
   showbreak = "󰞔 ",
+  clipboard = "unnamed",
   cursorlineopt = "number",
   expandtab = vim.bo.filetype ~= "make",
   cinoptions = "l1,N-s,E-s,t0,U1",
