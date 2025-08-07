@@ -3,8 +3,6 @@ local cmd = vim.cmd;
 
 map("n", "<leader>q", ":qa!<cr>", { noremap = true, });
 map("n", "st", ":tabnew ", { noremap = true, });
-map("n", "sp", ":tabprev<cr>", { noremap = true, });
-map("n", "sn", ":tabnext<cr>", { noremap = true, });
 map("n", "sd", ":SwapDelete<cr>", { noremap = true, });
 
 map("n", "<m-L>", ":vertical resize +1<cr>", { noremap = true, });
