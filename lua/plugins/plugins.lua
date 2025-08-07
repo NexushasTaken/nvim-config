@@ -186,11 +186,6 @@ return {
     cmd = { "Tabularize" },
   },
 
-  { -- Fix tab formats
-    "godlygeek/tabular",
-    cmd = { "Tabularize" },
-  },
-
   { -- Bracey
     "turbio/bracey.vim",
     ft = require("config.global").web_extensions,

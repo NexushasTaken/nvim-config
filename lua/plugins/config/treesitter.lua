@@ -13,6 +13,9 @@ return function()
       enable_close = true,
       enable_close_on_slash = false,
     },
+    indent = {
+      enable = true,
+    },
   });
 
   local parser_config = require("nvim-treesitter.parsers").get_parser_configs();
