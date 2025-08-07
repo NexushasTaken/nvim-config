@@ -2,12 +2,6 @@ local map = vim.keymap.set;
 local cmd = vim.cmd;
 
 map("n", "<leader>q", ":qa!<cr>", { noremap = true, });
-map("n", "ss", ":split<cr>", { noremap = true, });
-map("n", "sv", ":vsplit<cr>", { noremap = true, });
-map("n", "sh", ":wincmd h<cr>", { noremap = true, });
-map("n", "sk", ":wincmd k<cr>", { noremap = true, });
-map("n", "sj", ":wincmd j<cr>", { noremap = true, });
-map("n", "sl", ":wincmd l<cr>", { noremap = true, });
 map("n", "st", ":tabnew ", { noremap = true, });
 map("n", "sp", ":tabprev<cr>", { noremap = true, });
 map("n", "sn", ":tabnext<cr>", { noremap = true, });

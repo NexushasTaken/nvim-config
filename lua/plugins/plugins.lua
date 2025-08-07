@@ -74,8 +74,8 @@ return {
     lazy = false,
     opts = {
       user_default_options = {
-        RRGGBBAA = false,
-        AARRGGBB = false,
+        RRGGBBAA = true,
+        AARRGGBB = true,
         rgb_fn   = true,
         hsl_fn   = true,
         css      = true,
