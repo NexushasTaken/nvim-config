@@ -51,6 +51,18 @@ return {
     end,
   },
 
+  { -- Aerial
+    "stevearc/aerial.nvim",
+    lazy = false,
+    opts = {
+      show_guides = true,
+    },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons"
+    },
+  },
+
   { -- Lean
     "Julian/lean.nvim",
     event = { "BufReadPre *.lean", "BufNewFile *.lean", },
@@ -226,5 +238,5 @@ return {
     "chomosuke/typst-preview.nvim",
     ft = 'typst',
     opts = {}, -- lazy.nvim will implicitly calls `setup {}`
-  }
+  },
 };

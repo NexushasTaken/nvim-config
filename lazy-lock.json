@@ -1,6 +1,7 @@
 {
   "DoNe": { "branch": "main", "commit": "f3d8ff76ebb046ae89d2c9ffa534bf9f39ee7899" },
   "LuaSnip": { "branch": "master", "commit": "de10d8414235b0a8cabfeba60d07c24304e71f5c" },
+  "aerial.nvim": { "branch": "master", "commit": "5c0df1679bf7c814c924dc6646cc5291daca8363" },
   "blink-cmp-conventional-commits": { "branch": "main", "commit": "e7ce3ddcc6d4044067d6d77ab41d480202e814ad" },
   "blink-cmp-dictionary": { "branch": "master", "commit": "43b701fe9728a704bc63e4667c5d8b398bf129b2" },
   "blink-cmp-env": { "branch": "main", "commit": "34c7817fa94f04719b4bab5e766974033f221f60" },

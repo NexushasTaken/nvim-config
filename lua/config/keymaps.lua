@@ -19,7 +19,6 @@ map("n", "<leader>yy", '<esc>"+yy', { noremap = true, });
 map("v", "<leader>y", '"+y', { noremap = true, });
 
 map("n", "<leader>o", ":Oil<cr>", { noremap = true, });
-map("n", "<leader>O", ":Oil ", { noremap = true, });
 
 map("n", "<leader>wk", function()
   local input = vim.fn.input("WhichKey: ");
@@ -208,3 +207,5 @@ end, { noremap = true, desc = "To Title Case", });
 map("v", "<leader>af", function()
   require("textcase").current_word("to_path_case"); remove_w();
 end, { noremap = true, desc = "to/path/case", });
+
+map("n", "<leader>O", ":AerialOpen<CR>", { noremap = true, buffer = bufnr, });
