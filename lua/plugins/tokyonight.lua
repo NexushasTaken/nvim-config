@@ -10,7 +10,7 @@ return {
           comments = { italic = false },
           keywords = { italic = false },
         },
-        on_highlights = function(hl)
+        on_highlights = function(hl, c)
           hl.Todo = {
             fg = hl.Todo.bg,
             bg = hl.Normal.bg,
@@ -18,6 +18,14 @@ return {
           hl.Folded = {
             fg = hl.Comment.fg,
           };
+          for _, group in ipairs({
+            "DiagnosticUnderlineError",
+            "DiagnosticUnderlineWarn",
+            "DiagnosticUnderlineInfo",
+            "DiagnosticUnderlineHint",
+          }) do
+            hl[group] = { underline = true, undercurl = false, sp = c.red };
+          end
         end,
       });
 
