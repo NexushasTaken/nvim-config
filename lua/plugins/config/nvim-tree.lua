@@ -15,6 +15,7 @@ return {
     add_trailing = true,
     group_empty = false,
     highlight_git = true,
+    highlight_hidden = "all",
     full_name = true,
     indent_width = 2,
     indent_markers = {
@@ -46,7 +47,7 @@ return {
     update_root = false,
   },
   git = {
-    enable = false,
+    enable = true,
     ignore = true,
   },
   on_attach = function(bufnr)
