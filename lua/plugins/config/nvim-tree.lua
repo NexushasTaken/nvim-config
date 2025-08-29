@@ -31,7 +31,9 @@ return {
     show_on_dirs = true,
   },
   filters = {
+    enable = true,
     dotfiles = true,
+    git_ignored = true,
     custom = { "__pycache__", },
   },
   actions = {
@@ -48,7 +50,6 @@ return {
   },
   git = {
     enable = true,
-    ignore = true,
   },
   on_attach = function(bufnr)
     local api = require("nvim-tree.api");
