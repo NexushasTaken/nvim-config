@@ -53,8 +53,8 @@ M.on_attach = function(client, bufnr)
     local opts = { noremap = true, silent = true, };
     local map = vim.api.nvim_buf_set_keymap;
     map(buf, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts);
-    map(buf, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts);
-    map(buf, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts);
+    map(buf, "n", "gD", "<cmd>lua vim.lsp.buf.definition()<CR>", opts);
+    map(buf, "n", "gd", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts);
     map(buf, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts);
     map(buf, "n", "<leader>li", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts);
     map(buf, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts);
