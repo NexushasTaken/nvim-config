@@ -34,7 +34,7 @@ return {
     enable = true,
     dotfiles = true,
     git_ignored = true,
-    custom = { "__pycache__", },
+    custom = { "__pycache__", "*.uid" },
   },
   actions = {
     change_dir = {
