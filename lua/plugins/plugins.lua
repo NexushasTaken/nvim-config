@@ -244,4 +244,9 @@ return {
     ft = 'typst',
     opts = {}, -- lazy.nvim will implicitly calls `setup {}`
   },
+
+  {
+    "HiPhish/info.vim",
+    lazy = false,
+  }
 };
