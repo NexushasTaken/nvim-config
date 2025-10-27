@@ -248,5 +248,10 @@ return {
   {
     "HiPhish/info.vim",
     lazy = false,
-  }
+  },
+
+  {
+    "github/copilot.vim",
+    lazy = false,
+  },
 };
