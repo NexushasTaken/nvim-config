@@ -35,6 +35,10 @@ return function()
         "prettierd", "prettier",
         lsp_format = "fallback", stop_after_first = true,
       },
+      typst = {
+        "prettypst", "typstyle",
+        lsp_format = "fallback", stop_after_first = true,
+      },
       c = clang_format,
       cpp = clang_format,
     },

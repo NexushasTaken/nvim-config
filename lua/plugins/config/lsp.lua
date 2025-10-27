@@ -29,6 +29,7 @@ M.servers = {
     cmd = { "qmlls", "-E" },
   },
   basedpyright = {},
+  tinymist = {},
 };
 
 local blink = require("blink.cmp");
