@@ -30,6 +30,9 @@ M.servers = {
   },
   basedpyright = {},
   tinymist = {},
+  marksman = {},
+  vala_ls = {},
+  csharp_ls = {},
 };
 
 local blink = require("blink.cmp");
