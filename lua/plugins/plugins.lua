@@ -181,6 +181,12 @@ return {
     opts = {},
   },
 
+  {
+    "yousefhadder/markdown-plus.nvim",
+    ft = "markdown",
+    opts = {},
+  },
+
   { -- Which key
     "folke/which-key.nvim",
     cmd = { "WhichKey", },
