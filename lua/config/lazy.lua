@@ -54,6 +54,7 @@ require("lazy").setup({
       not_loaded = "",
     },
   },
+  concurrency = jit.os:find("Windows") and (vim.uv.available_parallelism()) or nil,
   dev = {
     path = "~/workspace/vim_plugins",
   },
