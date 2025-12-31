@@ -1,7 +1,5 @@
 return function()
-  local configs = require("nvim-treesitter.configs");
-
-  configs.setup({
+  require("nvim-treesitter").setup({
     auto_install = true,
     highlight = {
       enable = true,
@@ -19,7 +17,7 @@ return function()
     },
   });
 
-  local parser_config = require("nvim-treesitter.parsers").get_parser_configs();
+  local parser_config = require("nvim-treesitter.parsers");
   -- # c3 language
   vim.filetype.add({
     extension = {
