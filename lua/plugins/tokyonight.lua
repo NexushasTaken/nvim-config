@@ -11,6 +11,8 @@ return {
           keywords = { italic = false },
         },
         on_highlights = function(hl, c)
+          local colors = require("tokyonight.colors").setup()
+          local util = require("tokyonight.util")
           hl.Todo = {
             fg = hl.Todo.bg,
             bg = hl.Normal.bg,
@@ -18,6 +20,10 @@ return {
           hl.Folded = {
             fg = hl.Comment.fg,
           };
+          hl.RenderMarkdownCodeInline = {
+            bg = util.blend(colors.blue, 0.1, hl.Normal.bg),
+            fg = colors.blue,
+          }
           for _, group in ipairs({
             "DiagnosticUnderlineError",
             "DiagnosticUnderlineWarn",
