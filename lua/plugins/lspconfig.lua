@@ -1,58 +1,57 @@
 return {
   {
-    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
     cmd = { "LspStart" },
-    config = function()
-      require("mason").setup({
-        ui = {
-          border = "none",
-          icons = {
-            package_installed = "◍",
-            package_pending = "◍",
-            package_uninstalled = "◍",
-          },
-        },
-        log_level = vim.log.levels.INFO,
-      });
-      require("plugins.config.lsp");
-      require("mason-lspconfig").setup();
-    end,
-
+    opts = {},
     dependencies = {
       {
-        -- Bridges mason with nvim-lspconfig
-        "mason-org/mason-lspconfig.nvim",
-        dependencies = {
-          {
-            -- Main LSP config plugin
-            "neovim/nvim-lspconfig",
-            dependencies = {
-              "nvimtools/none-ls.nvim",
-              "stevearc/vim-arduino",
-              --[[ Uncomment these if needed
-              {
-                "mfussenegger/nvim-lint",
-                config = load_config("lint"),
+        "mason-org/mason.nvim",
+        config = function()
+          require("mason").setup({
+            max_concurrent_installers = 2,
+            ui = {
+              border = "none",
+              icons = {
+                package_installed = "◍",
+                package_pending = "◍",
+                package_uninstalled = "◍",
               },
-              {
-                "simrat39/symbols-outline.nvim",
-                config = load_config("symbols-outline"),
-              },
-              {
-                "ray-x/lsp_signature.nvim",
-                enabled = false,
-                config = true,
-                opts = {
-                  hint_enable = false,
-                  handler_opts = {
-                    border = "none",
-                  },
-                },
-              }, ]]--
+            },
+            log_level = vim.log.levels.INFO,
+          });
+        end,
+      },
+      {
+        {
+          "neovim/nvim-lspconfig",
+          opts = {},
+          config = function()
+            require("plugins.config.lsp")
+          end,
+        },
+        "nvimtools/none-ls.nvim",
+        "stevearc/vim-arduino",
+        --[[ Uncomment these if needed
+        {
+          "mfussenegger/nvim-lint",
+          config = load_config("lint"),
+        },
+        {
+          "simrat39/symbols-outline.nvim",
+          config = load_config("symbols-outline"),
+        },
+        {
+          "ray-x/lsp_signature.nvim",
+          enabled = false,
+          config = true,
+          opts = {
+            hint_enable = false,
+            handler_opts = {
+              border = "none",
             },
           },
-        },
-      },
+        }, ]] --
+      }
     },
   },
 };

@@ -83,6 +83,7 @@ return {
   { -- Colorizer
     "NvChad/nvim-colorizer.lua",
     event = "BufReadPre",
+    enabled = false,
     lazy = false,
     opts = {
       user_default_options = {

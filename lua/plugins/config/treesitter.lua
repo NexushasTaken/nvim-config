@@ -1,6 +1,5 @@
 return function()
-  require("nvim-treesitter").setup({
-    auto_install = true,
+  require("nvim-treesitter.configs").setup({
     highlight = {
       enable = true,
       use_languagetree = true,
@@ -110,10 +109,10 @@ return function()
   end
 
   vim.api.nvim_create_user_command("TSAdd", function(opts)
-    --if #opts.fargs < 1 or #opts.fargs > 2 then
-    --  print("Usage: TSAddCWD <language_name> [<extension>]");
-    --  return;
-    --end
+    if #opts.fargs < 1 or #opts.fargs > 3 then
+     print("Usage: TSAdd [<path> [<name> [<ext>]]] ");
+     return;
+    end
     ts_add(opts.fargs[1], opts.fargs[2], opts.fargs[3]);
   end, { nargs = "+" });
 end

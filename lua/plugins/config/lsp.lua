@@ -33,6 +33,7 @@ M.servers = {
   marksman = {},
   vala_ls = {},
   csharp_ls = {},
+  teal_ls = {},
 };
 
 local blink = require("blink.cmp");
@@ -42,6 +43,11 @@ M.capabilities = {
     foldingRange = {
       dynamicRegistration = true,
       lineFoldingOnly = true,
+    },
+    completion = {
+      completionItem = {
+        snippetSupport = true,
+      },
     },
   },
 };
@@ -98,8 +104,8 @@ for server, server_config in pairs(M.servers) do
 
   config = vim.tbl_deep_extend("force", config, server_config);
 
-  --vim.lsp.enable(server);
   vim.lsp.config(server, config);
+  vim.lsp.enable(server);
 end
 
 
