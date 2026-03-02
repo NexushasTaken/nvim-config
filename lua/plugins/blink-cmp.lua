@@ -1,5 +1,5 @@
 local sources = {
-  dictionary = true,
+  dictionary = false,
 };
 
 -- Use this function to check if the cursor is inside a comment block
