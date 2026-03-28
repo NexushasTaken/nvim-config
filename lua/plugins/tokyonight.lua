@@ -20,10 +20,12 @@ return {
           hl.Folded = {
             fg = hl.Comment.fg,
           };
-          hl.RenderMarkdownCodeInline = {
+          local markdown_code_inline = {
             bg = util.blend(colors.blue, 0.1, hl.Normal.bg),
             fg = colors.blue,
           }
+          hl.RenderMarkdownCodeInline = markdown_code_inline
+          hl["@markup.raw.markdown_inline"] = markdown_code_inline
           for _, group in ipairs({
             "DiagnosticUnderlineError",
             "DiagnosticUnderlineWarn",
