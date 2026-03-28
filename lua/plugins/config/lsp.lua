@@ -28,12 +28,15 @@ M.servers = {
   qmlls = {
     cmd = { "qmlls", "-E" },
   },
-  basedpyright = {},
+  -- basedpyright = {},
+  -- pylsp = {},
   tinymist = {},
   marksman = {},
   vala_ls = {},
   csharp_ls = {},
   teal_ls = {},
+  denols = {},
+  eslint = {},
 };
 
 local blink = require("blink.cmp");
