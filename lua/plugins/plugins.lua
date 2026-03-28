@@ -179,7 +179,14 @@ return {
       "nvim-treesitter/nvim-treesitter",
       "echasnovski/mini.nvim" -- if you use the mini.nvim suite
     },
-    opts = {},
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {
+      enabled = false,
+      completions = {
+        lsp = { enabled = true, }
+      }
+    },
   },
 
   {
